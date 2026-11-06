@@ -36,54 +36,54 @@ namespace Hanzo.AI.Model
         /// Initializes a new instance of the <see cref="O11yGettableAgentCheckIn" /> class.
         /// </summary>
         /// <param name="accountId">Older fields for backward compatibility with existing AWS agents.</param>
-        /// <param name="cloudAccountId">cloudAccountId.</param>
         /// <param name="cloudIntegrationId">cloudIntegrationId.</param>
-        /// <param name="integrationConfigLegacy">integrationConfigLegacy.</param>
+        /// <param name="cloudAccountId">cloudAccountId.</param>
         /// <param name="integrationConfig">integrationConfig.</param>
+        /// <param name="integrationConfigLegacy">integrationConfigLegacy.</param>
         /// <param name="providerAccountId">providerAccountId.</param>
-        /// <param name="removedAtLegacy">removedAtLegacy.</param>
         /// <param name="removedAt">removedAt.</param>
-        public O11yGettableAgentCheckIn(string accountId = default, string cloudAccountId = default, string cloudIntegrationId = default, O11yIntegrationConfig integrationConfigLegacy = default, O11yProviderIntegrationConfig integrationConfig = default, string providerAccountId = default, DateTime removedAtLegacy = default, DateTime removedAt = default)
+        /// <param name="removedAtLegacy">removedAtLegacy.</param>
+        public O11yGettableAgentCheckIn(string accountId = default, string cloudIntegrationId = default, string cloudAccountId = default, O11yProviderIntegrationConfig integrationConfig = default, O11yIntegrationConfig integrationConfigLegacy = default, string providerAccountId = default, DateTime removedAt = default, DateTime removedAtLegacy = default)
         {
             this._AccountId = accountId;
             if (this.AccountId != null)
             {
                 this._flagAccountId = true;
             }
-            this._CloudAccountId = cloudAccountId;
-            if (this.CloudAccountId != null)
-            {
-                this._flagCloudAccountId = true;
-            }
             this._CloudIntegrationId = cloudIntegrationId;
             if (this.CloudIntegrationId != null)
             {
                 this._flagCloudIntegrationId = true;
             }
-            this._integration_config_legacy = integrationConfigLegacy;
-            if (this.integration_config_legacy != null)
+            this._CloudAccountId = cloudAccountId;
+            if (this.CloudAccountId != null)
             {
-                this._flagintegration_config_legacy = true;
+                this._flagCloudAccountId = true;
             }
             this._IntegrationConfig = integrationConfig;
             if (this.IntegrationConfig != null)
             {
                 this._flagIntegrationConfig = true;
             }
+            this._integration_config_legacy = integrationConfigLegacy;
+            if (this.integration_config_legacy != null)
+            {
+                this._flagintegration_config_legacy = true;
+            }
             this._ProviderAccountId = providerAccountId;
             if (this.ProviderAccountId != null)
             {
                 this._flagProviderAccountId = true;
             }
-            this._removed_at_legacy = removedAtLegacy;
-            if (this.removed_at_legacy != null)
-            {
-                this._flagremoved_at_legacy = true;
-            }
             this._RemovedAt = removedAt;
             if (this.RemovedAt != null)
             {
                 this._flagRemovedAt = true;
+            }
+            this._removed_at_legacy = removedAtLegacy;
+            if (this.removed_at_legacy != null)
+            {
+                this._flagremoved_at_legacy = true;
             }
             this.AdditionalProperties = new Dictionary<string, object>();
         }
@@ -114,30 +114,6 @@ namespace Hanzo.AI.Model
             return _flagAccountId;
         }
         /// <summary>
-        /// Gets or Sets CloudAccountId
-        /// </summary>
-        [DataMember(Name = "cloud_account_id", EmitDefaultValue = false)]
-        public string CloudAccountId
-        {
-            get{ return _CloudAccountId;}
-            set
-            {
-                _CloudAccountId = value;
-                _flagCloudAccountId = true;
-            }
-        }
-        private string _CloudAccountId;
-        private bool _flagCloudAccountId;
-
-        /// <summary>
-        /// Returns false as CloudAccountId should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeCloudAccountId()
-        {
-            return _flagCloudAccountId;
-        }
-        /// <summary>
         /// Gets or Sets CloudIntegrationId
         /// </summary>
         [DataMember(Name = "cloudIntegrationId", EmitDefaultValue = false)]
@@ -162,28 +138,28 @@ namespace Hanzo.AI.Model
             return _flagCloudIntegrationId;
         }
         /// <summary>
-        /// Gets or Sets integration_config_legacy
+        /// Gets or Sets CloudAccountId
         /// </summary>
-        [DataMember(Name = "integration_config", EmitDefaultValue = false)]
-        public O11yIntegrationConfig integration_config_legacy
+        [DataMember(Name = "cloud_account_id", EmitDefaultValue = false)]
+        public string CloudAccountId
         {
-            get{ return _integration_config_legacy;}
+            get{ return _CloudAccountId;}
             set
             {
-                _integration_config_legacy = value;
-                _flagintegration_config_legacy = true;
+                _CloudAccountId = value;
+                _flagCloudAccountId = true;
             }
         }
-        private O11yIntegrationConfig _integration_config_legacy;
-        private bool _flagintegration_config_legacy;
+        private string _CloudAccountId;
+        private bool _flagCloudAccountId;
 
         /// <summary>
-        /// Returns false as integration_config_legacy should not be serialized given that it's read-only.
+        /// Returns false as CloudAccountId should not be serialized given that it's read-only.
         /// </summary>
         /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeintegration_config_legacy()
+        public bool ShouldSerializeCloudAccountId()
         {
-            return _flagintegration_config_legacy;
+            return _flagCloudAccountId;
         }
         /// <summary>
         /// Gets or Sets IntegrationConfig
@@ -210,6 +186,30 @@ namespace Hanzo.AI.Model
             return _flagIntegrationConfig;
         }
         /// <summary>
+        /// Gets or Sets integration_config_legacy
+        /// </summary>
+        [DataMember(Name = "integration_config", EmitDefaultValue = false)]
+        public O11yIntegrationConfig integration_config_legacy
+        {
+            get{ return _integration_config_legacy;}
+            set
+            {
+                _integration_config_legacy = value;
+                _flagintegration_config_legacy = true;
+            }
+        }
+        private O11yIntegrationConfig _integration_config_legacy;
+        private bool _flagintegration_config_legacy;
+
+        /// <summary>
+        /// Returns false as integration_config_legacy should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeintegration_config_legacy()
+        {
+            return _flagintegration_config_legacy;
+        }
+        /// <summary>
         /// Gets or Sets ProviderAccountId
         /// </summary>
         [DataMember(Name = "providerAccountId", EmitDefaultValue = false)]
@@ -232,30 +232,6 @@ namespace Hanzo.AI.Model
         public bool ShouldSerializeProviderAccountId()
         {
             return _flagProviderAccountId;
-        }
-        /// <summary>
-        /// Gets or Sets removed_at_legacy
-        /// </summary>
-        [DataMember(Name = "removed_at", EmitDefaultValue = false)]
-        public DateTime removed_at_legacy
-        {
-            get{ return _removed_at_legacy;}
-            set
-            {
-                _removed_at_legacy = value;
-                _flagremoved_at_legacy = true;
-            }
-        }
-        private DateTime _removed_at_legacy;
-        private bool _flagremoved_at_legacy;
-
-        /// <summary>
-        /// Returns false as removed_at_legacy should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeremoved_at_legacy()
-        {
-            return _flagremoved_at_legacy;
         }
         /// <summary>
         /// Gets or Sets RemovedAt
@@ -282,6 +258,30 @@ namespace Hanzo.AI.Model
             return _flagRemovedAt;
         }
         /// <summary>
+        /// Gets or Sets removed_at_legacy
+        /// </summary>
+        [DataMember(Name = "removed_at", EmitDefaultValue = false)]
+        public DateTime removed_at_legacy
+        {
+            get{ return _removed_at_legacy;}
+            set
+            {
+                _removed_at_legacy = value;
+                _flagremoved_at_legacy = true;
+            }
+        }
+        private DateTime _removed_at_legacy;
+        private bool _flagremoved_at_legacy;
+
+        /// <summary>
+        /// Returns false as removed_at_legacy should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeremoved_at_legacy()
+        {
+            return _flagremoved_at_legacy;
+        }
+        /// <summary>
         /// Gets or Sets additional properties
         /// </summary>
         [JsonExtensionData]
@@ -296,13 +296,13 @@ namespace Hanzo.AI.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("class O11yGettableAgentCheckIn {\n");
             sb.Append("  AccountId: ").Append(AccountId).Append("\n");
-            sb.Append("  CloudAccountId: ").Append(CloudAccountId).Append("\n");
             sb.Append("  CloudIntegrationId: ").Append(CloudIntegrationId).Append("\n");
-            sb.Append("  integration_config_legacy: ").Append(integration_config_legacy).Append("\n");
+            sb.Append("  CloudAccountId: ").Append(CloudAccountId).Append("\n");
             sb.Append("  IntegrationConfig: ").Append(IntegrationConfig).Append("\n");
+            sb.Append("  integration_config_legacy: ").Append(integration_config_legacy).Append("\n");
             sb.Append("  ProviderAccountId: ").Append(ProviderAccountId).Append("\n");
-            sb.Append("  removed_at_legacy: ").Append(removed_at_legacy).Append("\n");
             sb.Append("  RemovedAt: ").Append(RemovedAt).Append("\n");
+            sb.Append("  removed_at_legacy: ").Append(removed_at_legacy).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();

@@ -70,6 +70,7 @@ namespace Hanzo.AI.Model
         /// <param name="createdTime">createdTime.</param>
         /// <param name="currency">currency.</param>
         /// <param name="custom">custom.</param>
+        /// <param name="custom10">custom10.</param>
         /// <param name="custom2">custom2.</param>
         /// <param name="custom3">custom3.</param>
         /// <param name="custom4">custom4.</param>
@@ -78,7 +79,6 @@ namespace Hanzo.AI.Model
         /// <param name="custom7">custom7.</param>
         /// <param name="custom8">custom8.</param>
         /// <param name="custom9">custom9.</param>
-        /// <param name="custom10">custom10.</param>
         /// <param name="dailymotion">dailymotion.</param>
         /// <param name="deezer">deezer.</param>
         /// <param name="deleted">deleted.</param>
@@ -219,7 +219,7 @@ namespace Hanzo.AI.Model
         /// <param name="yammer">yammer.</param>
         /// <param name="yandex">yandex.</param>
         /// <param name="zoom">zoom.</param>
-        public IamUser(string accessKey = default, string accessSecret = default, string accessSecretHash = default, string accessToken = default, List<string> address = default, List<IamAddress> addresses = default, string adfs = default, string affiliation = default, string alipay = default, string amazon = default, string apple = default, List<IamConsentRecord> applicationScopes = default, string auth0 = default, string avatar = default, string avatarType = default, string azuread = default, string azureadb2c = default, string baidu = default, double? balance = default, double? balanceCredit = default, string balanceCurrency = default, string battlenet = default, string bilibili = default, string bio = default, string birthday = default, string bitbucket = default, string box = default, List<IamCartItem> cart = default, string cloudfoundry = default, string countryCode = default, DateTime createdAt = default, string createdIp = default, string createdTime = default, string currency = default, string custom = default, string custom2 = default, string custom3 = default, string custom4 = default, string custom5 = default, string custom6 = default, string custom7 = default, string custom8 = default, string custom9 = default, string custom10 = default, string dailymotion = default, string deezer = default, bool? deleted = default, string deletedTime = default, string digitalocean = default, string dingtalk = default, string discord = default, string displayName = default, string douyin = default, string dropbox = default, string education = default, string email = default, bool? emailVerified = default, string eveonline = default, string externalId = default, List<IamFaceId> faceIds = default, string facebook = default, string firstName = default, string fitbit = default, string gender = default, string gitea = default, string gitee = default, string github = default, string gitlab = default, string google = default, string hash = default, string heroku = default, string homepage = default, string iam = default, string id = default, string idCard = default, string idCardType = default, string influxcloud = default, string infoflow = default, string instagram = default, string intercom = default, string invitation = default, string invitationCode = default, string ipWhitelist = default, bool? isAdmin = default, bool? isDefaultAvatar = default, bool? isDeleted = default, bool? isForbidden = default, bool? isOnline = default, bool? isVerified = default, string kakao = default, long? karma = default, string kwai = default, string language = default, string lark = default, string lastChangePasswordTime = default, string lastName = default, string lastSigninIp = default, string lastSigninTime = default, string lastSigninWrongTime = default, string lastfm = default, string ldap = default, string line = default, string linkedin = default, string location = default, string mailru = default, List<IamManagedAccount> managedAccounts = default, string meetup = default, List<IamMfaAccount> mfaAccounts = default, bool? mfaEmailEnabled = default, List<IamMfaItem> mfaItems = default, bool? mfaPhoneEnabled = default, bool? mfaPushEnabled = default, string mfaPushProvider = default, string mfaPushReceiver = default, bool? mfaRadiusEnabled = default, string mfaRadiusProvider = default, string mfaRadiusUsername = default, string mfaRememberDeadline = default, string mfaRememberDigest = default, string microsoftonline = default, List<IamMfaProps> multiFactorAuths = default, string name = default, string naver = default, bool? needUpdatePassword = default, string nextcloud = default, string okta = default, string onedrive = default, string originalRefreshToken = default, string originalToken = default, string oura = default, string owner = default, string passwordHash = default, string passwordSalt = default, string passwordType = default, string patreon = default, string paypal = default, string permanentAvatar = default, string phone = default, string preHash = default, string preferredMfaType = default, Dictionary<string, string> properties = default, string qq = default, long? ranking = default, string realName = default, List<string> recoveryCodes = default, string region = default, string registerSource = default, string registerType = default, string salesforce = default, long? score = default, string shopify = default, long? signinWrongTimes = default, string signupApplication = default, string slack = default, string soundcloud = default, string spotify = default, string steam = default, string strava = default, string stripe = default, string tag = default, string telegram = default, string tiktok = default, string title = default, string totpSecret = default, string tumblr = default, string twitch = default, string twitter = default, string type = default, string typetalk = default, string uber = default, DateTime updatedAt = default, string updatedTime = default, string verificationCode = default, string vk = default, List<Object> webauthnCredentials = default, string wechat = default, string wecom = default, string weibo = default, string wepay = default, string xero = default, string yahoo = default, string yammer = default, string yandex = default, string zoom = default)
+        public IamUser(string accessKey = default, string accessSecret = default, string accessSecretHash = default, string accessToken = default, List<string> address = default, List<IamAddress> addresses = default, string adfs = default, string affiliation = default, string alipay = default, string amazon = default, string apple = default, List<IamConsentRecord> applicationScopes = default, string auth0 = default, string avatar = default, string avatarType = default, string azuread = default, string azureadb2c = default, string baidu = default, double? balance = default, double? balanceCredit = default, string balanceCurrency = default, string battlenet = default, string bilibili = default, string bio = default, string birthday = default, string bitbucket = default, string box = default, List<IamCartItem> cart = default, string cloudfoundry = default, string countryCode = default, DateTime createdAt = default, string createdIp = default, string createdTime = default, string currency = default, string custom = default, string custom10 = default, string custom2 = default, string custom3 = default, string custom4 = default, string custom5 = default, string custom6 = default, string custom7 = default, string custom8 = default, string custom9 = default, string dailymotion = default, string deezer = default, bool? deleted = default, string deletedTime = default, string digitalocean = default, string dingtalk = default, string discord = default, string displayName = default, string douyin = default, string dropbox = default, string education = default, string email = default, bool? emailVerified = default, string eveonline = default, string externalId = default, List<IamFaceId> faceIds = default, string facebook = default, string firstName = default, string fitbit = default, string gender = default, string gitea = default, string gitee = default, string github = default, string gitlab = default, string google = default, string hash = default, string heroku = default, string homepage = default, string iam = default, string id = default, string idCard = default, string idCardType = default, string influxcloud = default, string infoflow = default, string instagram = default, string intercom = default, string invitation = default, string invitationCode = default, string ipWhitelist = default, bool? isAdmin = default, bool? isDefaultAvatar = default, bool? isDeleted = default, bool? isForbidden = default, bool? isOnline = default, bool? isVerified = default, string kakao = default, long? karma = default, string kwai = default, string language = default, string lark = default, string lastChangePasswordTime = default, string lastName = default, string lastSigninIp = default, string lastSigninTime = default, string lastSigninWrongTime = default, string lastfm = default, string ldap = default, string line = default, string linkedin = default, string location = default, string mailru = default, List<IamManagedAccount> managedAccounts = default, string meetup = default, List<IamMfaAccount> mfaAccounts = default, bool? mfaEmailEnabled = default, List<IamMfaItem> mfaItems = default, bool? mfaPhoneEnabled = default, bool? mfaPushEnabled = default, string mfaPushProvider = default, string mfaPushReceiver = default, bool? mfaRadiusEnabled = default, string mfaRadiusProvider = default, string mfaRadiusUsername = default, string mfaRememberDeadline = default, string mfaRememberDigest = default, string microsoftonline = default, List<IamMfaProps> multiFactorAuths = default, string name = default, string naver = default, bool? needUpdatePassword = default, string nextcloud = default, string okta = default, string onedrive = default, string originalRefreshToken = default, string originalToken = default, string oura = default, string owner = default, string passwordHash = default, string passwordSalt = default, string passwordType = default, string patreon = default, string paypal = default, string permanentAvatar = default, string phone = default, string preHash = default, string preferredMfaType = default, Dictionary<string, string> properties = default, string qq = default, long? ranking = default, string realName = default, List<string> recoveryCodes = default, string region = default, string registerSource = default, string registerType = default, string salesforce = default, long? score = default, string shopify = default, long? signinWrongTimes = default, string signupApplication = default, string slack = default, string soundcloud = default, string spotify = default, string steam = default, string strava = default, string stripe = default, string tag = default, string telegram = default, string tiktok = default, string title = default, string totpSecret = default, string tumblr = default, string twitch = default, string twitter = default, string type = default, string typetalk = default, string uber = default, DateTime updatedAt = default, string updatedTime = default, string verificationCode = default, string vk = default, List<Object> webauthnCredentials = default, string wechat = default, string wecom = default, string weibo = default, string wepay = default, string xero = default, string yahoo = default, string yammer = default, string yandex = default, string zoom = default)
         {
             this._AccessKey = accessKey;
             if (this.AccessKey != null)
@@ -396,6 +396,11 @@ namespace Hanzo.AI.Model
             {
                 this._flagCustom = true;
             }
+            this._Custom10 = custom10;
+            if (this.Custom10 != null)
+            {
+                this._flagCustom10 = true;
+            }
             this._Custom2 = custom2;
             if (this.Custom2 != null)
             {
@@ -435,11 +440,6 @@ namespace Hanzo.AI.Model
             if (this.Custom9 != null)
             {
                 this._flagCustom9 = true;
-            }
-            this._Custom10 = custom10;
-            if (this.Custom10 != null)
-            {
-                this._flagCustom10 = true;
             }
             this._Dailymotion = dailymotion;
             if (this.Dailymotion != null)
@@ -1988,6 +1988,30 @@ namespace Hanzo.AI.Model
             return _flagCustom;
         }
         /// <summary>
+        /// Gets or Sets Custom10
+        /// </summary>
+        [DataMember(Name = "custom10", EmitDefaultValue = false)]
+        public string Custom10
+        {
+            get{ return _Custom10;}
+            set
+            {
+                _Custom10 = value;
+                _flagCustom10 = true;
+            }
+        }
+        private string _Custom10;
+        private bool _flagCustom10;
+
+        /// <summary>
+        /// Returns false as Custom10 should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeCustom10()
+        {
+            return _flagCustom10;
+        }
+        /// <summary>
         /// Gets or Sets Custom2
         /// </summary>
         [DataMember(Name = "custom2", EmitDefaultValue = false)]
@@ -2178,30 +2202,6 @@ namespace Hanzo.AI.Model
         public bool ShouldSerializeCustom9()
         {
             return _flagCustom9;
-        }
-        /// <summary>
-        /// Gets or Sets Custom10
-        /// </summary>
-        [DataMember(Name = "custom10", EmitDefaultValue = false)]
-        public string Custom10
-        {
-            get{ return _Custom10;}
-            set
-            {
-                _Custom10 = value;
-                _flagCustom10 = true;
-            }
-        }
-        private string _Custom10;
-        private bool _flagCustom10;
-
-        /// <summary>
-        /// Returns false as Custom10 should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeCustom10()
-        {
-            return _flagCustom10;
         }
         /// <summary>
         /// Gets or Sets Dailymotion
@@ -5635,6 +5635,7 @@ namespace Hanzo.AI.Model
             sb.Append("  CreatedTime: ").Append(CreatedTime).Append("\n");
             sb.Append("  Currency: ").Append(Currency).Append("\n");
             sb.Append("  Custom: ").Append(Custom).Append("\n");
+            sb.Append("  Custom10: ").Append(Custom10).Append("\n");
             sb.Append("  Custom2: ").Append(Custom2).Append("\n");
             sb.Append("  Custom3: ").Append(Custom3).Append("\n");
             sb.Append("  Custom4: ").Append(Custom4).Append("\n");
@@ -5643,7 +5644,6 @@ namespace Hanzo.AI.Model
             sb.Append("  Custom7: ").Append(Custom7).Append("\n");
             sb.Append("  Custom8: ").Append(Custom8).Append("\n");
             sb.Append("  Custom9: ").Append(Custom9).Append("\n");
-            sb.Append("  Custom10: ").Append(Custom10).Append("\n");
             sb.Append("  Dailymotion: ").Append(Dailymotion).Append("\n");
             sb.Append("  Deezer: ").Append(Deezer).Append("\n");
             sb.Append("  Deleted: ").Append(Deleted).Append("\n");

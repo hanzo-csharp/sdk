@@ -51,8 +51,8 @@ namespace Hanzo.AI.Model
         /// <param name="gpuUtil">0..1 aggregate utilization.</param>
         /// <param name="kvCache">KVCache is the KV-cache occupancy, 0..1..</param>
         /// <param name="load1">Load1 is the machine&#39;s own one-minute load average — a count of runnable and uninterruptible tasks, NOT a percentage and NOT already divided by core count, so it is read against Spec.CPUs: 8.0 is idle on 16 cores and swamped on 4. Coerced finite and non-negative on write, so 0 means either genuinely idle or nothing reported..</param>
-        /// <param name="load5">Load5 is the same figure averaged over five minutes..</param>
         /// <param name="load15">Load15 is the same figure over fifteen. The three together are what separate a machine that is busy right now from one that has been busy all along — which is the question a dispatcher is really asking..</param>
+        /// <param name="load5">Load5 is the same figure averaged over five minutes..</param>
         /// <param name="memFree">bytes.</param>
         /// <param name="memUsed">bytes.</param>
         /// <param name="model">Model is the model id(s) served on this machine, comma-separated, at most 128 bytes..</param>
@@ -62,7 +62,7 @@ namespace Hanzo.AI.Model
         /// <param name="running">Running is the number of requests being served now..</param>
         /// <param name="ttft">TTFT is the mean time to first token, in seconds, of requests that started in the window..</param>
         /// <param name="waiting">Waiting is the number of requests queued..</param>
-        public AgentMetrics(long? at = default, double? cpuTemp = default, double? cpuUtil = default, double? decode = default, double? diskRead = default, long? diskTotal = default, long? diskUsed = default, double? diskWrite = default, long? gpuMemTotal = default, long? gpuMemUsed = default, double? gpuPower = default, double? gpuPowerLimit = default, double? gpuTemp = default, double? gpuUtil = default, double? kvCache = default, double? load1 = default, double? load5 = default, double? load15 = default, long? memFree = default, long? memUsed = default, string model = default, double? netRx = default, double? netTx = default, double? prefill = default, long? running = default, double? ttft = default, long? waiting = default)
+        public AgentMetrics(long? at = default, double? cpuTemp = default, double? cpuUtil = default, double? decode = default, double? diskRead = default, long? diskTotal = default, long? diskUsed = default, double? diskWrite = default, long? gpuMemTotal = default, long? gpuMemUsed = default, double? gpuPower = default, double? gpuPowerLimit = default, double? gpuTemp = default, double? gpuUtil = default, double? kvCache = default, double? load1 = default, double? load15 = default, double? load5 = default, long? memFree = default, long? memUsed = default, string model = default, double? netRx = default, double? netTx = default, double? prefill = default, long? running = default, double? ttft = default, long? waiting = default)
         {
             this._At = at;
             if (this.At != null)
@@ -144,15 +144,15 @@ namespace Hanzo.AI.Model
             {
                 this._flagLoad1 = true;
             }
-            this._Load5 = load5;
-            if (this.Load5 != null)
-            {
-                this._flagLoad5 = true;
-            }
             this._Load15 = load15;
             if (this.Load15 != null)
             {
                 this._flagLoad15 = true;
+            }
+            this._Load5 = load5;
+            if (this.Load5 != null)
+            {
+                this._flagLoad5 = true;
             }
             this._MemFree = memFree;
             if (this.MemFree != null)
@@ -603,31 +603,6 @@ namespace Hanzo.AI.Model
             return _flagLoad1;
         }
         /// <summary>
-        /// Load5 is the same figure averaged over five minutes.
-        /// </summary>
-        /// <value>Load5 is the same figure averaged over five minutes.</value>
-        [DataMember(Name = "load5", EmitDefaultValue = true)]
-        public double? Load5
-        {
-            get{ return _Load5;}
-            set
-            {
-                _Load5 = value;
-                _flagLoad5 = true;
-            }
-        }
-        private double? _Load5;
-        private bool _flagLoad5;
-
-        /// <summary>
-        /// Returns false as Load5 should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeLoad5()
-        {
-            return _flagLoad5;
-        }
-        /// <summary>
         /// Load15 is the same figure over fifteen. The three together are what separate a machine that is busy right now from one that has been busy all along — which is the question a dispatcher is really asking.
         /// </summary>
         /// <value>Load15 is the same figure over fifteen. The three together are what separate a machine that is busy right now from one that has been busy all along — which is the question a dispatcher is really asking.</value>
@@ -651,6 +626,31 @@ namespace Hanzo.AI.Model
         public bool ShouldSerializeLoad15()
         {
             return _flagLoad15;
+        }
+        /// <summary>
+        /// Load5 is the same figure averaged over five minutes.
+        /// </summary>
+        /// <value>Load5 is the same figure averaged over five minutes.</value>
+        [DataMember(Name = "load5", EmitDefaultValue = true)]
+        public double? Load5
+        {
+            get{ return _Load5;}
+            set
+            {
+                _Load5 = value;
+                _flagLoad5 = true;
+            }
+        }
+        private double? _Load5;
+        private bool _flagLoad5;
+
+        /// <summary>
+        /// Returns false as Load5 should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeLoad5()
+        {
+            return _flagLoad5;
         }
         /// <summary>
         /// bytes
@@ -907,8 +907,8 @@ namespace Hanzo.AI.Model
             sb.Append("  GpuUtil: ").Append(GpuUtil).Append("\n");
             sb.Append("  KvCache: ").Append(KvCache).Append("\n");
             sb.Append("  Load1: ").Append(Load1).Append("\n");
-            sb.Append("  Load5: ").Append(Load5).Append("\n");
             sb.Append("  Load15: ").Append(Load15).Append("\n");
+            sb.Append("  Load5: ").Append(Load5).Append("\n");
             sb.Append("  MemFree: ").Append(MemFree).Append("\n");
             sb.Append("  MemUsed: ").Append(MemUsed).Append("\n");
             sb.Append("  Model: ").Append(Model).Append("\n");

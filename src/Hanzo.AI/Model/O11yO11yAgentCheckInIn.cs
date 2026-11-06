@@ -36,26 +36,26 @@ namespace Hanzo.AI.Model
         /// Initializes a new instance of the <see cref="O11yO11yAgentCheckInIn" /> class.
         /// </summary>
         /// <param name="accountId">following are backward compatible fields for older running agents, hence snake case JSON keys. Which get mapped to new fields in AgentCheckInRequest.</param>
-        /// <param name="cloudAccountId">&#x3D;&gt; ProviderAccountID.</param>
         /// <param name="cloudIntegrationId">cloudIntegrationId.</param>
+        /// <param name="cloudAccountId">&#x3D;&gt; ProviderAccountID.</param>
         /// <param name="data">data.</param>
         /// <param name="providerAccountId">providerAccountId.</param>
-        public O11yO11yAgentCheckInIn(string accountId = default, string cloudAccountId = default, Object cloudIntegrationId = default, Dictionary<string, Object> data = default, string providerAccountId = default)
+        public O11yO11yAgentCheckInIn(string accountId = default, Object cloudIntegrationId = default, string cloudAccountId = default, Dictionary<string, Object> data = default, string providerAccountId = default)
         {
             this._AccountId = accountId;
             if (this.AccountId != null)
             {
                 this._flagAccountId = true;
             }
-            this._CloudAccountId = cloudAccountId;
-            if (this.CloudAccountId != null)
-            {
-                this._flagCloudAccountId = true;
-            }
             this._CloudIntegrationId = cloudIntegrationId;
             if (this.CloudIntegrationId != null)
             {
                 this._flagCloudIntegrationId = true;
+            }
+            this._CloudAccountId = cloudAccountId;
+            if (this.CloudAccountId != null)
+            {
+                this._flagCloudAccountId = true;
             }
             this._Data = data;
             if (this.Data != null)
@@ -96,6 +96,30 @@ namespace Hanzo.AI.Model
             return _flagAccountId;
         }
         /// <summary>
+        /// Gets or Sets CloudIntegrationId
+        /// </summary>
+        [DataMember(Name = "cloudIntegrationId", EmitDefaultValue = true)]
+        public Object CloudIntegrationId
+        {
+            get{ return _CloudIntegrationId;}
+            set
+            {
+                _CloudIntegrationId = value;
+                _flagCloudIntegrationId = true;
+            }
+        }
+        private Object _CloudIntegrationId;
+        private bool _flagCloudIntegrationId;
+
+        /// <summary>
+        /// Returns false as CloudIntegrationId should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeCloudIntegrationId()
+        {
+            return _flagCloudIntegrationId;
+        }
+        /// <summary>
         /// &#x3D;&gt; ProviderAccountID
         /// </summary>
         /// <value>&#x3D;&gt; ProviderAccountID</value>
@@ -119,30 +143,6 @@ namespace Hanzo.AI.Model
         public bool ShouldSerializeCloudAccountId()
         {
             return _flagCloudAccountId;
-        }
-        /// <summary>
-        /// Gets or Sets CloudIntegrationId
-        /// </summary>
-        [DataMember(Name = "cloudIntegrationId", EmitDefaultValue = true)]
-        public Object CloudIntegrationId
-        {
-            get{ return _CloudIntegrationId;}
-            set
-            {
-                _CloudIntegrationId = value;
-                _flagCloudIntegrationId = true;
-            }
-        }
-        private Object _CloudIntegrationId;
-        private bool _flagCloudIntegrationId;
-
-        /// <summary>
-        /// Returns false as CloudIntegrationId should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeCloudIntegrationId()
-        {
-            return _flagCloudIntegrationId;
         }
         /// <summary>
         /// Gets or Sets Data
@@ -207,8 +207,8 @@ namespace Hanzo.AI.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("class O11yO11yAgentCheckInIn {\n");
             sb.Append("  AccountId: ").Append(AccountId).Append("\n");
-            sb.Append("  CloudAccountId: ").Append(CloudAccountId).Append("\n");
             sb.Append("  CloudIntegrationId: ").Append(CloudIntegrationId).Append("\n");
+            sb.Append("  CloudAccountId: ").Append(CloudAccountId).Append("\n");
             sb.Append("  Data: ").Append(Data).Append("\n");
             sb.Append("  ProviderAccountId: ").Append(ProviderAccountId).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
