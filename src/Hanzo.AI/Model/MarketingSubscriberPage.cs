@@ -27,111 +27,111 @@ using OpenAPIDateConverter = Hanzo.AI.Client.OpenAPIDateConverter;
 namespace Hanzo.AI.Model
 {
     /// <summary>
-    /// SandboxQuotaView
+    /// MarketingSubscriberPage
     /// </summary>
-    [DataContract(Name = "sandbox.quotaView")]
-    public partial class SandboxQuotaView : IValidatableObject
+    [DataContract(Name = "marketing.SubscriberPage")]
+    public partial class MarketingSubscriberPage : IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SandboxQuotaView" /> class.
+        /// Initializes a new instance of the <see cref="MarketingSubscriberPage" /> class.
         /// </summary>
-        /// <param name="account">Account is the wallet the caller&#39;s sandboxes are paid from, which the quota belongs to..</param>
-        /// <param name="quota">Quota is how many it may hold at once..</param>
-        /// <param name="running">Running is how many of the account&#39;s paid sandboxes hold a pod now..</param>
-        public SandboxQuotaView(string account = default, long? quota = default, long? running = default)
+        /// <param name="data">Data is the page..</param>
+        /// <param name="next">Next continues the walk; empty when this is the last page..</param>
+        /// <param name="total">Total is how many subscribers match, when the list knows without reading them: the whole list or a set of statuses. Absent otherwise..</param>
+        public MarketingSubscriberPage(List<MarketingSubscriber> data = default, string next = default, long? total = default)
         {
-            this._Account = account;
-            if (this.Account != null)
+            this._Data = data;
+            if (this.Data != null)
             {
-                this._flagAccount = true;
+                this._flagData = true;
             }
-            this._Quota = quota;
-            if (this.Quota != null)
+            this._Next = next;
+            if (this.Next != null)
             {
-                this._flagQuota = true;
+                this._flagNext = true;
             }
-            this._Running = running;
-            if (this.Running != null)
+            this._Total = total;
+            if (this.Total != null)
             {
-                this._flagRunning = true;
+                this._flagTotal = true;
             }
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
-        /// Account is the wallet the caller&#39;s sandboxes are paid from, which the quota belongs to.
+        /// Data is the page.
         /// </summary>
-        /// <value>Account is the wallet the caller&#39;s sandboxes are paid from, which the quota belongs to.</value>
-        [DataMember(Name = "account", EmitDefaultValue = false)]
-        public string Account
+        /// <value>Data is the page.</value>
+        [DataMember(Name = "data", EmitDefaultValue = false)]
+        public List<MarketingSubscriber> Data
         {
-            get{ return _Account;}
+            get{ return _Data;}
             set
             {
-                _Account = value;
-                _flagAccount = true;
+                _Data = value;
+                _flagData = true;
             }
         }
-        private string _Account;
-        private bool _flagAccount;
+        private List<MarketingSubscriber> _Data;
+        private bool _flagData;
 
         /// <summary>
-        /// Returns false as Account should not be serialized given that it's read-only.
+        /// Returns false as Data should not be serialized given that it's read-only.
         /// </summary>
         /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeAccount()
+        public bool ShouldSerializeData()
         {
-            return _flagAccount;
+            return _flagData;
         }
         /// <summary>
-        /// Quota is how many it may hold at once.
+        /// Next continues the walk; empty when this is the last page.
         /// </summary>
-        /// <value>Quota is how many it may hold at once.</value>
-        [DataMember(Name = "quota", EmitDefaultValue = true)]
-        public long? Quota
+        /// <value>Next continues the walk; empty when this is the last page.</value>
+        [DataMember(Name = "next", EmitDefaultValue = false)]
+        public string Next
         {
-            get{ return _Quota;}
+            get{ return _Next;}
             set
             {
-                _Quota = value;
-                _flagQuota = true;
+                _Next = value;
+                _flagNext = true;
             }
         }
-        private long? _Quota;
-        private bool _flagQuota;
+        private string _Next;
+        private bool _flagNext;
 
         /// <summary>
-        /// Returns false as Quota should not be serialized given that it's read-only.
+        /// Returns false as Next should not be serialized given that it's read-only.
         /// </summary>
         /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeQuota()
+        public bool ShouldSerializeNext()
         {
-            return _flagQuota;
+            return _flagNext;
         }
         /// <summary>
-        /// Running is how many of the account&#39;s paid sandboxes hold a pod now.
+        /// Total is how many subscribers match, when the list knows without reading them: the whole list or a set of statuses. Absent otherwise.
         /// </summary>
-        /// <value>Running is how many of the account&#39;s paid sandboxes hold a pod now.</value>
-        [DataMember(Name = "running", EmitDefaultValue = true)]
-        public long? Running
+        /// <value>Total is how many subscribers match, when the list knows without reading them: the whole list or a set of statuses. Absent otherwise.</value>
+        [DataMember(Name = "total", EmitDefaultValue = true)]
+        public long? Total
         {
-            get{ return _Running;}
+            get{ return _Total;}
             set
             {
-                _Running = value;
-                _flagRunning = true;
+                _Total = value;
+                _flagTotal = true;
             }
         }
-        private long? _Running;
-        private bool _flagRunning;
+        private long? _Total;
+        private bool _flagTotal;
 
         /// <summary>
-        /// Returns false as Running should not be serialized given that it's read-only.
+        /// Returns false as Total should not be serialized given that it's read-only.
         /// </summary>
         /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeRunning()
+        public bool ShouldSerializeTotal()
         {
-            return _flagRunning;
+            return _flagTotal;
         }
         /// <summary>
         /// Gets or Sets additional properties
@@ -146,10 +146,10 @@ namespace Hanzo.AI.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class SandboxQuotaView {\n");
-            sb.Append("  Account: ").Append(Account).Append("\n");
-            sb.Append("  Quota: ").Append(Quota).Append("\n");
-            sb.Append("  Running: ").Append(Running).Append("\n");
+            sb.Append("class MarketingSubscriberPage {\n");
+            sb.Append("  Data: ").Append(Data).Append("\n");
+            sb.Append("  Next: ").Append(Next).Append("\n");
+            sb.Append("  Total: ").Append(Total).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();

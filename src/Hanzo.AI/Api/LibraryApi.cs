@@ -130,10 +130,10 @@ namespace Hanzo.AI.Api
         /// <returns>ApiResponse of LibraryItemPage</returns>
         ApiResponse<LibraryItemPage> GetLibraryUnownedWithHttpInfo(long? limit = default);
         /// <summary>
-        /// Renames one of your items, shares it with your organization or stops sharing it, or moves it to a project.
+        /// Renames one of your items, shares it with your organization or stops sharing it, moves it to a project, or commits a reserved upload.
         /// </summary>
         /// <remarks>
-        /// Renames one of your items, shares it with your organization or stops sharing it, or moves it to a project. Only its owner changes an item; a member&#39;s shared item answers 404 here as one that does not exist.
+        /// Renames one of your items, shares it with your organization or stops sharing it, moves it to a project, or commits a reserved upload. Only its owner changes an item; a member&#39;s shared item answers 404 here as one that does not exist.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID is the item, from the path.</param>
@@ -142,10 +142,10 @@ namespace Hanzo.AI.Api
         LibraryLibraryItem PatchLibraryById(string id, LibraryItemPatch libraryItemPatch);
 
         /// <summary>
-        /// Renames one of your items, shares it with your organization or stops sharing it, or moves it to a project.
+        /// Renames one of your items, shares it with your organization or stops sharing it, moves it to a project, or commits a reserved upload.
         /// </summary>
         /// <remarks>
-        /// Renames one of your items, shares it with your organization or stops sharing it, or moves it to a project. Only its owner changes an item; a member&#39;s shared item answers 404 here as one that does not exist.
+        /// Renames one of your items, shares it with your organization or stops sharing it, moves it to a project, or commits a reserved upload. Only its owner changes an item; a member&#39;s shared item answers 404 here as one that does not exist.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID is the item, from the path.</param>
@@ -156,7 +156,7 @@ namespace Hanzo.AI.Api
         /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it.
         /// </summary>
         /// <remarks>
-        /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. A save with the &#x60;key&#x60; of one already kept answers that item.
+        /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. Send &#x60;data&#x60; up to 10 MiB inline, or send &#x60;bytes&#x60; up to 2 GiB to reserve a signed &#x60;upload&#x60; PUT and finish it with &#x60;PATCH /v1/library/:id&#x60; &#x60;{\&quot;commit\&quot;: true}&#x60;. A save with the &#x60;key&#x60; of one already kept answers that item.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="libraryKeepIn"></param>
@@ -167,7 +167,7 @@ namespace Hanzo.AI.Api
         /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it.
         /// </summary>
         /// <remarks>
-        /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. A save with the &#x60;key&#x60; of one already kept answers that item.
+        /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. Send &#x60;data&#x60; up to 10 MiB inline, or send &#x60;bytes&#x60; up to 2 GiB to reserve a signed &#x60;upload&#x60; PUT and finish it with &#x60;PATCH /v1/library/:id&#x60; &#x60;{\&quot;commit\&quot;: true}&#x60;. A save with the &#x60;key&#x60; of one already kept answers that item.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="libraryKeepIn"></param>
@@ -293,10 +293,10 @@ namespace Hanzo.AI.Api
         /// <returns>Task of ApiResponse (LibraryItemPage)</returns>
         System.Threading.Tasks.Task<ApiResponse<LibraryItemPage>> GetLibraryUnownedWithHttpInfoAsync(long? limit = default, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
-        /// Renames one of your items, shares it with your organization or stops sharing it, or moves it to a project.
+        /// Renames one of your items, shares it with your organization or stops sharing it, moves it to a project, or commits a reserved upload.
         /// </summary>
         /// <remarks>
-        /// Renames one of your items, shares it with your organization or stops sharing it, or moves it to a project. Only its owner changes an item; a member&#39;s shared item answers 404 here as one that does not exist.
+        /// Renames one of your items, shares it with your organization or stops sharing it, moves it to a project, or commits a reserved upload. Only its owner changes an item; a member&#39;s shared item answers 404 here as one that does not exist.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID is the item, from the path.</param>
@@ -306,10 +306,10 @@ namespace Hanzo.AI.Api
         System.Threading.Tasks.Task<LibraryLibraryItem> PatchLibraryByIdAsync(string id, LibraryItemPatch libraryItemPatch, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Renames one of your items, shares it with your organization or stops sharing it, or moves it to a project.
+        /// Renames one of your items, shares it with your organization or stops sharing it, moves it to a project, or commits a reserved upload.
         /// </summary>
         /// <remarks>
-        /// Renames one of your items, shares it with your organization or stops sharing it, or moves it to a project. Only its owner changes an item; a member&#39;s shared item answers 404 here as one that does not exist.
+        /// Renames one of your items, shares it with your organization or stops sharing it, moves it to a project, or commits a reserved upload. Only its owner changes an item; a member&#39;s shared item answers 404 here as one that does not exist.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID is the item, from the path.</param>
@@ -321,7 +321,7 @@ namespace Hanzo.AI.Api
         /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it.
         /// </summary>
         /// <remarks>
-        /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. A save with the &#x60;key&#x60; of one already kept answers that item.
+        /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. Send &#x60;data&#x60; up to 10 MiB inline, or send &#x60;bytes&#x60; up to 2 GiB to reserve a signed &#x60;upload&#x60; PUT and finish it with &#x60;PATCH /v1/library/:id&#x60; &#x60;{\&quot;commit\&quot;: true}&#x60;. A save with the &#x60;key&#x60; of one already kept answers that item.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="libraryKeepIn"></param>
@@ -333,7 +333,7 @@ namespace Hanzo.AI.Api
         /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it.
         /// </summary>
         /// <remarks>
-        /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. A save with the &#x60;key&#x60; of one already kept answers that item.
+        /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. Send &#x60;data&#x60; up to 10 MiB inline, or send &#x60;bytes&#x60; up to 2 GiB to reserve a signed &#x60;upload&#x60; PUT and finish it with &#x60;PATCH /v1/library/:id&#x60; &#x60;{\&quot;commit\&quot;: true}&#x60;. A save with the &#x60;key&#x60; of one already kept answers that item.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="libraryKeepIn"></param>
@@ -1170,7 +1170,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Renames one of your items, shares it with your organization or stops sharing it, or moves it to a project. Renames one of your items, shares it with your organization or stops sharing it, or moves it to a project. Only its owner changes an item; a member&#39;s shared item answers 404 here as one that does not exist.
+        /// Renames one of your items, shares it with your organization or stops sharing it, moves it to a project, or commits a reserved upload. Renames one of your items, shares it with your organization or stops sharing it, moves it to a project, or commits a reserved upload. Only its owner changes an item; a member&#39;s shared item answers 404 here as one that does not exist.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID is the item, from the path.</param>
@@ -1183,7 +1183,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Renames one of your items, shares it with your organization or stops sharing it, or moves it to a project. Renames one of your items, shares it with your organization or stops sharing it, or moves it to a project. Only its owner changes an item; a member&#39;s shared item answers 404 here as one that does not exist.
+        /// Renames one of your items, shares it with your organization or stops sharing it, moves it to a project, or commits a reserved upload. Renames one of your items, shares it with your organization or stops sharing it, moves it to a project, or commits a reserved upload. Only its owner changes an item; a member&#39;s shared item answers 404 here as one that does not exist.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID is the item, from the path.</param>
@@ -1240,7 +1240,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Renames one of your items, shares it with your organization or stops sharing it, or moves it to a project. Renames one of your items, shares it with your organization or stops sharing it, or moves it to a project. Only its owner changes an item; a member&#39;s shared item answers 404 here as one that does not exist.
+        /// Renames one of your items, shares it with your organization or stops sharing it, moves it to a project, or commits a reserved upload. Renames one of your items, shares it with your organization or stops sharing it, moves it to a project, or commits a reserved upload. Only its owner changes an item; a member&#39;s shared item answers 404 here as one that does not exist.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID is the item, from the path.</param>
@@ -1254,7 +1254,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Renames one of your items, shares it with your organization or stops sharing it, or moves it to a project. Renames one of your items, shares it with your organization or stops sharing it, or moves it to a project. Only its owner changes an item; a member&#39;s shared item answers 404 here as one that does not exist.
+        /// Renames one of your items, shares it with your organization or stops sharing it, moves it to a project, or commits a reserved upload. Renames one of your items, shares it with your organization or stops sharing it, moves it to a project, or commits a reserved upload. Only its owner changes an item; a member&#39;s shared item answers 404 here as one that does not exist.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID is the item, from the path.</param>
@@ -1315,7 +1315,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. A save with the &#x60;key&#x60; of one already kept answers that item.
+        /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. Send &#x60;data&#x60; up to 10 MiB inline, or send &#x60;bytes&#x60; up to 2 GiB to reserve a signed &#x60;upload&#x60; PUT and finish it with &#x60;PATCH /v1/library/:id&#x60; &#x60;{\&quot;commit\&quot;: true}&#x60;. A save with the &#x60;key&#x60; of one already kept answers that item.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="libraryKeepIn"></param>
@@ -1327,7 +1327,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. A save with the &#x60;key&#x60; of one already kept answers that item.
+        /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. Send &#x60;data&#x60; up to 10 MiB inline, or send &#x60;bytes&#x60; up to 2 GiB to reserve a signed &#x60;upload&#x60; PUT and finish it with &#x60;PATCH /v1/library/:id&#x60; &#x60;{\&quot;commit\&quot;: true}&#x60;. A save with the &#x60;key&#x60; of one already kept answers that item.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="libraryKeepIn"></param>
@@ -1378,7 +1378,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. A save with the &#x60;key&#x60; of one already kept answers that item.
+        /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. Send &#x60;data&#x60; up to 10 MiB inline, or send &#x60;bytes&#x60; up to 2 GiB to reserve a signed &#x60;upload&#x60; PUT and finish it with &#x60;PATCH /v1/library/:id&#x60; &#x60;{\&quot;commit\&quot;: true}&#x60;. A save with the &#x60;key&#x60; of one already kept answers that item.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="libraryKeepIn"></param>
@@ -1391,7 +1391,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. A save with the &#x60;key&#x60; of one already kept answers that item.
+        /// Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. Keeps one thing you made in your Library: its bytes go to your own prefix of the Library&#39;s store, and it is listed to you alone until you share it. Send &#x60;data&#x60; up to 10 MiB inline, or send &#x60;bytes&#x60; up to 2 GiB to reserve a signed &#x60;upload&#x60; PUT and finish it with &#x60;PATCH /v1/library/:id&#x60; &#x60;{\&quot;commit\&quot;: true}&#x60;. A save with the &#x60;key&#x60; of one already kept answers that item.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="libraryKeepIn"></param>

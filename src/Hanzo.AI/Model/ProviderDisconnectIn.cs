@@ -35,7 +35,7 @@ namespace Hanzo.AI.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ProviderDisconnectIn" /> class.
         /// </summary>
-        /// <param name="account">Account names ONE account to disconnect — the label the connection carries (a GitHub login, for the App). Empty disconnects every account the org holds for the provider. An account the org does not hold disconnects nothing..</param>
+        /// <param name="account">Account names ONE account to disconnect — the label the connection carries (a GitHub login, for the App) or its platform id (a Page, a channel, a board). Empty disconnects every account the org holds for the provider. An account the org does not hold disconnects nothing..</param>
         /// <param name="provider">Provider is the connector&#39;s registry id, from the :provider path segment..</param>
         public ProviderDisconnectIn(string account = default, string provider = default)
         {
@@ -53,9 +53,9 @@ namespace Hanzo.AI.Model
         }
 
         /// <summary>
-        /// Account names ONE account to disconnect — the label the connection carries (a GitHub login, for the App). Empty disconnects every account the org holds for the provider. An account the org does not hold disconnects nothing.
+        /// Account names ONE account to disconnect — the label the connection carries (a GitHub login, for the App) or its platform id (a Page, a channel, a board). Empty disconnects every account the org holds for the provider. An account the org does not hold disconnects nothing.
         /// </summary>
-        /// <value>Account names ONE account to disconnect — the label the connection carries (a GitHub login, for the App). Empty disconnects every account the org holds for the provider. An account the org does not hold disconnects nothing.</value>
+        /// <value>Account names ONE account to disconnect — the label the connection carries (a GitHub login, for the App) or its platform id (a Page, a channel, a board). Empty disconnects every account the org holds for the provider. An account the org does not hold disconnects nothing.</value>
         [DataMember(Name = "account", EmitDefaultValue = false)]
         public string Account
         {

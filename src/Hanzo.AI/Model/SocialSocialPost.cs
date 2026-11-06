@@ -39,7 +39,7 @@ namespace Hanzo.AI.Model
         /// <param name="channel">Channel is the network this post targets: x, facebook, instagram, linkedin, tiktok, youtube or threads. It is the channel whose CONNECTED accounts a publish fans out to.  Example: \&quot;x\&quot;.</param>
         /// <param name="content">Content is the post&#39;s text, bounded at 8192 characters.  Example: \&quot;Shipping today.\&quot;.</param>
         /// <param name="createdAt">CreatedAt is when the post was created, as a unix timestamp in seconds..</param>
-        /// <param name="error">Error is why the last publish attempt failed, verbatim and bounded. Absent when no attempt has failed; cleared by a later success..</param>
+        /// <param name="error">Error is why the last publish attempt failed, verbatim and bounded. Absent when no attempt has failed; cleared by a later success. A post published to several accounts that only some took is published, and this names the rest..</param>
         /// <param name="externalId">ExternalID is the id the network returned for the published post, which is what reconciles this row against the post on the network. Absent until a publish succeeds..</param>
         /// <param name="id">ID is the post&#39;s identifier, minted on create and the id every later call addresses it by.  Example: \&quot;post_91ab20\&quot;.</param>
         /// <param name="media">Media is the post&#39;s attached media as a list of URLs (images today; the composer&#39;s URL field now, an S3 picker later, populate it). Stored as a JSON array in the media TEXT column and ALWAYS serialized as an array (never null), so a client can rely on &#x60;media&#x60; being present. Bounded at the write layer (normMedia in social.go): each URL clipped to maxField, the list to maxMedia..</param>
@@ -207,9 +207,9 @@ namespace Hanzo.AI.Model
             return _flagCreatedAt;
         }
         /// <summary>
-        /// Error is why the last publish attempt failed, verbatim and bounded. Absent when no attempt has failed; cleared by a later success.
+        /// Error is why the last publish attempt failed, verbatim and bounded. Absent when no attempt has failed; cleared by a later success. A post published to several accounts that only some took is published, and this names the rest.
         /// </summary>
-        /// <value>Error is why the last publish attempt failed, verbatim and bounded. Absent when no attempt has failed; cleared by a later success.</value>
+        /// <value>Error is why the last publish attempt failed, verbatim and bounded. Absent when no attempt has failed; cleared by a later success. A post published to several accounts that only some took is published, and this names the rest.</value>
         [DataMember(Name = "error", EmitDefaultValue = false)]
         public string Error
         {

@@ -15,7 +15,7 @@
     <AssemblyName>Hanzo.AI</AssemblyName>
     <!-- The client's number is cloud's release number: hanzoai/ci's client lane
          rewrites it when a release dispatches here. scripts/version reads it. -->
-    <Version>8.5.988</Version>
+    <Version>8.5.1026</Version>
     <PackageId>Hanzo</PackageId>
     <Authors>Hanzo AI</Authors>
     <Company>Hanzo AI</Company>
@@ -34,8 +34,10 @@
     <Nullable>annotations</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <!-- The prose is the document's, transcribed by the generator: a route with
-         no description is not a missing doc comment this repo can fix. -->
-    <NoWarn>$(NoWarn);CS1591;CS1573;CS0612;CS0618</NoWarn>
+         no description is not a missing doc comment this repo can fix. CS1584
+         and CS1658 are the generator's `cref="int?"` in a doc comment; CS0472
+         and CS8073 its null checks on value types, which are always true. -->
+    <NoWarn>$(NoWarn);CS1591;CS1573;CS0612;CS0618;CS1584;CS1658;CS0472;CS8073</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

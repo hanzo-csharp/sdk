@@ -49,6 +49,27 @@ namespace Hanzo.AI.Api
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> DeleteMarketingAudiencesByIdWithHttpInfo(string id);
         /// <summary>
+        /// Deletes a broadcast that is not sending, with its record of who it went to, and answers 204.
+        /// </summary>
+        /// <remarks>
+        /// Deletes a broadcast that is not sending, with its record of who it went to, and answers 204. One that is sending is 409; cancel it first.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <returns>Object</returns>
+        Object DeleteMarketingBroadcastsById(string id);
+
+        /// <summary>
+        /// Deletes a broadcast that is not sending, with its record of who it went to, and answers 204.
+        /// </summary>
+        /// <remarks>
+        /// Deletes a broadcast that is not sending, with its record of who it went to, and answers 204. One that is sending is 409; cancel it first.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> DeleteMarketingBroadcastsByIdWithHttpInfo(string id);
+        /// <summary>
         /// Removes one of the caller org&#39;s posts and answers 204.
         /// </summary>
         /// <remarks>
@@ -91,6 +112,73 @@ namespace Hanzo.AI.Api
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> DeleteMarketingCampaignsByIdWithHttpInfo(string id);
         /// <summary>
+        /// Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204.
+        /// </summary>
+        /// <remarks>
+        /// Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204. A list with a broadcast sending is 409; cancel it first.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <returns>Object</returns>
+        Object DeleteMarketingListsById(string id);
+
+        /// <summary>
+        /// Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204.
+        /// </summary>
+        /// <remarks>
+        /// Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204. A list with a broadcast sending is 409; cancel it first.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> DeleteMarketingListsByIdWithHttpInfo(string id);
+        /// <summary>
+        /// Deletes a saved segment and answers 204.
+        /// </summary>
+        /// <remarks>
+        /// Deletes a saved segment and answers 204. A scheduled broadcast to it is 409; change or cancel the broadcast first.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the segment&#39;s id.</param>
+        /// <returns>Object</returns>
+        Object DeleteMarketingListsByIdSegmentsBySid(string id, string sid);
+
+        /// <summary>
+        /// Deletes a saved segment and answers 204.
+        /// </summary>
+        /// <remarks>
+        /// Deletes a saved segment and answers 204. A scheduled broadcast to it is 409; change or cancel the broadcast first.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the segment&#39;s id.</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> DeleteMarketingListsByIdSegmentsBySidWithHttpInfo(string id, string sid);
+        /// <summary>
+        /// Removes one subscriber from one of the org&#39;s lists and answers 204.
+        /// </summary>
+        /// <remarks>
+        /// Removes one subscriber from one of the org&#39;s lists and answers 204. The row and its evidence are gone; to keep the record of someone leaving, set their status to unsubscribed instead.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the subscriber&#39;s id.</param>
+        /// <returns>Object</returns>
+        Object DeleteMarketingListsByIdSubscribersBySid(string id, long? sid);
+
+        /// <summary>
+        /// Removes one subscriber from one of the org&#39;s lists and answers 204.
+        /// </summary>
+        /// <remarks>
+        /// Removes one subscriber from one of the org&#39;s lists and answers 204. The row and its evidence are gone; to keep the record of someone leaving, set their status to unsubscribed instead.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the subscriber&#39;s id.</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> DeleteMarketingListsByIdSubscribersBySidWithHttpInfo(string id, long? sid);
+        /// <summary>
         /// Re-subscribes an address on one channel and answers 204.
         /// </summary>
         /// <remarks>
@@ -114,10 +202,10 @@ namespace Hanzo.AI.Api
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> DeleteMarketingSuppressionsWithHttpInfo(string? channel = default, string? address = default);
         /// <summary>
-        /// Returns the org&#39;s saved audiences, most recently updated first.
+        /// Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count.
         /// </summary>
         /// <remarks>
-        /// Returns the org&#39;s saved audiences, most recently updated first.
+        /// Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count. A list or a segment is an audience as a cohort is: a sequence enrolls any of them by id.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="limit">Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)</param>
@@ -125,10 +213,10 @@ namespace Hanzo.AI.Api
         MarketingAudienceList GetMarketingAudiences(long? limit = default);
 
         /// <summary>
-        /// Returns the org&#39;s saved audiences, most recently updated first.
+        /// Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count.
         /// </summary>
         /// <remarks>
-        /// Returns the org&#39;s saved audiences, most recently updated first.
+        /// Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count. A list or a segment is an audience as a cohort is: a sequence enrolls any of them by id.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="limit">Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)</param>
@@ -214,6 +302,73 @@ namespace Hanzo.AI.Api
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>ApiResponse of MarketingBetaInviteList</returns>
         ApiResponse<MarketingBetaInviteList> GetMarketingBetaInvitesWithHttpInfo();
+        /// <summary>
+        /// Returns the org&#39;s broadcasts, newest first.
+        /// </summary>
+        /// <remarks>
+        /// Returns the org&#39;s broadcasts, newest first.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="list">List keeps one list&#39;s broadcasts, by id or slug. (optional)</param>
+        /// <param name="status">Status keeps broadcasts in one status. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 200. (optional)</param>
+        /// <returns>MarketingBroadcastPage</returns>
+        MarketingBroadcastPage GetMarketingBroadcasts(string? list = default, string? status = default, long? limit = default);
+
+        /// <summary>
+        /// Returns the org&#39;s broadcasts, newest first.
+        /// </summary>
+        /// <remarks>
+        /// Returns the org&#39;s broadcasts, newest first.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="list">List keeps one list&#39;s broadcasts, by id or slug. (optional)</param>
+        /// <param name="status">Status keeps broadcasts in one status. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 200. (optional)</param>
+        /// <returns>ApiResponse of MarketingBroadcastPage</returns>
+        ApiResponse<MarketingBroadcastPage> GetMarketingBroadcastsWithHttpInfo(string? list = default, string? status = default, long? limit = default);
+        /// <summary>
+        /// Returns one of the org&#39;s broadcasts.
+        /// </summary>
+        /// <remarks>
+        /// Returns one of the org&#39;s broadcasts.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <returns>MarketingBroadcast</returns>
+        MarketingBroadcast GetMarketingBroadcastsById(string id);
+
+        /// <summary>
+        /// Returns one of the org&#39;s broadcasts.
+        /// </summary>
+        /// <remarks>
+        /// Returns one of the org&#39;s broadcasts.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <returns>ApiResponse of MarketingBroadcast</returns>
+        ApiResponse<MarketingBroadcast> GetMarketingBroadcastsByIdWithHttpInfo(string id);
+        /// <summary>
+        /// Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+        /// </summary>
+        /// <remarks>
+        /// Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <returns>MarketingBroadcastStats</returns>
+        MarketingBroadcastStats GetMarketingBroadcastsByIdStats(string id);
+
+        /// <summary>
+        /// Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+        /// </summary>
+        /// <remarks>
+        /// Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <returns>ApiResponse of MarketingBroadcastStats</returns>
+        ApiResponse<MarketingBroadcastStats> GetMarketingBroadcastsByIdStatsWithHttpInfo(string id);
         /// <summary>
         /// Returns the org&#39;s calendar, latest scheduled first, optionally narrowed to one status.
         /// </summary>
@@ -326,6 +481,260 @@ namespace Hanzo.AI.Api
         /// <returns>ApiResponse of ProblemDetails</returns>
         ApiResponse<ProblemDetails> GetMarketingClickWithHttpInfo(string? userAgent = default, string? t = default);
         /// <summary>
+        /// Returns the custom fields the org defined for its subscribers.
+        /// </summary>
+        /// <remarks>
+        /// Returns the custom fields the org defined for its subscribers.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>MarketingFieldSet</returns>
+        MarketingFieldSet GetMarketingFields();
+
+        /// <summary>
+        /// Returns the custom fields the org defined for its subscribers.
+        /// </summary>
+        /// <remarks>
+        /// Returns the custom fields the org defined for its subscribers.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of MarketingFieldSet</returns>
+        ApiResponse<MarketingFieldSet> GetMarketingFieldsWithHttpInfo();
+        /// <summary>
+        /// Returns the org&#39;s imports, newest first, each with its report.
+        /// </summary>
+        /// <remarks>
+        /// Returns the org&#39;s imports, newest first, each with its report.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="list">List keeps one list&#39;s imports, by id or slug. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 200. (optional)</param>
+        /// <returns>MarketingImportPage</returns>
+        MarketingImportPage GetMarketingImports(string? list = default, long? limit = default);
+
+        /// <summary>
+        /// Returns the org&#39;s imports, newest first, each with its report.
+        /// </summary>
+        /// <remarks>
+        /// Returns the org&#39;s imports, newest first, each with its report.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="list">List keeps one list&#39;s imports, by id or slug. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 200. (optional)</param>
+        /// <returns>ApiResponse of MarketingImportPage</returns>
+        ApiResponse<MarketingImportPage> GetMarketingImportsWithHttpInfo(string? list = default, long? limit = default);
+        /// <summary>
+        /// Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+        /// </summary>
+        /// <remarks>
+        /// Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <returns>MarketingImport</returns>
+        MarketingImport GetMarketingImportsById(string id);
+
+        /// <summary>
+        /// Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+        /// </summary>
+        /// <remarks>
+        /// Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <returns>ApiResponse of MarketingImport</returns>
+        ApiResponse<MarketingImport> GetMarketingImportsByIdWithHttpInfo(string id);
+        /// <summary>
+        /// Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+        /// </summary>
+        /// <remarks>
+        /// Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>MarketingListPage</returns>
+        MarketingListPage GetMarketingLists();
+
+        /// <summary>
+        /// Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+        /// </summary>
+        /// <remarks>
+        /// Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of MarketingListPage</returns>
+        ApiResponse<MarketingListPage> GetMarketingListsWithHttpInfo();
+        /// <summary>
+        /// Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+        /// </summary>
+        /// <remarks>
+        /// Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <returns>MarketingList</returns>
+        MarketingList GetMarketingListsById(string id);
+
+        /// <summary>
+        /// Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+        /// </summary>
+        /// <remarks>
+        /// Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <returns>ApiResponse of MarketingList</returns>
+        ApiResponse<MarketingList> GetMarketingListsByIdWithHttpInfo(string id);
+        /// <summary>
+        /// Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields.
+        /// </summary>
+        /// <remarks>
+        /// Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields. The selection takes the same query fields as the subscriber list (status, tag, source, ref, basis, q, field, value, the date ranges and segment). The answer streams as it is read, so a list of millions exports in bounded memory.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        void GetMarketingListsByIdExport(string id);
+
+        /// <summary>
+        /// Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields.
+        /// </summary>
+        /// <remarks>
+        /// Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields. The selection takes the same query fields as the subscriber list (status, tag, source, ref, basis, q, field, value, the date ranges and segment). The answer streams as it is read, so a list of millions exports in bounded memory.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> GetMarketingListsByIdExportWithHttpInfo(string id);
+        /// <summary>
+        /// Returns one list&#39;s saved segments, newest first.
+        /// </summary>
+        /// <remarks>
+        /// Returns one list&#39;s saved segments, newest first.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <returns>MarketingSegmentPage</returns>
+        MarketingSegmentPage GetMarketingListsByIdSegments(string id);
+
+        /// <summary>
+        /// Returns one list&#39;s saved segments, newest first.
+        /// </summary>
+        /// <remarks>
+        /// Returns one list&#39;s saved segments, newest first.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <returns>ApiResponse of MarketingSegmentPage</returns>
+        ApiResponse<MarketingSegmentPage> GetMarketingListsByIdSegmentsWithHttpInfo(string id);
+        /// <summary>
+        /// Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate.
+        /// </summary>
+        /// <remarks>
+        /// Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate. Every number is read from kept counts, never by reading the list.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="from">From is the first day, YYYY-MM-DD (UTC); 30 days before To by default. (optional)</param>
+        /// <param name="to">To is the last day, YYYY-MM-DD (UTC); today by default. At most 366 days after From. (optional)</param>
+        /// <returns>MarketingListStats</returns>
+        MarketingListStats GetMarketingListsByIdStats(string id, string? from = default, string? to = default);
+
+        /// <summary>
+        /// Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate.
+        /// </summary>
+        /// <remarks>
+        /// Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate. Every number is read from kept counts, never by reading the list.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="from">From is the first day, YYYY-MM-DD (UTC); 30 days before To by default. (optional)</param>
+        /// <param name="to">To is the last day, YYYY-MM-DD (UTC); today by default. At most 366 days after From. (optional)</param>
+        /// <returns>ApiResponse of MarketingListStats</returns>
+        ApiResponse<MarketingListStats> GetMarketingListsByIdStatsWithHttpInfo(string id, string? from = default, string? to = default);
+        /// <summary>
+        /// Returns a page of one list&#39;s subscribers, newest first unless asked otherwise.
+        /// </summary>
+        /// <remarks>
+        /// Returns a page of one list&#39;s subscribers, newest first unless asked otherwise. Every filter (status, tag, source, ref, consent basis, a prefix of the address or name, a custom field&#39;s value, ranges of when they joined and confirmed, and whether they opened or clicked since a time) walks an index of its own, so a page costs the same on a list of ten rows or ten million. Continue with next.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="status">Status is one status or several, comma-separated: pending, subscribed, unsubscribed, bounced, complained, cleaned. (optional)</param>
+        /// <param name="tag">Tag keeps subscribers carrying this tag. (optional)</param>
+        /// <param name="source">Source keeps subscribers that came from this kind of source: form, page, api, import or commerce. (optional)</param>
+        /// <param name="varRef">Ref keeps subscribers from one source instance: a form id, a page, an import batch id. (optional)</param>
+        /// <param name="basis">Basis keeps subscribers by the consent basis recorded for them: explicit, legitimate_interest or unverified. (optional)</param>
+        /// <param name="q">Q keeps subscribers whose address or name begins with it, case-insensitively. A search is ordered by address. (optional)</param>
+        /// <param name="field">Field names a custom field, and Value keeps subscribers whose value for it is exactly this. (optional)</param>
+        /// <param name="value">Value is the custom field&#39;s value Field keeps. (optional)</param>
+        /// <param name="createdAfter">CreatedAfter and CreatedBefore bound when the subscriber joined the list, unix seconds, inclusive. Zero is unbounded. (optional)</param>
+        /// <param name="createdBefore">CreatedBefore is the upper bound of CreatedAfter&#39;s range. (optional)</param>
+        /// <param name="confirmedAfter">ConfirmedAfter and ConfirmedBefore bound when the subscription was confirmed, unix seconds, inclusive. (optional)</param>
+        /// <param name="confirmedBefore">ConfirmedBefore is the upper bound of ConfirmedAfter&#39;s range. (optional)</param>
+        /// <param name="openedAfter">OpenedAfter keeps subscribers who opened a broadcast at or after this time. (optional)</param>
+        /// <param name="notOpenedSince">NotOpenedSince keeps subscribers who have opened nothing since this time, including those who never opened anything. (optional)</param>
+        /// <param name="clickedAfter">ClickedAfter keeps subscribers who clicked a link at or after this time. (optional)</param>
+        /// <param name="segment">Segment applies a saved segment of the list; the filter fields narrow it further. (optional)</param>
+        /// <param name="sort">Sort is created (the default), email, name, confirmed or opened. A search (q) is always by address. (optional)</param>
+        /// <param name="order">Order is desc (the default) or asc. (optional)</param>
+        /// <param name="cursor">Cursor continues from where the previous page ended. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 500. (optional)</param>
+        /// <returns>MarketingSubscriberPage</returns>
+        MarketingSubscriberPage GetMarketingListsByIdSubscribers(string id, string? status = default, string? tag = default, string? source = default, string? varRef = default, string? basis = default, string? q = default, string? field = default, string? value = default, long? createdAfter = default, long? createdBefore = default, long? confirmedAfter = default, long? confirmedBefore = default, long? openedAfter = default, long? notOpenedSince = default, long? clickedAfter = default, string? segment = default, string? sort = default, string? order = default, string? cursor = default, long? limit = default);
+
+        /// <summary>
+        /// Returns a page of one list&#39;s subscribers, newest first unless asked otherwise.
+        /// </summary>
+        /// <remarks>
+        /// Returns a page of one list&#39;s subscribers, newest first unless asked otherwise. Every filter (status, tag, source, ref, consent basis, a prefix of the address or name, a custom field&#39;s value, ranges of when they joined and confirmed, and whether they opened or clicked since a time) walks an index of its own, so a page costs the same on a list of ten rows or ten million. Continue with next.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="status">Status is one status or several, comma-separated: pending, subscribed, unsubscribed, bounced, complained, cleaned. (optional)</param>
+        /// <param name="tag">Tag keeps subscribers carrying this tag. (optional)</param>
+        /// <param name="source">Source keeps subscribers that came from this kind of source: form, page, api, import or commerce. (optional)</param>
+        /// <param name="varRef">Ref keeps subscribers from one source instance: a form id, a page, an import batch id. (optional)</param>
+        /// <param name="basis">Basis keeps subscribers by the consent basis recorded for them: explicit, legitimate_interest or unverified. (optional)</param>
+        /// <param name="q">Q keeps subscribers whose address or name begins with it, case-insensitively. A search is ordered by address. (optional)</param>
+        /// <param name="field">Field names a custom field, and Value keeps subscribers whose value for it is exactly this. (optional)</param>
+        /// <param name="value">Value is the custom field&#39;s value Field keeps. (optional)</param>
+        /// <param name="createdAfter">CreatedAfter and CreatedBefore bound when the subscriber joined the list, unix seconds, inclusive. Zero is unbounded. (optional)</param>
+        /// <param name="createdBefore">CreatedBefore is the upper bound of CreatedAfter&#39;s range. (optional)</param>
+        /// <param name="confirmedAfter">ConfirmedAfter and ConfirmedBefore bound when the subscription was confirmed, unix seconds, inclusive. (optional)</param>
+        /// <param name="confirmedBefore">ConfirmedBefore is the upper bound of ConfirmedAfter&#39;s range. (optional)</param>
+        /// <param name="openedAfter">OpenedAfter keeps subscribers who opened a broadcast at or after this time. (optional)</param>
+        /// <param name="notOpenedSince">NotOpenedSince keeps subscribers who have opened nothing since this time, including those who never opened anything. (optional)</param>
+        /// <param name="clickedAfter">ClickedAfter keeps subscribers who clicked a link at or after this time. (optional)</param>
+        /// <param name="segment">Segment applies a saved segment of the list; the filter fields narrow it further. (optional)</param>
+        /// <param name="sort">Sort is created (the default), email, name, confirmed or opened. A search (q) is always by address. (optional)</param>
+        /// <param name="order">Order is desc (the default) or asc. (optional)</param>
+        /// <param name="cursor">Cursor continues from where the previous page ended. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 500. (optional)</param>
+        /// <returns>ApiResponse of MarketingSubscriberPage</returns>
+        ApiResponse<MarketingSubscriberPage> GetMarketingListsByIdSubscribersWithHttpInfo(string id, string? status = default, string? tag = default, string? source = default, string? varRef = default, string? basis = default, string? q = default, string? field = default, string? value = default, long? createdAfter = default, long? createdBefore = default, long? confirmedAfter = default, long? confirmedBefore = default, long? openedAfter = default, long? notOpenedSince = default, long? clickedAfter = default, string? segment = default, string? sort = default, string? order = default, string? cursor = default, long? limit = default);
+        /// <summary>
+        /// Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
+        /// </summary>
+        /// <remarks>
+        /// Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the subscriber&#39;s id.</param>
+        /// <returns>MarketingSubscriber</returns>
+        MarketingSubscriber GetMarketingListsByIdSubscribersBySid(string id, long? sid);
+
+        /// <summary>
+        /// Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
+        /// </summary>
+        /// <remarks>
+        /// Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the subscriber&#39;s id.</param>
+        /// <returns>ApiResponse of MarketingSubscriber</returns>
+        ApiResponse<MarketingSubscriber> GetMarketingListsByIdSubscribersBySidWithHttpInfo(string id, long? sid);
+        /// <summary>
         /// Returns every promo the deployment offers with its live counters: how many orgs have redeemed it and how many redemptions remain under the cap.
         /// </summary>
         /// <remarks>
@@ -390,6 +799,25 @@ namespace Hanzo.AI.Api
         /// <param name="code">Code is the promo code from the path, e.g. \&quot;first1000\&quot;.</param>
         /// <returns>ApiResponse of MarketingRedemption</returns>
         ApiResponse<MarketingRedemption> GetMarketingPromosByCodeRedemptionWithHttpInfo(string code);
+        /// <summary>
+        /// Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+        /// </summary>
+        /// <remarks>
+        /// Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>MarketingSender</returns>
+        MarketingSender GetMarketingSender();
+
+        /// <summary>
+        /// Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+        /// </summary>
+        /// <remarks>
+        /// Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of MarketingSender</returns>
+        ApiResponse<MarketingSender> GetMarketingSenderWithHttpInfo();
         /// <summary>
         /// Returns the org&#39;s drip sequences, most recently updated first.
         /// </summary>
@@ -551,8 +979,9 @@ namespace Hanzo.AI.Api
         /// <param name="address">Address is the recipient to opt out. (optional)</param>
         /// <param name="token">Token is the HMAC over (org, channel, address). It is the ONLY authority here — there is no principal — so it binds the request to one tuple and nothing else. (optional)</param>
         /// <param name="company">Company opts out everyone at the address&#39;s domain as well, in this org alone: a company&#39;s unsubscribe. An address at a free mail provider is a person&#39;s and is refused 422. (optional)</param>
+        /// <param name="list">List is the marketing list a broadcast&#39;s link leaves; with it the token is the list&#39;s, the address leaves that list alone, and the org&#39;s other mail still reaches it. (optional)</param>
         /// <returns>MarketingUnsubscribed</returns>
-        MarketingUnsubscribed GetMarketingUnsubscribe(string? org = default, string? channel = default, string? address = default, string? token = default, bool? company = default);
+        MarketingUnsubscribed GetMarketingUnsubscribe(string? org = default, string? channel = default, string? address = default, string? token = default, bool? company = default, string? list = default);
 
         /// <summary>
         /// Is the PUBLIC one-click endpoint (no principal): a recipient clicks the signed link in an email footer.
@@ -566,8 +995,80 @@ namespace Hanzo.AI.Api
         /// <param name="address">Address is the recipient to opt out. (optional)</param>
         /// <param name="token">Token is the HMAC over (org, channel, address). It is the ONLY authority here — there is no principal — so it binds the request to one tuple and nothing else. (optional)</param>
         /// <param name="company">Company opts out everyone at the address&#39;s domain as well, in this org alone: a company&#39;s unsubscribe. An address at a free mail provider is a person&#39;s and is refused 422. (optional)</param>
+        /// <param name="list">List is the marketing list a broadcast&#39;s link leaves; with it the token is the list&#39;s, the address leaves that list alone, and the org&#39;s other mail still reaches it. (optional)</param>
         /// <returns>ApiResponse of MarketingUnsubscribed</returns>
-        ApiResponse<MarketingUnsubscribed> GetMarketingUnsubscribeWithHttpInfo(string? org = default, string? channel = default, string? address = default, string? token = default, bool? company = default);
+        ApiResponse<MarketingUnsubscribed> GetMarketingUnsubscribeWithHttpInfo(string? org = default, string? channel = default, string? address = default, string? token = default, bool? company = default, string? list = default);
+        /// <summary>
+        /// Changes the fields the body names on a draft or scheduled broadcast and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Changes the fields the body names on a draft or scheduled broadcast and answers it. One that is sending or done is 409.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast to change, from the path; ignored on create.</param>
+        /// <param name="marketingBroadcastIn"></param>
+        /// <returns>MarketingBroadcast</returns>
+        MarketingBroadcast PatchMarketingBroadcastsById(string id, MarketingBroadcastIn marketingBroadcastIn);
+
+        /// <summary>
+        /// Changes the fields the body names on a draft or scheduled broadcast and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Changes the fields the body names on a draft or scheduled broadcast and answers it. One that is sending or done is 409.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast to change, from the path; ignored on create.</param>
+        /// <param name="marketingBroadcastIn"></param>
+        /// <returns>ApiResponse of MarketingBroadcast</returns>
+        ApiResponse<MarketingBroadcast> PatchMarketingBroadcastsByIdWithHttpInfo(string id, MarketingBroadcastIn marketingBroadcastIn);
+        /// <summary>
+        /// Changes the fields the body names on one of the org&#39;s lists and answers the list.
+        /// </summary>
+        /// <remarks>
+        /// Changes the fields the body names on one of the org&#39;s lists and answers the list. A field left out keeps its value; an empty string clears a sender field back to the org&#39;s.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list to change, from the path; ignored on create.</param>
+        /// <param name="marketingListIn"></param>
+        /// <returns>MarketingList</returns>
+        MarketingList PatchMarketingListsById(string id, MarketingListIn marketingListIn);
+
+        /// <summary>
+        /// Changes the fields the body names on one of the org&#39;s lists and answers the list.
+        /// </summary>
+        /// <remarks>
+        /// Changes the fields the body names on one of the org&#39;s lists and answers the list. A field left out keeps its value; an empty string clears a sender field back to the org&#39;s.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list to change, from the path; ignored on create.</param>
+        /// <param name="marketingListIn"></param>
+        /// <returns>ApiResponse of MarketingList</returns>
+        ApiResponse<MarketingList> PatchMarketingListsByIdWithHttpInfo(string id, MarketingListIn marketingListIn);
+        /// <summary>
+        /// Changes the fields the body names on one subscriber and answers the row.
+        /// </summary>
+        /// <remarks>
+        /// Changes the fields the body names on one subscriber and answers the row. A status change follows the same rule as add: an address that unsubscribed or complained is not put back by the org.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="sid">SID is the subscriber to change, from the path; ignored on add.</param>
+        /// <param name="marketingSubscriberIn"></param>
+        /// <returns>MarketingSubscriber</returns>
+        MarketingSubscriber PatchMarketingListsByIdSubscribersBySid(string id, long? sid, MarketingSubscriberIn marketingSubscriberIn);
+
+        /// <summary>
+        /// Changes the fields the body names on one subscriber and answers the row.
+        /// </summary>
+        /// <remarks>
+        /// Changes the fields the body names on one subscriber and answers the row. A status change follows the same rule as add: an address that unsubscribed or complained is not put back by the org.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="sid">SID is the subscriber to change, from the path; ignored on add.</param>
+        /// <param name="marketingSubscriberIn"></param>
+        /// <returns>ApiResponse of MarketingSubscriber</returns>
+        ApiResponse<MarketingSubscriber> PatchMarketingListsByIdSubscribersBySidWithHttpInfo(string id, long? sid, MarketingSubscriberIn marketingSubscriberIn);
         /// <summary>
         /// Saves a cohort filter for the caller&#39;s org.
         /// </summary>
@@ -674,6 +1175,94 @@ namespace Hanzo.AI.Api
         /// <returns>ApiResponse of MarketingBeta</returns>
         ApiResponse<MarketingBeta> PostMarketingBetaRequestWithHttpInfo(MarketingBetaRequest marketingBetaRequest);
         /// <summary>
+        /// Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it.
+        /// </summary>
+        /// <remarks>
+        /// Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it. With scheduledAt it is scheduled; without, a draft until sent.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingBroadcastIn"></param>
+        /// <returns>MarketingBroadcast</returns>
+        MarketingBroadcast PostMarketingBroadcasts(MarketingBroadcastIn marketingBroadcastIn);
+
+        /// <summary>
+        /// Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it.
+        /// </summary>
+        /// <remarks>
+        /// Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it. With scheduledAt it is scheduled; without, a draft until sent.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingBroadcastIn"></param>
+        /// <returns>ApiResponse of MarketingBroadcast</returns>
+        ApiResponse<MarketingBroadcast> PostMarketingBroadcastsWithHttpInfo(MarketingBroadcastIn marketingBroadcastIn);
+        /// <summary>
+        /// Stops a scheduled or sending broadcast and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Stops a scheduled or sending broadcast and answers it. Who it already reached stays recorded.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <returns>MarketingBroadcast</returns>
+        MarketingBroadcast PostMarketingBroadcastsByIdCancel(string id);
+
+        /// <summary>
+        /// Stops a scheduled or sending broadcast and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Stops a scheduled or sending broadcast and answers it. Who it already reached stays recorded.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <returns>ApiResponse of MarketingBroadcast</returns>
+        ApiResponse<MarketingBroadcast> PostMarketingBroadcastsByIdCancelWithHttpInfo(string id);
+        /// <summary>
+        /// Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it.
+        /// </summary>
+        /// <remarks>
+        /// Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it. The list&#39;s sender must carry a postal address, which every commercial mail states (CAN-SPAM); without one it is 422.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast, from the path.</param>
+        /// <param name="marketingSendIn"></param>
+        /// <returns>MarketingBroadcast</returns>
+        MarketingBroadcast PostMarketingBroadcastsByIdSend(string id, MarketingSendIn marketingSendIn);
+
+        /// <summary>
+        /// Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it.
+        /// </summary>
+        /// <remarks>
+        /// Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it. The list&#39;s sender must carry a postal address, which every commercial mail states (CAN-SPAM); without one it is 422.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast, from the path.</param>
+        /// <param name="marketingSendIn"></param>
+        /// <returns>ApiResponse of MarketingBroadcast</returns>
+        ApiResponse<MarketingBroadcast> PostMarketingBroadcastsByIdSendWithHttpInfo(string id, MarketingSendIn marketingSendIn);
+        /// <summary>
+        /// Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.
+        /// </summary>
+        /// <remarks>
+        /// Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast, from the path.</param>
+        /// <param name="marketingTestIn"></param>
+        /// <returns>MarketingTestOut</returns>
+        MarketingTestOut PostMarketingBroadcastsByIdTest(string id, MarketingTestIn marketingTestIn);
+
+        /// <summary>
+        /// Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.
+        /// </summary>
+        /// <remarks>
+        /// Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast, from the path.</param>
+        /// <param name="marketingTestIn"></param>
+        /// <returns>ApiResponse of MarketingTestOut</returns>
+        ApiResponse<MarketingTestOut> PostMarketingBroadcastsByIdTestWithHttpInfo(string id, MarketingTestIn marketingTestIn);
+        /// <summary>
         /// Adds a post to the content calendar.
         /// </summary>
         /// <remarks>
@@ -739,6 +1328,69 @@ namespace Hanzo.AI.Api
         /// <returns>ApiResponse of MarketingCampaign</returns>
         ApiResponse<MarketingCampaign> PostMarketingCampaignsByIdScheduleWithHttpInfo(string id, MarketingScheduleInput marketingScheduleInput);
         /// <summary>
+        /// Creates an import into one of the org&#39;s lists and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Creates an import into one of the org&#39;s lists and answers it. For a file the import waits in state receiving for its bytes (PUT /v1/marketing/imports/{id}/data); for a source (from: commerce) it is queued at once. A key makes the call idempotent: a second create with it answers the first import. The rows are stamped with the import&#39;s id as their source ref, so a filter on ref selects the batch.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingImportIn"></param>
+        /// <returns>MarketingCreated</returns>
+        MarketingCreated PostMarketingImports(MarketingImportIn marketingImportIn);
+
+        /// <summary>
+        /// Creates an import into one of the org&#39;s lists and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Creates an import into one of the org&#39;s lists and answers it. For a file the import waits in state receiving for its bytes (PUT /v1/marketing/imports/{id}/data); for a source (from: commerce) it is queued at once. A key makes the call idempotent: a second create with it answers the first import. The rows are stamped with the import&#39;s id as their source ref, so a filter on ref selects the batch.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingImportIn"></param>
+        /// <returns>ApiResponse of MarketingCreated</returns>
+        ApiResponse<MarketingCreated> PostMarketingImportsWithHttpInfo(MarketingImportIn marketingImportIn);
+        /// <summary>
+        /// Stops an import that has not finished and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Stops an import that has not finished and answers it. The rows it already wrote stay; a filter on its id as ref selects them.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <returns>MarketingImport</returns>
+        MarketingImport PostMarketingImportsByIdCancel(string id);
+
+        /// <summary>
+        /// Stops an import that has not finished and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Stops an import that has not finished and answers it. The rows it already wrote stay; a filter on its id as ref selects them.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <returns>ApiResponse of MarketingImport</returns>
+        ApiResponse<MarketingImport> PostMarketingImportsByIdCancelWithHttpInfo(string id);
+        /// <summary>
+        /// Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there.
+        /// </summary>
+        /// <remarks>
+        /// Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there. An import with no bytes is 409.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <returns>MarketingImport</returns>
+        MarketingImport PostMarketingImportsByIdStart(string id);
+
+        /// <summary>
+        /// Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there.
+        /// </summary>
+        /// <remarks>
+        /// Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there. An import with no bytes is 409.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <returns>ApiResponse of MarketingImport</returns>
+        ApiResponse<MarketingImport> PostMarketingImportsByIdStartWithHttpInfo(string id);
+        /// <summary>
         /// Files one public form in the deployment&#39;s own CRM.
         /// </summary>
         /// <remarks>
@@ -801,6 +1453,96 @@ namespace Hanzo.AI.Api
         /// <param name="marketingResumeIn"></param>
         /// <returns>ApiResponse of MarketingResumeForm</returns>
         ApiResponse<MarketingResumeForm> PostMarketingLeadsResumeWithHttpInfo(MarketingResumeIn marketingResumeIn);
+        /// <summary>
+        /// Creates a list in the org and answers 201 with it.
+        /// </summary>
+        /// <remarks>
+        /// Creates a list in the org and answers 201 with it. Name is required; a new list is private, asks public subscribers to confirm, and takes the org&#39;s sender for every sender field it leaves empty. A slug the org already uses is 409.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingListIn"></param>
+        /// <returns>MarketingList</returns>
+        MarketingList PostMarketingLists(MarketingListIn marketingListIn);
+
+        /// <summary>
+        /// Creates a list in the org and answers 201 with it.
+        /// </summary>
+        /// <remarks>
+        /// Creates a list in the org and answers 201 with it. Name is required; a new list is private, asks public subscribers to confirm, and takes the org&#39;s sender for every sender field it leaves empty. A slug the org already uses is 409.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingListIn"></param>
+        /// <returns>ApiResponse of MarketingList</returns>
+        ApiResponse<MarketingList> PostMarketingListsWithHttpInfo(MarketingListIn marketingListIn);
+        /// <summary>
+        /// Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.
+        /// </summary>
+        /// <remarks>
+        /// Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingSegmentIn"></param>
+        /// <returns>MarketingSegment</returns>
+        MarketingSegment PostMarketingListsByIdSegments(string id, MarketingSegmentIn marketingSegmentIn);
+
+        /// <summary>
+        /// Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.
+        /// </summary>
+        /// <remarks>
+        /// Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingSegmentIn"></param>
+        /// <returns>ApiResponse of MarketingSegment</returns>
+        ApiResponse<MarketingSegment> PostMarketingListsByIdSegmentsWithHttpInfo(string id, MarketingSegmentIn marketingSegmentIn);
+        /// <summary>
+        /// Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row.
+        /// </summary>
+        /// <remarks>
+        /// Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row. Pending mails the address a link to confirm. An address that unsubscribed or complained cannot be put back by the org: it is 409, and the person rejoins by subscribing and confirming again.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingSubscriberIn"></param>
+        /// <returns>MarketingAdded</returns>
+        MarketingAdded PostMarketingListsByIdSubscribers(string id, MarketingSubscriberIn marketingSubscriberIn);
+
+        /// <summary>
+        /// Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row.
+        /// </summary>
+        /// <remarks>
+        /// Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row. Pending mails the address a link to confirm. An address that unsubscribed or complained cannot be put back by the org: it is 409, and the person rejoins by subscribing and confirming again.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingSubscriberIn"></param>
+        /// <returns>ApiResponse of MarketingAdded</returns>
+        ApiResponse<MarketingAdded> PostMarketingListsByIdSubscribersWithHttpInfo(string id, MarketingSubscriberIn marketingSubscriberIn);
+        /// <summary>
+        /// Applies one action to a selection of a list and answers how many rows it matched and changed.
+        /// </summary>
+        /// <remarks>
+        /// Applies one action to a selection of a list and answers how many rows it matched and changed. The selection is ids, a saved segment, a filter, or the whole list. It walks the selection in batches of a thousand, one transaction each, so millions of rows move in bounded memory: tag and untag add or remove a tag; move moves the rows to another list of the org; unsubscribe and clean set those statuses on every row that is pending or subscribed, each telling the CRM and the event stream; delete removes the rows and their evidence.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingBulkIn"></param>
+        /// <returns>MarketingBulkOut</returns>
+        MarketingBulkOut PostMarketingListsByIdSubscribersBulk(string id, MarketingBulkIn marketingBulkIn);
+
+        /// <summary>
+        /// Applies one action to a selection of a list and answers how many rows it matched and changed.
+        /// </summary>
+        /// <remarks>
+        /// Applies one action to a selection of a list and answers how many rows it matched and changed. The selection is ids, a saved segment, a filter, or the whole list. It walks the selection in batches of a thousand, one transaction each, so millions of rows move in bounded memory: tag and untag add or remove a tag; move moves the rows to another list of the org; unsubscribe and clean set those statuses on every row that is pending or subscribed, each telling the CRM and the event stream; delete removes the rows and their evidence.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingBulkIn"></param>
+        /// <returns>ApiResponse of MarketingBulkOut</returns>
+        ApiResponse<MarketingBulkOut> PostMarketingListsByIdSubscribersBulkWithHttpInfo(string id, MarketingBulkIn marketingBulkIn);
         /// <summary>
         /// Sends one email from the org to one person, the way a person on the org&#39;s team writes back to a lead from its record.
         /// </summary>
@@ -1032,9 +1774,10 @@ namespace Hanzo.AI.Api
         /// <param name="channel">Channel is the surface to opt out of. (optional)</param>
         /// <param name="address">Address is the recipient to opt out. (optional)</param>
         /// <param name="token">Token is the HMAC over (org, channel, address), the only authority here. (optional)</param>
+        /// <param name="list">List is the marketing list the link leaves, as on the signed link. (optional)</param>
         /// <param name="listUnsubscribe">OneClick is the form&#39;s List-Unsubscribe field, \\\&quot;One-Click\\\&quot; from a mail client. The token decides; this field only names the form. (optional)</param>
         /// <returns>MarketingUnsubscribed</returns>
-        MarketingUnsubscribed PostMarketingUnsubscribe(string? org = default, string? channel = default, string? address = default, string? token = default, string? listUnsubscribe = default);
+        MarketingUnsubscribed PostMarketingUnsubscribe(string? org = default, string? channel = default, string? address = default, string? token = default, string? list = default, string? listUnsubscribe = default);
 
         /// <summary>
         /// Is the one-click unsubscribe a mail client sends from the List-Unsubscribe header (RFC 8058): the same signed link the footer carries, POSTed with the form body List-Unsubscribe&#x3D;One-Click.
@@ -1047,9 +1790,10 @@ namespace Hanzo.AI.Api
         /// <param name="channel">Channel is the surface to opt out of. (optional)</param>
         /// <param name="address">Address is the recipient to opt out. (optional)</param>
         /// <param name="token">Token is the HMAC over (org, channel, address), the only authority here. (optional)</param>
+        /// <param name="list">List is the marketing list the link leaves, as on the signed link. (optional)</param>
         /// <param name="listUnsubscribe">OneClick is the form&#39;s List-Unsubscribe field, \\\&quot;One-Click\\\&quot; from a mail client. The token decides; this field only names the form. (optional)</param>
         /// <returns>ApiResponse of MarketingUnsubscribed</returns>
-        ApiResponse<MarketingUnsubscribed> PostMarketingUnsubscribeWithHttpInfo(string? org = default, string? channel = default, string? address = default, string? token = default, string? listUnsubscribe = default);
+        ApiResponse<MarketingUnsubscribed> PostMarketingUnsubscribeWithHttpInfo(string? org = default, string? channel = default, string? address = default, string? token = default, string? list = default, string? listUnsubscribe = default);
         /// <summary>
         /// Writes the signed-in caller&#39;s application: the program, the answers, the betas asked for and the lead it was filed under.
         /// </summary>
@@ -1117,6 +1861,94 @@ namespace Hanzo.AI.Api
         /// <param name="marketingCampaign"></param>
         /// <returns>ApiResponse of MarketingCampaign</returns>
         ApiResponse<MarketingCampaign> PutMarketingCampaignsByIdWithHttpInfo(string id, MarketingCampaign marketingCampaign);
+        /// <summary>
+        /// Replaces the org&#39;s custom fields with the set the body carries and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Replaces the org&#39;s custom fields with the set the body carries and answers it. A field dropped from the set is removed from every subscriber; a field kept keeps its values when its type does not change, and a changed type is 409 while any subscriber has a value for it.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingFieldSet"></param>
+        /// <returns>MarketingFieldSet</returns>
+        MarketingFieldSet PutMarketingFields(MarketingFieldSet marketingFieldSet);
+
+        /// <summary>
+        /// Replaces the org&#39;s custom fields with the set the body carries and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Replaces the org&#39;s custom fields with the set the body carries and answers it. A field dropped from the set is removed from every subscriber; a field kept keeps its values when its type does not change, and a changed type is 409 while any subscriber has a value for it.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingFieldSet"></param>
+        /// <returns>ApiResponse of MarketingFieldSet</returns>
+        ApiResponse<MarketingFieldSet> PutMarketingFieldsWithHttpInfo(MarketingFieldSet marketingFieldSet);
+        /// <summary>
+        /// Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds.
+        /// </summary>
+        /// <remarks>
+        /// Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds. A piece at an offset the import has passed is taken only past what it holds, so a retried piece writes nothing twice; a piece past the end is 409 naming the offset to resume from. Send the file in order, in pieces of any size up to the request limit, then start it.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        void PutMarketingImportsByIdData(string id);
+
+        /// <summary>
+        /// Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds.
+        /// </summary>
+        /// <remarks>
+        /// Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds. A piece at an offset the import has passed is taken only past what it holds, so a retried piece writes nothing twice; a piece past the end is 409 naming the offset to resume from. Send the file in order, in pieces of any size up to the request limit, then start it.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> PutMarketingImportsByIdDataWithHttpInfo(string id);
+        /// <summary>
+        /// Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.
+        /// </summary>
+        /// <remarks>
+        /// Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="sid">SID is the segment to change, from the path; ignored on create.</param>
+        /// <param name="marketingSegmentIn"></param>
+        /// <returns>MarketingSegment</returns>
+        MarketingSegment PutMarketingListsByIdSegmentsBySid(string id, string sid, MarketingSegmentIn marketingSegmentIn);
+
+        /// <summary>
+        /// Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.
+        /// </summary>
+        /// <remarks>
+        /// Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="sid">SID is the segment to change, from the path; ignored on create.</param>
+        /// <param name="marketingSegmentIn"></param>
+        /// <returns>ApiResponse of MarketingSegment</returns>
+        ApiResponse<MarketingSegment> PutMarketingListsByIdSegmentsBySidWithHttpInfo(string id, string sid, MarketingSegmentIn marketingSegmentIn);
+        /// <summary>
+        /// Replaces the org&#39;s sender and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Replaces the org&#39;s sender and answers it. Every field is written; one left out is cleared.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingSender"></param>
+        /// <returns>MarketingSender</returns>
+        MarketingSender PutMarketingSender(MarketingSender marketingSender);
+
+        /// <summary>
+        /// Replaces the org&#39;s sender and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Replaces the org&#39;s sender and answers it. Every field is written; one left out is cleared.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingSender"></param>
+        /// <returns>ApiResponse of MarketingSender</returns>
+        ApiResponse<MarketingSender> PutMarketingSenderWithHttpInfo(MarketingSender marketingSender);
         #endregion Synchronous Operations
     }
 
@@ -1149,6 +1981,29 @@ namespace Hanzo.AI.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteMarketingAudiencesByIdWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Deletes a broadcast that is not sending, with its record of who it went to, and answers 204.
+        /// </summary>
+        /// <remarks>
+        /// Deletes a broadcast that is not sending, with its record of who it went to, and answers 204. One that is sending is 409; cancel it first.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> DeleteMarketingBroadcastsByIdAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Deletes a broadcast that is not sending, with its record of who it went to, and answers 204.
+        /// </summary>
+        /// <remarks>
+        /// Deletes a broadcast that is not sending, with its record of who it went to, and answers 204. One that is sending is 409; cancel it first.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteMarketingBroadcastsByIdWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Removes one of the caller org&#39;s posts and answers 204.
         /// </summary>
@@ -1196,6 +2051,79 @@ namespace Hanzo.AI.Api
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteMarketingCampaignsByIdWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
+        /// Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204.
+        /// </summary>
+        /// <remarks>
+        /// Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204. A list with a broadcast sending is 409; cancel it first.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> DeleteMarketingListsByIdAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204.
+        /// </summary>
+        /// <remarks>
+        /// Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204. A list with a broadcast sending is 409; cancel it first.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteMarketingListsByIdWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Deletes a saved segment and answers 204.
+        /// </summary>
+        /// <remarks>
+        /// Deletes a saved segment and answers 204. A scheduled broadcast to it is 409; change or cancel the broadcast first.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the segment&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> DeleteMarketingListsByIdSegmentsBySidAsync(string id, string sid, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Deletes a saved segment and answers 204.
+        /// </summary>
+        /// <remarks>
+        /// Deletes a saved segment and answers 204. A scheduled broadcast to it is 409; change or cancel the broadcast first.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the segment&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteMarketingListsByIdSegmentsBySidWithHttpInfoAsync(string id, string sid, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Removes one subscriber from one of the org&#39;s lists and answers 204.
+        /// </summary>
+        /// <remarks>
+        /// Removes one subscriber from one of the org&#39;s lists and answers 204. The row and its evidence are gone; to keep the record of someone leaving, set their status to unsubscribed instead.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the subscriber&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> DeleteMarketingListsByIdSubscribersBySidAsync(string id, long? sid, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Removes one subscriber from one of the org&#39;s lists and answers 204.
+        /// </summary>
+        /// <remarks>
+        /// Removes one subscriber from one of the org&#39;s lists and answers 204. The row and its evidence are gone; to keep the record of someone leaving, set their status to unsubscribed instead.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the subscriber&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteMarketingListsByIdSubscribersBySidWithHttpInfoAsync(string id, long? sid, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
         /// Re-subscribes an address on one channel and answers 204.
         /// </summary>
         /// <remarks>
@@ -1221,10 +2149,10 @@ namespace Hanzo.AI.Api
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteMarketingSuppressionsWithHttpInfoAsync(string? channel = default, string? address = default, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
-        /// Returns the org&#39;s saved audiences, most recently updated first.
+        /// Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count.
         /// </summary>
         /// <remarks>
-        /// Returns the org&#39;s saved audiences, most recently updated first.
+        /// Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count. A list or a segment is an audience as a cohort is: a sequence enrolls any of them by id.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="limit">Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)</param>
@@ -1233,10 +2161,10 @@ namespace Hanzo.AI.Api
         System.Threading.Tasks.Task<MarketingAudienceList> GetMarketingAudiencesAsync(long? limit = default, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Returns the org&#39;s saved audiences, most recently updated first.
+        /// Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count.
         /// </summary>
         /// <remarks>
-        /// Returns the org&#39;s saved audiences, most recently updated first.
+        /// Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count. A list or a segment is an audience as a cohort is: a sequence enrolls any of them by id.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="limit">Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)</param>
@@ -1331,6 +2259,79 @@ namespace Hanzo.AI.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (MarketingBetaInviteList)</returns>
         System.Threading.Tasks.Task<ApiResponse<MarketingBetaInviteList>> GetMarketingBetaInvitesWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Returns the org&#39;s broadcasts, newest first.
+        /// </summary>
+        /// <remarks>
+        /// Returns the org&#39;s broadcasts, newest first.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="list">List keeps one list&#39;s broadcasts, by id or slug. (optional)</param>
+        /// <param name="status">Status keeps broadcasts in one status. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 200. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingBroadcastPage</returns>
+        System.Threading.Tasks.Task<MarketingBroadcastPage> GetMarketingBroadcastsAsync(string? list = default, string? status = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Returns the org&#39;s broadcasts, newest first.
+        /// </summary>
+        /// <remarks>
+        /// Returns the org&#39;s broadcasts, newest first.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="list">List keeps one list&#39;s broadcasts, by id or slug. (optional)</param>
+        /// <param name="status">Status keeps broadcasts in one status. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 200. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingBroadcastPage)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingBroadcastPage>> GetMarketingBroadcastsWithHttpInfoAsync(string? list = default, string? status = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Returns one of the org&#39;s broadcasts.
+        /// </summary>
+        /// <remarks>
+        /// Returns one of the org&#39;s broadcasts.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingBroadcast</returns>
+        System.Threading.Tasks.Task<MarketingBroadcast> GetMarketingBroadcastsByIdAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Returns one of the org&#39;s broadcasts.
+        /// </summary>
+        /// <remarks>
+        /// Returns one of the org&#39;s broadcasts.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingBroadcast)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingBroadcast>> GetMarketingBroadcastsByIdWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+        /// </summary>
+        /// <remarks>
+        /// Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingBroadcastStats</returns>
+        System.Threading.Tasks.Task<MarketingBroadcastStats> GetMarketingBroadcastsByIdStatsAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+        /// </summary>
+        /// <remarks>
+        /// Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingBroadcastStats)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingBroadcastStats>> GetMarketingBroadcastsByIdStatsWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Returns the org&#39;s calendar, latest scheduled first, optionally narrowed to one status.
         /// </summary>
@@ -1453,6 +2454,280 @@ namespace Hanzo.AI.Api
         /// <returns>Task of ApiResponse (ProblemDetails)</returns>
         System.Threading.Tasks.Task<ApiResponse<ProblemDetails>> GetMarketingClickWithHttpInfoAsync(string? userAgent = default, string? t = default, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
+        /// Returns the custom fields the org defined for its subscribers.
+        /// </summary>
+        /// <remarks>
+        /// Returns the custom fields the org defined for its subscribers.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingFieldSet</returns>
+        System.Threading.Tasks.Task<MarketingFieldSet> GetMarketingFieldsAsync(System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Returns the custom fields the org defined for its subscribers.
+        /// </summary>
+        /// <remarks>
+        /// Returns the custom fields the org defined for its subscribers.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingFieldSet)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingFieldSet>> GetMarketingFieldsWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Returns the org&#39;s imports, newest first, each with its report.
+        /// </summary>
+        /// <remarks>
+        /// Returns the org&#39;s imports, newest first, each with its report.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="list">List keeps one list&#39;s imports, by id or slug. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 200. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingImportPage</returns>
+        System.Threading.Tasks.Task<MarketingImportPage> GetMarketingImportsAsync(string? list = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Returns the org&#39;s imports, newest first, each with its report.
+        /// </summary>
+        /// <remarks>
+        /// Returns the org&#39;s imports, newest first, each with its report.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="list">List keeps one list&#39;s imports, by id or slug. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 200. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingImportPage)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingImportPage>> GetMarketingImportsWithHttpInfoAsync(string? list = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+        /// </summary>
+        /// <remarks>
+        /// Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingImport</returns>
+        System.Threading.Tasks.Task<MarketingImport> GetMarketingImportsByIdAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+        /// </summary>
+        /// <remarks>
+        /// Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingImport)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingImport>> GetMarketingImportsByIdWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+        /// </summary>
+        /// <remarks>
+        /// Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingListPage</returns>
+        System.Threading.Tasks.Task<MarketingListPage> GetMarketingListsAsync(System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+        /// </summary>
+        /// <remarks>
+        /// Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingListPage)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingListPage>> GetMarketingListsWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+        /// </summary>
+        /// <remarks>
+        /// Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingList</returns>
+        System.Threading.Tasks.Task<MarketingList> GetMarketingListsByIdAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+        /// </summary>
+        /// <remarks>
+        /// Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingList)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingList>> GetMarketingListsByIdWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields.
+        /// </summary>
+        /// <remarks>
+        /// Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields. The selection takes the same query fields as the subscriber list (status, tag, source, ref, basis, q, field, value, the date ranges and segment). The answer streams as it is read, so a list of millions exports in bounded memory.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task GetMarketingListsByIdExportAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields.
+        /// </summary>
+        /// <remarks>
+        /// Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields. The selection takes the same query fields as the subscriber list (status, tag, source, ref, basis, q, field, value, the date ranges and segment). The answer streams as it is read, so a list of millions exports in bounded memory.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> GetMarketingListsByIdExportWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Returns one list&#39;s saved segments, newest first.
+        /// </summary>
+        /// <remarks>
+        /// Returns one list&#39;s saved segments, newest first.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingSegmentPage</returns>
+        System.Threading.Tasks.Task<MarketingSegmentPage> GetMarketingListsByIdSegmentsAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Returns one list&#39;s saved segments, newest first.
+        /// </summary>
+        /// <remarks>
+        /// Returns one list&#39;s saved segments, newest first.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingSegmentPage)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingSegmentPage>> GetMarketingListsByIdSegmentsWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate.
+        /// </summary>
+        /// <remarks>
+        /// Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate. Every number is read from kept counts, never by reading the list.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="from">From is the first day, YYYY-MM-DD (UTC); 30 days before To by default. (optional)</param>
+        /// <param name="to">To is the last day, YYYY-MM-DD (UTC); today by default. At most 366 days after From. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingListStats</returns>
+        System.Threading.Tasks.Task<MarketingListStats> GetMarketingListsByIdStatsAsync(string id, string? from = default, string? to = default, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate.
+        /// </summary>
+        /// <remarks>
+        /// Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate. Every number is read from kept counts, never by reading the list.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="from">From is the first day, YYYY-MM-DD (UTC); 30 days before To by default. (optional)</param>
+        /// <param name="to">To is the last day, YYYY-MM-DD (UTC); today by default. At most 366 days after From. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingListStats)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingListStats>> GetMarketingListsByIdStatsWithHttpInfoAsync(string id, string? from = default, string? to = default, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Returns a page of one list&#39;s subscribers, newest first unless asked otherwise.
+        /// </summary>
+        /// <remarks>
+        /// Returns a page of one list&#39;s subscribers, newest first unless asked otherwise. Every filter (status, tag, source, ref, consent basis, a prefix of the address or name, a custom field&#39;s value, ranges of when they joined and confirmed, and whether they opened or clicked since a time) walks an index of its own, so a page costs the same on a list of ten rows or ten million. Continue with next.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="status">Status is one status or several, comma-separated: pending, subscribed, unsubscribed, bounced, complained, cleaned. (optional)</param>
+        /// <param name="tag">Tag keeps subscribers carrying this tag. (optional)</param>
+        /// <param name="source">Source keeps subscribers that came from this kind of source: form, page, api, import or commerce. (optional)</param>
+        /// <param name="varRef">Ref keeps subscribers from one source instance: a form id, a page, an import batch id. (optional)</param>
+        /// <param name="basis">Basis keeps subscribers by the consent basis recorded for them: explicit, legitimate_interest or unverified. (optional)</param>
+        /// <param name="q">Q keeps subscribers whose address or name begins with it, case-insensitively. A search is ordered by address. (optional)</param>
+        /// <param name="field">Field names a custom field, and Value keeps subscribers whose value for it is exactly this. (optional)</param>
+        /// <param name="value">Value is the custom field&#39;s value Field keeps. (optional)</param>
+        /// <param name="createdAfter">CreatedAfter and CreatedBefore bound when the subscriber joined the list, unix seconds, inclusive. Zero is unbounded. (optional)</param>
+        /// <param name="createdBefore">CreatedBefore is the upper bound of CreatedAfter&#39;s range. (optional)</param>
+        /// <param name="confirmedAfter">ConfirmedAfter and ConfirmedBefore bound when the subscription was confirmed, unix seconds, inclusive. (optional)</param>
+        /// <param name="confirmedBefore">ConfirmedBefore is the upper bound of ConfirmedAfter&#39;s range. (optional)</param>
+        /// <param name="openedAfter">OpenedAfter keeps subscribers who opened a broadcast at or after this time. (optional)</param>
+        /// <param name="notOpenedSince">NotOpenedSince keeps subscribers who have opened nothing since this time, including those who never opened anything. (optional)</param>
+        /// <param name="clickedAfter">ClickedAfter keeps subscribers who clicked a link at or after this time. (optional)</param>
+        /// <param name="segment">Segment applies a saved segment of the list; the filter fields narrow it further. (optional)</param>
+        /// <param name="sort">Sort is created (the default), email, name, confirmed or opened. A search (q) is always by address. (optional)</param>
+        /// <param name="order">Order is desc (the default) or asc. (optional)</param>
+        /// <param name="cursor">Cursor continues from where the previous page ended. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 500. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingSubscriberPage</returns>
+        System.Threading.Tasks.Task<MarketingSubscriberPage> GetMarketingListsByIdSubscribersAsync(string id, string? status = default, string? tag = default, string? source = default, string? varRef = default, string? basis = default, string? q = default, string? field = default, string? value = default, long? createdAfter = default, long? createdBefore = default, long? confirmedAfter = default, long? confirmedBefore = default, long? openedAfter = default, long? notOpenedSince = default, long? clickedAfter = default, string? segment = default, string? sort = default, string? order = default, string? cursor = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Returns a page of one list&#39;s subscribers, newest first unless asked otherwise.
+        /// </summary>
+        /// <remarks>
+        /// Returns a page of one list&#39;s subscribers, newest first unless asked otherwise. Every filter (status, tag, source, ref, consent basis, a prefix of the address or name, a custom field&#39;s value, ranges of when they joined and confirmed, and whether they opened or clicked since a time) walks an index of its own, so a page costs the same on a list of ten rows or ten million. Continue with next.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="status">Status is one status or several, comma-separated: pending, subscribed, unsubscribed, bounced, complained, cleaned. (optional)</param>
+        /// <param name="tag">Tag keeps subscribers carrying this tag. (optional)</param>
+        /// <param name="source">Source keeps subscribers that came from this kind of source: form, page, api, import or commerce. (optional)</param>
+        /// <param name="varRef">Ref keeps subscribers from one source instance: a form id, a page, an import batch id. (optional)</param>
+        /// <param name="basis">Basis keeps subscribers by the consent basis recorded for them: explicit, legitimate_interest or unverified. (optional)</param>
+        /// <param name="q">Q keeps subscribers whose address or name begins with it, case-insensitively. A search is ordered by address. (optional)</param>
+        /// <param name="field">Field names a custom field, and Value keeps subscribers whose value for it is exactly this. (optional)</param>
+        /// <param name="value">Value is the custom field&#39;s value Field keeps. (optional)</param>
+        /// <param name="createdAfter">CreatedAfter and CreatedBefore bound when the subscriber joined the list, unix seconds, inclusive. Zero is unbounded. (optional)</param>
+        /// <param name="createdBefore">CreatedBefore is the upper bound of CreatedAfter&#39;s range. (optional)</param>
+        /// <param name="confirmedAfter">ConfirmedAfter and ConfirmedBefore bound when the subscription was confirmed, unix seconds, inclusive. (optional)</param>
+        /// <param name="confirmedBefore">ConfirmedBefore is the upper bound of ConfirmedAfter&#39;s range. (optional)</param>
+        /// <param name="openedAfter">OpenedAfter keeps subscribers who opened a broadcast at or after this time. (optional)</param>
+        /// <param name="notOpenedSince">NotOpenedSince keeps subscribers who have opened nothing since this time, including those who never opened anything. (optional)</param>
+        /// <param name="clickedAfter">ClickedAfter keeps subscribers who clicked a link at or after this time. (optional)</param>
+        /// <param name="segment">Segment applies a saved segment of the list; the filter fields narrow it further. (optional)</param>
+        /// <param name="sort">Sort is created (the default), email, name, confirmed or opened. A search (q) is always by address. (optional)</param>
+        /// <param name="order">Order is desc (the default) or asc. (optional)</param>
+        /// <param name="cursor">Cursor continues from where the previous page ended. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 500. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingSubscriberPage)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingSubscriberPage>> GetMarketingListsByIdSubscribersWithHttpInfoAsync(string id, string? status = default, string? tag = default, string? source = default, string? varRef = default, string? basis = default, string? q = default, string? field = default, string? value = default, long? createdAfter = default, long? createdBefore = default, long? confirmedAfter = default, long? confirmedBefore = default, long? openedAfter = default, long? notOpenedSince = default, long? clickedAfter = default, string? segment = default, string? sort = default, string? order = default, string? cursor = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
+        /// </summary>
+        /// <remarks>
+        /// Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the subscriber&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingSubscriber</returns>
+        System.Threading.Tasks.Task<MarketingSubscriber> GetMarketingListsByIdSubscribersBySidAsync(string id, long? sid, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
+        /// </summary>
+        /// <remarks>
+        /// Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the subscriber&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingSubscriber)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingSubscriber>> GetMarketingListsByIdSubscribersBySidWithHttpInfoAsync(string id, long? sid, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
         /// Returns every promo the deployment offers with its live counters: how many orgs have redeemed it and how many redemptions remain under the cap.
         /// </summary>
         /// <remarks>
@@ -1523,6 +2798,27 @@ namespace Hanzo.AI.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (MarketingRedemption)</returns>
         System.Threading.Tasks.Task<ApiResponse<MarketingRedemption>> GetMarketingPromosByCodeRedemptionWithHttpInfoAsync(string code, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+        /// </summary>
+        /// <remarks>
+        /// Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingSender</returns>
+        System.Threading.Tasks.Task<MarketingSender> GetMarketingSenderAsync(System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+        /// </summary>
+        /// <remarks>
+        /// Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingSender)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingSender>> GetMarketingSenderWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Returns the org&#39;s drip sequences, most recently updated first.
         /// </summary>
@@ -1698,9 +2994,10 @@ namespace Hanzo.AI.Api
         /// <param name="address">Address is the recipient to opt out. (optional)</param>
         /// <param name="token">Token is the HMAC over (org, channel, address). It is the ONLY authority here — there is no principal — so it binds the request to one tuple and nothing else. (optional)</param>
         /// <param name="company">Company opts out everyone at the address&#39;s domain as well, in this org alone: a company&#39;s unsubscribe. An address at a free mail provider is a person&#39;s and is refused 422. (optional)</param>
+        /// <param name="list">List is the marketing list a broadcast&#39;s link leaves; with it the token is the list&#39;s, the address leaves that list alone, and the org&#39;s other mail still reaches it. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of MarketingUnsubscribed</returns>
-        System.Threading.Tasks.Task<MarketingUnsubscribed> GetMarketingUnsubscribeAsync(string? org = default, string? channel = default, string? address = default, string? token = default, bool? company = default, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<MarketingUnsubscribed> GetMarketingUnsubscribeAsync(string? org = default, string? channel = default, string? address = default, string? token = default, bool? company = default, string? list = default, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Is the PUBLIC one-click endpoint (no principal): a recipient clicks the signed link in an email footer.
@@ -1714,9 +3011,87 @@ namespace Hanzo.AI.Api
         /// <param name="address">Address is the recipient to opt out. (optional)</param>
         /// <param name="token">Token is the HMAC over (org, channel, address). It is the ONLY authority here — there is no principal — so it binds the request to one tuple and nothing else. (optional)</param>
         /// <param name="company">Company opts out everyone at the address&#39;s domain as well, in this org alone: a company&#39;s unsubscribe. An address at a free mail provider is a person&#39;s and is refused 422. (optional)</param>
+        /// <param name="list">List is the marketing list a broadcast&#39;s link leaves; with it the token is the list&#39;s, the address leaves that list alone, and the org&#39;s other mail still reaches it. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (MarketingUnsubscribed)</returns>
-        System.Threading.Tasks.Task<ApiResponse<MarketingUnsubscribed>> GetMarketingUnsubscribeWithHttpInfoAsync(string? org = default, string? channel = default, string? address = default, string? token = default, bool? company = default, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<ApiResponse<MarketingUnsubscribed>> GetMarketingUnsubscribeWithHttpInfoAsync(string? org = default, string? channel = default, string? address = default, string? token = default, bool? company = default, string? list = default, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Changes the fields the body names on a draft or scheduled broadcast and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Changes the fields the body names on a draft or scheduled broadcast and answers it. One that is sending or done is 409.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast to change, from the path; ignored on create.</param>
+        /// <param name="marketingBroadcastIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingBroadcast</returns>
+        System.Threading.Tasks.Task<MarketingBroadcast> PatchMarketingBroadcastsByIdAsync(string id, MarketingBroadcastIn marketingBroadcastIn, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Changes the fields the body names on a draft or scheduled broadcast and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Changes the fields the body names on a draft or scheduled broadcast and answers it. One that is sending or done is 409.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast to change, from the path; ignored on create.</param>
+        /// <param name="marketingBroadcastIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingBroadcast)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingBroadcast>> PatchMarketingBroadcastsByIdWithHttpInfoAsync(string id, MarketingBroadcastIn marketingBroadcastIn, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Changes the fields the body names on one of the org&#39;s lists and answers the list.
+        /// </summary>
+        /// <remarks>
+        /// Changes the fields the body names on one of the org&#39;s lists and answers the list. A field left out keeps its value; an empty string clears a sender field back to the org&#39;s.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list to change, from the path; ignored on create.</param>
+        /// <param name="marketingListIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingList</returns>
+        System.Threading.Tasks.Task<MarketingList> PatchMarketingListsByIdAsync(string id, MarketingListIn marketingListIn, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Changes the fields the body names on one of the org&#39;s lists and answers the list.
+        /// </summary>
+        /// <remarks>
+        /// Changes the fields the body names on one of the org&#39;s lists and answers the list. A field left out keeps its value; an empty string clears a sender field back to the org&#39;s.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list to change, from the path; ignored on create.</param>
+        /// <param name="marketingListIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingList)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingList>> PatchMarketingListsByIdWithHttpInfoAsync(string id, MarketingListIn marketingListIn, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Changes the fields the body names on one subscriber and answers the row.
+        /// </summary>
+        /// <remarks>
+        /// Changes the fields the body names on one subscriber and answers the row. A status change follows the same rule as add: an address that unsubscribed or complained is not put back by the org.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="sid">SID is the subscriber to change, from the path; ignored on add.</param>
+        /// <param name="marketingSubscriberIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingSubscriber</returns>
+        System.Threading.Tasks.Task<MarketingSubscriber> PatchMarketingListsByIdSubscribersBySidAsync(string id, long? sid, MarketingSubscriberIn marketingSubscriberIn, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Changes the fields the body names on one subscriber and answers the row.
+        /// </summary>
+        /// <remarks>
+        /// Changes the fields the body names on one subscriber and answers the row. A status change follows the same rule as add: an address that unsubscribed or complained is not put back by the org.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="sid">SID is the subscriber to change, from the path; ignored on add.</param>
+        /// <param name="marketingSubscriberIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingSubscriber)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingSubscriber>> PatchMarketingListsByIdSubscribersBySidWithHttpInfoAsync(string id, long? sid, MarketingSubscriberIn marketingSubscriberIn, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Saves a cohort filter for the caller&#39;s org.
         /// </summary>
@@ -1833,6 +3208,102 @@ namespace Hanzo.AI.Api
         /// <returns>Task of ApiResponse (MarketingBeta)</returns>
         System.Threading.Tasks.Task<ApiResponse<MarketingBeta>> PostMarketingBetaRequestWithHttpInfoAsync(MarketingBetaRequest marketingBetaRequest, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
+        /// Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it.
+        /// </summary>
+        /// <remarks>
+        /// Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it. With scheduledAt it is scheduled; without, a draft until sent.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingBroadcastIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingBroadcast</returns>
+        System.Threading.Tasks.Task<MarketingBroadcast> PostMarketingBroadcastsAsync(MarketingBroadcastIn marketingBroadcastIn, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it.
+        /// </summary>
+        /// <remarks>
+        /// Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it. With scheduledAt it is scheduled; without, a draft until sent.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingBroadcastIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingBroadcast)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingBroadcast>> PostMarketingBroadcastsWithHttpInfoAsync(MarketingBroadcastIn marketingBroadcastIn, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Stops a scheduled or sending broadcast and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Stops a scheduled or sending broadcast and answers it. Who it already reached stays recorded.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingBroadcast</returns>
+        System.Threading.Tasks.Task<MarketingBroadcast> PostMarketingBroadcastsByIdCancelAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Stops a scheduled or sending broadcast and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Stops a scheduled or sending broadcast and answers it. Who it already reached stays recorded.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingBroadcast)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingBroadcast>> PostMarketingBroadcastsByIdCancelWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it.
+        /// </summary>
+        /// <remarks>
+        /// Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it. The list&#39;s sender must carry a postal address, which every commercial mail states (CAN-SPAM); without one it is 422.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast, from the path.</param>
+        /// <param name="marketingSendIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingBroadcast</returns>
+        System.Threading.Tasks.Task<MarketingBroadcast> PostMarketingBroadcastsByIdSendAsync(string id, MarketingSendIn marketingSendIn, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it.
+        /// </summary>
+        /// <remarks>
+        /// Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it. The list&#39;s sender must carry a postal address, which every commercial mail states (CAN-SPAM); without one it is 422.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast, from the path.</param>
+        /// <param name="marketingSendIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingBroadcast)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingBroadcast>> PostMarketingBroadcastsByIdSendWithHttpInfoAsync(string id, MarketingSendIn marketingSendIn, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.
+        /// </summary>
+        /// <remarks>
+        /// Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast, from the path.</param>
+        /// <param name="marketingTestIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingTestOut</returns>
+        System.Threading.Tasks.Task<MarketingTestOut> PostMarketingBroadcastsByIdTestAsync(string id, MarketingTestIn marketingTestIn, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.
+        /// </summary>
+        /// <remarks>
+        /// Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast, from the path.</param>
+        /// <param name="marketingTestIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingTestOut)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingTestOut>> PostMarketingBroadcastsByIdTestWithHttpInfoAsync(string id, MarketingTestIn marketingTestIn, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
         /// Adds a post to the content calendar.
         /// </summary>
         /// <remarks>
@@ -1904,6 +3375,75 @@ namespace Hanzo.AI.Api
         /// <returns>Task of ApiResponse (MarketingCampaign)</returns>
         System.Threading.Tasks.Task<ApiResponse<MarketingCampaign>> PostMarketingCampaignsByIdScheduleWithHttpInfoAsync(string id, MarketingScheduleInput marketingScheduleInput, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
+        /// Creates an import into one of the org&#39;s lists and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Creates an import into one of the org&#39;s lists and answers it. For a file the import waits in state receiving for its bytes (PUT /v1/marketing/imports/{id}/data); for a source (from: commerce) it is queued at once. A key makes the call idempotent: a second create with it answers the first import. The rows are stamped with the import&#39;s id as their source ref, so a filter on ref selects the batch.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingImportIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingCreated</returns>
+        System.Threading.Tasks.Task<MarketingCreated> PostMarketingImportsAsync(MarketingImportIn marketingImportIn, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Creates an import into one of the org&#39;s lists and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Creates an import into one of the org&#39;s lists and answers it. For a file the import waits in state receiving for its bytes (PUT /v1/marketing/imports/{id}/data); for a source (from: commerce) it is queued at once. A key makes the call idempotent: a second create with it answers the first import. The rows are stamped with the import&#39;s id as their source ref, so a filter on ref selects the batch.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingImportIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingCreated)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingCreated>> PostMarketingImportsWithHttpInfoAsync(MarketingImportIn marketingImportIn, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Stops an import that has not finished and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Stops an import that has not finished and answers it. The rows it already wrote stay; a filter on its id as ref selects them.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingImport</returns>
+        System.Threading.Tasks.Task<MarketingImport> PostMarketingImportsByIdCancelAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Stops an import that has not finished and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Stops an import that has not finished and answers it. The rows it already wrote stay; a filter on its id as ref selects them.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingImport)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingImport>> PostMarketingImportsByIdCancelWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there.
+        /// </summary>
+        /// <remarks>
+        /// Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there. An import with no bytes is 409.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingImport</returns>
+        System.Threading.Tasks.Task<MarketingImport> PostMarketingImportsByIdStartAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there.
+        /// </summary>
+        /// <remarks>
+        /// Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there. An import with no bytes is 409.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingImport)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingImport>> PostMarketingImportsByIdStartWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
         /// Files one public form in the deployment&#39;s own CRM.
         /// </summary>
         /// <remarks>
@@ -1972,6 +3512,104 @@ namespace Hanzo.AI.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (MarketingResumeForm)</returns>
         System.Threading.Tasks.Task<ApiResponse<MarketingResumeForm>> PostMarketingLeadsResumeWithHttpInfoAsync(MarketingResumeIn marketingResumeIn, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Creates a list in the org and answers 201 with it.
+        /// </summary>
+        /// <remarks>
+        /// Creates a list in the org and answers 201 with it. Name is required; a new list is private, asks public subscribers to confirm, and takes the org&#39;s sender for every sender field it leaves empty. A slug the org already uses is 409.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingListIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingList</returns>
+        System.Threading.Tasks.Task<MarketingList> PostMarketingListsAsync(MarketingListIn marketingListIn, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Creates a list in the org and answers 201 with it.
+        /// </summary>
+        /// <remarks>
+        /// Creates a list in the org and answers 201 with it. Name is required; a new list is private, asks public subscribers to confirm, and takes the org&#39;s sender for every sender field it leaves empty. A slug the org already uses is 409.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingListIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingList)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingList>> PostMarketingListsWithHttpInfoAsync(MarketingListIn marketingListIn, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.
+        /// </summary>
+        /// <remarks>
+        /// Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingSegmentIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingSegment</returns>
+        System.Threading.Tasks.Task<MarketingSegment> PostMarketingListsByIdSegmentsAsync(string id, MarketingSegmentIn marketingSegmentIn, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.
+        /// </summary>
+        /// <remarks>
+        /// Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingSegmentIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingSegment)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingSegment>> PostMarketingListsByIdSegmentsWithHttpInfoAsync(string id, MarketingSegmentIn marketingSegmentIn, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row.
+        /// </summary>
+        /// <remarks>
+        /// Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row. Pending mails the address a link to confirm. An address that unsubscribed or complained cannot be put back by the org: it is 409, and the person rejoins by subscribing and confirming again.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingSubscriberIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingAdded</returns>
+        System.Threading.Tasks.Task<MarketingAdded> PostMarketingListsByIdSubscribersAsync(string id, MarketingSubscriberIn marketingSubscriberIn, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row.
+        /// </summary>
+        /// <remarks>
+        /// Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row. Pending mails the address a link to confirm. An address that unsubscribed or complained cannot be put back by the org: it is 409, and the person rejoins by subscribing and confirming again.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingSubscriberIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingAdded)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingAdded>> PostMarketingListsByIdSubscribersWithHttpInfoAsync(string id, MarketingSubscriberIn marketingSubscriberIn, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Applies one action to a selection of a list and answers how many rows it matched and changed.
+        /// </summary>
+        /// <remarks>
+        /// Applies one action to a selection of a list and answers how many rows it matched and changed. The selection is ids, a saved segment, a filter, or the whole list. It walks the selection in batches of a thousand, one transaction each, so millions of rows move in bounded memory: tag and untag add or remove a tag; move moves the rows to another list of the org; unsubscribe and clean set those statuses on every row that is pending or subscribed, each telling the CRM and the event stream; delete removes the rows and their evidence.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingBulkIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingBulkOut</returns>
+        System.Threading.Tasks.Task<MarketingBulkOut> PostMarketingListsByIdSubscribersBulkAsync(string id, MarketingBulkIn marketingBulkIn, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Applies one action to a selection of a list and answers how many rows it matched and changed.
+        /// </summary>
+        /// <remarks>
+        /// Applies one action to a selection of a list and answers how many rows it matched and changed. The selection is ids, a saved segment, a filter, or the whole list. It walks the selection in batches of a thousand, one transaction each, so millions of rows move in bounded memory: tag and untag add or remove a tag; move moves the rows to another list of the org; unsubscribe and clean set those statuses on every row that is pending or subscribed, each telling the CRM and the event stream; delete removes the rows and their evidence.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingBulkIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingBulkOut)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingBulkOut>> PostMarketingListsByIdSubscribersBulkWithHttpInfoAsync(string id, MarketingBulkIn marketingBulkIn, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Sends one email from the org to one person, the way a person on the org&#39;s team writes back to a lead from its record.
         /// </summary>
@@ -2223,10 +3861,11 @@ namespace Hanzo.AI.Api
         /// <param name="channel">Channel is the surface to opt out of. (optional)</param>
         /// <param name="address">Address is the recipient to opt out. (optional)</param>
         /// <param name="token">Token is the HMAC over (org, channel, address), the only authority here. (optional)</param>
+        /// <param name="list">List is the marketing list the link leaves, as on the signed link. (optional)</param>
         /// <param name="listUnsubscribe">OneClick is the form&#39;s List-Unsubscribe field, \\\&quot;One-Click\\\&quot; from a mail client. The token decides; this field only names the form. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of MarketingUnsubscribed</returns>
-        System.Threading.Tasks.Task<MarketingUnsubscribed> PostMarketingUnsubscribeAsync(string? org = default, string? channel = default, string? address = default, string? token = default, string? listUnsubscribe = default, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<MarketingUnsubscribed> PostMarketingUnsubscribeAsync(string? org = default, string? channel = default, string? address = default, string? token = default, string? list = default, string? listUnsubscribe = default, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Is the one-click unsubscribe a mail client sends from the List-Unsubscribe header (RFC 8058): the same signed link the footer carries, POSTed with the form body List-Unsubscribe&#x3D;One-Click.
@@ -2239,10 +3878,11 @@ namespace Hanzo.AI.Api
         /// <param name="channel">Channel is the surface to opt out of. (optional)</param>
         /// <param name="address">Address is the recipient to opt out. (optional)</param>
         /// <param name="token">Token is the HMAC over (org, channel, address), the only authority here. (optional)</param>
+        /// <param name="list">List is the marketing list the link leaves, as on the signed link. (optional)</param>
         /// <param name="listUnsubscribe">OneClick is the form&#39;s List-Unsubscribe field, \\\&quot;One-Click\\\&quot; from a mail client. The token decides; this field only names the form. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (MarketingUnsubscribed)</returns>
-        System.Threading.Tasks.Task<ApiResponse<MarketingUnsubscribed>> PostMarketingUnsubscribeWithHttpInfoAsync(string? org = default, string? channel = default, string? address = default, string? token = default, string? listUnsubscribe = default, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<ApiResponse<MarketingUnsubscribed>> PostMarketingUnsubscribeWithHttpInfoAsync(string? org = default, string? channel = default, string? address = default, string? token = default, string? list = default, string? listUnsubscribe = default, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Writes the signed-in caller&#39;s application: the program, the answers, the betas asked for and the lead it was filed under.
         /// </summary>
@@ -2316,6 +3956,102 @@ namespace Hanzo.AI.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (MarketingCampaign)</returns>
         System.Threading.Tasks.Task<ApiResponse<MarketingCampaign>> PutMarketingCampaignsByIdWithHttpInfoAsync(string id, MarketingCampaign marketingCampaign, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Replaces the org&#39;s custom fields with the set the body carries and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Replaces the org&#39;s custom fields with the set the body carries and answers it. A field dropped from the set is removed from every subscriber; a field kept keeps its values when its type does not change, and a changed type is 409 while any subscriber has a value for it.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingFieldSet"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingFieldSet</returns>
+        System.Threading.Tasks.Task<MarketingFieldSet> PutMarketingFieldsAsync(MarketingFieldSet marketingFieldSet, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Replaces the org&#39;s custom fields with the set the body carries and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Replaces the org&#39;s custom fields with the set the body carries and answers it. A field dropped from the set is removed from every subscriber; a field kept keeps its values when its type does not change, and a changed type is 409 while any subscriber has a value for it.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingFieldSet"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingFieldSet)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingFieldSet>> PutMarketingFieldsWithHttpInfoAsync(MarketingFieldSet marketingFieldSet, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds.
+        /// </summary>
+        /// <remarks>
+        /// Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds. A piece at an offset the import has passed is taken only past what it holds, so a retried piece writes nothing twice; a piece past the end is 409 naming the offset to resume from. Send the file in order, in pieces of any size up to the request limit, then start it.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task PutMarketingImportsByIdDataAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds.
+        /// </summary>
+        /// <remarks>
+        /// Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds. A piece at an offset the import has passed is taken only past what it holds, so a retried piece writes nothing twice; a piece past the end is 409 naming the offset to resume from. Send the file in order, in pieces of any size up to the request limit, then start it.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> PutMarketingImportsByIdDataWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.
+        /// </summary>
+        /// <remarks>
+        /// Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="sid">SID is the segment to change, from the path; ignored on create.</param>
+        /// <param name="marketingSegmentIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingSegment</returns>
+        System.Threading.Tasks.Task<MarketingSegment> PutMarketingListsByIdSegmentsBySidAsync(string id, string sid, MarketingSegmentIn marketingSegmentIn, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.
+        /// </summary>
+        /// <remarks>
+        /// Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="sid">SID is the segment to change, from the path; ignored on create.</param>
+        /// <param name="marketingSegmentIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingSegment)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingSegment>> PutMarketingListsByIdSegmentsBySidWithHttpInfoAsync(string id, string sid, MarketingSegmentIn marketingSegmentIn, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Replaces the org&#39;s sender and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Replaces the org&#39;s sender and answers it. Every field is written; one left out is cleared.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingSender"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingSender</returns>
+        System.Threading.Tasks.Task<MarketingSender> PutMarketingSenderAsync(MarketingSender marketingSender, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Replaces the org&#39;s sender and answers it.
+        /// </summary>
+        /// <remarks>
+        /// Replaces the org&#39;s sender and answers it. Every field is written; one left out is cleared.  Org admin only.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingSender"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingSender)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MarketingSender>> PutMarketingSenderWithHttpInfoAsync(MarketingSender marketingSender, System.Threading.CancellationToken cancellationToken = default);
         #endregion Asynchronous Operations
     }
 
@@ -2655,6 +4391,135 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
+        /// Deletes a broadcast that is not sending, with its record of who it went to, and answers 204. Deletes a broadcast that is not sending, with its record of who it went to, and answers 204. One that is sending is 409; cancel it first.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <returns>Object</returns>
+        public Object DeleteMarketingBroadcastsById(string id)
+        {
+            Hanzo.AI.Client.ApiResponse<Object> localVarResponse = DeleteMarketingBroadcastsByIdWithHttpInfo(id);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Deletes a broadcast that is not sending, with its record of who it went to, and answers 204. Deletes a broadcast that is not sending, with its record of who it went to, and answers 204. One that is sending is 409; cancel it first.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <returns>ApiResponse of Object</returns>
+        public Hanzo.AI.Client.ApiResponse<Object> DeleteMarketingBroadcastsByIdWithHttpInfo(string id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->DeleteMarketingBroadcastsById");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Delete<Object>("/v1/marketing/broadcasts/{id}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("DeleteMarketingBroadcastsById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Deletes a broadcast that is not sending, with its record of who it went to, and answers 204. Deletes a broadcast that is not sending, with its record of who it went to, and answers 204. One that is sending is 409; cancel it first.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> DeleteMarketingBroadcastsByIdAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<Object> localVarResponse = await DeleteMarketingBroadcastsByIdWithHttpInfoAsync(id, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Deletes a broadcast that is not sending, with its record of who it went to, and answers 204. Deletes a broadcast that is not sending, with its record of who it went to, and answers 204. One that is sending is 409; cancel it first.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<Object>> DeleteMarketingBroadcastsByIdWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->DeleteMarketingBroadcastsById");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.DeleteAsync<Object>("/v1/marketing/broadcasts/{id}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("DeleteMarketingBroadcastsById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
         /// Removes one of the caller org&#39;s posts and answers 204. Removes one of the caller org&#39;s posts and answers 204. A post already published is deleted from the calendar only — nothing is retracted from the network it went out on.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
@@ -2905,6 +4770,421 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
+        /// Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204. Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204. A list with a broadcast sending is 409; cancel it first.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <returns>Object</returns>
+        public Object DeleteMarketingListsById(string id)
+        {
+            Hanzo.AI.Client.ApiResponse<Object> localVarResponse = DeleteMarketingListsByIdWithHttpInfo(id);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204. Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204. A list with a broadcast sending is 409; cancel it first.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <returns>ApiResponse of Object</returns>
+        public Hanzo.AI.Client.ApiResponse<Object> DeleteMarketingListsByIdWithHttpInfo(string id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->DeleteMarketingListsById");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Delete<Object>("/v1/marketing/lists/{id}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("DeleteMarketingListsById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204. Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204. A list with a broadcast sending is 409; cancel it first.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> DeleteMarketingListsByIdAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<Object> localVarResponse = await DeleteMarketingListsByIdWithHttpInfoAsync(id, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204. Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204. A list with a broadcast sending is 409; cancel it first.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<Object>> DeleteMarketingListsByIdWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->DeleteMarketingListsById");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.DeleteAsync<Object>("/v1/marketing/lists/{id}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("DeleteMarketingListsById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Deletes a saved segment and answers 204. Deletes a saved segment and answers 204. A scheduled broadcast to it is 409; change or cancel the broadcast first.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the segment&#39;s id.</param>
+        /// <returns>Object</returns>
+        public Object DeleteMarketingListsByIdSegmentsBySid(string id, string sid)
+        {
+            Hanzo.AI.Client.ApiResponse<Object> localVarResponse = DeleteMarketingListsByIdSegmentsBySidWithHttpInfo(id, sid);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Deletes a saved segment and answers 204. Deletes a saved segment and answers 204. A scheduled broadcast to it is 409; change or cancel the broadcast first.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the segment&#39;s id.</param>
+        /// <returns>ApiResponse of Object</returns>
+        public Hanzo.AI.Client.ApiResponse<Object> DeleteMarketingListsByIdSegmentsBySidWithHttpInfo(string id, string sid)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->DeleteMarketingListsByIdSegmentsBySid");
+
+            // verify the required parameter 'sid' is set
+            if (sid == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'sid' when calling MarketingApi->DeleteMarketingListsByIdSegmentsBySid");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.PathParameters.Add("sid", Hanzo.AI.Client.ClientUtils.ParameterToString(sid)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Delete<Object>("/v1/marketing/lists/{id}/segments/{sid}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("DeleteMarketingListsByIdSegmentsBySid", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Deletes a saved segment and answers 204. Deletes a saved segment and answers 204. A scheduled broadcast to it is 409; change or cancel the broadcast first.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the segment&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> DeleteMarketingListsByIdSegmentsBySidAsync(string id, string sid, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<Object> localVarResponse = await DeleteMarketingListsByIdSegmentsBySidWithHttpInfoAsync(id, sid, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Deletes a saved segment and answers 204. Deletes a saved segment and answers 204. A scheduled broadcast to it is 409; change or cancel the broadcast first.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the segment&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<Object>> DeleteMarketingListsByIdSegmentsBySidWithHttpInfoAsync(string id, string sid, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->DeleteMarketingListsByIdSegmentsBySid");
+
+            // verify the required parameter 'sid' is set
+            if (sid == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'sid' when calling MarketingApi->DeleteMarketingListsByIdSegmentsBySid");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.PathParameters.Add("sid", Hanzo.AI.Client.ClientUtils.ParameterToString(sid)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.DeleteAsync<Object>("/v1/marketing/lists/{id}/segments/{sid}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("DeleteMarketingListsByIdSegmentsBySid", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Removes one subscriber from one of the org&#39;s lists and answers 204. Removes one subscriber from one of the org&#39;s lists and answers 204. The row and its evidence are gone; to keep the record of someone leaving, set their status to unsubscribed instead.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the subscriber&#39;s id.</param>
+        /// <returns>Object</returns>
+        public Object DeleteMarketingListsByIdSubscribersBySid(string id, long? sid)
+        {
+            Hanzo.AI.Client.ApiResponse<Object> localVarResponse = DeleteMarketingListsByIdSubscribersBySidWithHttpInfo(id, sid);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Removes one subscriber from one of the org&#39;s lists and answers 204. Removes one subscriber from one of the org&#39;s lists and answers 204. The row and its evidence are gone; to keep the record of someone leaving, set their status to unsubscribed instead.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the subscriber&#39;s id.</param>
+        /// <returns>ApiResponse of Object</returns>
+        public Hanzo.AI.Client.ApiResponse<Object> DeleteMarketingListsByIdSubscribersBySidWithHttpInfo(string id, long? sid)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->DeleteMarketingListsByIdSubscribersBySid");
+
+            // verify the required parameter 'sid' is set
+            if (sid == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'sid' when calling MarketingApi->DeleteMarketingListsByIdSubscribersBySid");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.PathParameters.Add("sid", Hanzo.AI.Client.ClientUtils.ParameterToString(sid)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Delete<Object>("/v1/marketing/lists/{id}/subscribers/{sid}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("DeleteMarketingListsByIdSubscribersBySid", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Removes one subscriber from one of the org&#39;s lists and answers 204. Removes one subscriber from one of the org&#39;s lists and answers 204. The row and its evidence are gone; to keep the record of someone leaving, set their status to unsubscribed instead.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the subscriber&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> DeleteMarketingListsByIdSubscribersBySidAsync(string id, long? sid, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<Object> localVarResponse = await DeleteMarketingListsByIdSubscribersBySidWithHttpInfoAsync(id, sid, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Removes one subscriber from one of the org&#39;s lists and answers 204. Removes one subscriber from one of the org&#39;s lists and answers 204. The row and its evidence are gone; to keep the record of someone leaving, set their status to unsubscribed instead.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the subscriber&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<Object>> DeleteMarketingListsByIdSubscribersBySidWithHttpInfoAsync(string id, long? sid, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->DeleteMarketingListsByIdSubscribersBySid");
+
+            // verify the required parameter 'sid' is set
+            if (sid == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'sid' when calling MarketingApi->DeleteMarketingListsByIdSubscribersBySid");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.PathParameters.Add("sid", Hanzo.AI.Client.ClientUtils.ParameterToString(sid)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.DeleteAsync<Object>("/v1/marketing/lists/{id}/subscribers/{sid}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("DeleteMarketingListsByIdSubscribersBySid", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
         /// Re-subscribes an address on one channel and answers 204. Re-subscribes an address on one channel and answers 204. The entry is named in the query. An address that is not on the list reads as not found.  Org admin or SuperAdmin only; a member of the org is refused.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
@@ -3040,7 +5320,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Returns the org&#39;s saved audiences, most recently updated first. Returns the org&#39;s saved audiences, most recently updated first.
+        /// Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count. Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count. A list or a segment is an audience as a cohort is: a sequence enrolls any of them by id.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="limit">Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)</param>
@@ -3052,7 +5332,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Returns the org&#39;s saved audiences, most recently updated first. Returns the org&#39;s saved audiences, most recently updated first.
+        /// Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count. Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count. A list or a segment is an audience as a cohort is: a sequence enrolls any of them by id.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="limit">Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)</param>
@@ -3101,7 +5381,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Returns the org&#39;s saved audiences, most recently updated first. Returns the org&#39;s saved audiences, most recently updated first.
+        /// Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count. Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count. A list or a segment is an audience as a cohort is: a sequence enrolls any of them by id.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="limit">Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)</param>
@@ -3114,7 +5394,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Returns the org&#39;s saved audiences, most recently updated first. Returns the org&#39;s saved audiences, most recently updated first.
+        /// Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count. Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count. A list or a segment is an audience as a cohort is: a sequence enrolls any of them by id.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="limit">Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)</param>
@@ -3648,6 +5928,415 @@ namespace Hanzo.AI.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetMarketingBetaInvites", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns the org&#39;s broadcasts, newest first. Returns the org&#39;s broadcasts, newest first.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="list">List keeps one list&#39;s broadcasts, by id or slug. (optional)</param>
+        /// <param name="status">Status keeps broadcasts in one status. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 200. (optional)</param>
+        /// <returns>MarketingBroadcastPage</returns>
+        public MarketingBroadcastPage GetMarketingBroadcasts(string? list = default, string? status = default, long? limit = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingBroadcastPage> localVarResponse = GetMarketingBroadcastsWithHttpInfo(list, status, limit);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns the org&#39;s broadcasts, newest first. Returns the org&#39;s broadcasts, newest first.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="list">List keeps one list&#39;s broadcasts, by id or slug. (optional)</param>
+        /// <param name="status">Status keeps broadcasts in one status. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 200. (optional)</param>
+        /// <returns>ApiResponse of MarketingBroadcastPage</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingBroadcastPage> GetMarketingBroadcastsWithHttpInfo(string? list = default, string? status = default, long? limit = default)
+        {
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (list != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "list", list));
+            }
+            if (status != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "status", status));
+            }
+            if (limit != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+            }
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<MarketingBroadcastPage>("/v1/marketing/broadcasts", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingBroadcasts", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns the org&#39;s broadcasts, newest first. Returns the org&#39;s broadcasts, newest first.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="list">List keeps one list&#39;s broadcasts, by id or slug. (optional)</param>
+        /// <param name="status">Status keeps broadcasts in one status. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 200. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingBroadcastPage</returns>
+        public async System.Threading.Tasks.Task<MarketingBroadcastPage> GetMarketingBroadcastsAsync(string? list = default, string? status = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingBroadcastPage> localVarResponse = await GetMarketingBroadcastsWithHttpInfoAsync(list, status, limit, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns the org&#39;s broadcasts, newest first. Returns the org&#39;s broadcasts, newest first.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="list">List keeps one list&#39;s broadcasts, by id or slug. (optional)</param>
+        /// <param name="status">Status keeps broadcasts in one status. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 200. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingBroadcastPage)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingBroadcastPage>> GetMarketingBroadcastsWithHttpInfoAsync(string? list = default, string? status = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default)
+        {
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (list != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "list", list));
+            }
+            if (status != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "status", status));
+            }
+            if (limit != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+            }
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<MarketingBroadcastPage>("/v1/marketing/broadcasts", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingBroadcasts", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns one of the org&#39;s broadcasts. Returns one of the org&#39;s broadcasts.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <returns>MarketingBroadcast</returns>
+        public MarketingBroadcast GetMarketingBroadcastsById(string id)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingBroadcast> localVarResponse = GetMarketingBroadcastsByIdWithHttpInfo(id);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns one of the org&#39;s broadcasts. Returns one of the org&#39;s broadcasts.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <returns>ApiResponse of MarketingBroadcast</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingBroadcast> GetMarketingBroadcastsByIdWithHttpInfo(string id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingBroadcastsById");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<MarketingBroadcast>("/v1/marketing/broadcasts/{id}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingBroadcastsById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns one of the org&#39;s broadcasts. Returns one of the org&#39;s broadcasts.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingBroadcast</returns>
+        public async System.Threading.Tasks.Task<MarketingBroadcast> GetMarketingBroadcastsByIdAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingBroadcast> localVarResponse = await GetMarketingBroadcastsByIdWithHttpInfoAsync(id, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns one of the org&#39;s broadcasts. Returns one of the org&#39;s broadcasts.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingBroadcast)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingBroadcast>> GetMarketingBroadcastsByIdWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingBroadcastsById");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<MarketingBroadcast>("/v1/marketing/broadcasts/{id}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingBroadcastsById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates. Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <returns>MarketingBroadcastStats</returns>
+        public MarketingBroadcastStats GetMarketingBroadcastsByIdStats(string id)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingBroadcastStats> localVarResponse = GetMarketingBroadcastsByIdStatsWithHttpInfo(id);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates. Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <returns>ApiResponse of MarketingBroadcastStats</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingBroadcastStats> GetMarketingBroadcastsByIdStatsWithHttpInfo(string id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingBroadcastsByIdStats");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<MarketingBroadcastStats>("/v1/marketing/broadcasts/{id}/stats", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingBroadcastsByIdStats", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates. Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingBroadcastStats</returns>
+        public async System.Threading.Tasks.Task<MarketingBroadcastStats> GetMarketingBroadcastsByIdStatsAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingBroadcastStats> localVarResponse = await GetMarketingBroadcastsByIdStatsWithHttpInfoAsync(id, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates. Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingBroadcastStats)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingBroadcastStats>> GetMarketingBroadcastsByIdStatsWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingBroadcastsByIdStats");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<MarketingBroadcastStats>("/v1/marketing/broadcasts/{id}/stats", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingBroadcastsByIdStats", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 
@@ -4316,6 +7005,1550 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
+        /// Returns the custom fields the org defined for its subscribers. Returns the custom fields the org defined for its subscribers.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>MarketingFieldSet</returns>
+        public MarketingFieldSet GetMarketingFields()
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingFieldSet> localVarResponse = GetMarketingFieldsWithHttpInfo();
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns the custom fields the org defined for its subscribers. Returns the custom fields the org defined for its subscribers.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of MarketingFieldSet</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingFieldSet> GetMarketingFieldsWithHttpInfo()
+        {
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<MarketingFieldSet>("/v1/marketing/fields", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingFields", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns the custom fields the org defined for its subscribers. Returns the custom fields the org defined for its subscribers.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingFieldSet</returns>
+        public async System.Threading.Tasks.Task<MarketingFieldSet> GetMarketingFieldsAsync(System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingFieldSet> localVarResponse = await GetMarketingFieldsWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns the custom fields the org defined for its subscribers. Returns the custom fields the org defined for its subscribers.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingFieldSet)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingFieldSet>> GetMarketingFieldsWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default)
+        {
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<MarketingFieldSet>("/v1/marketing/fields", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingFields", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns the org&#39;s imports, newest first, each with its report. Returns the org&#39;s imports, newest first, each with its report.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="list">List keeps one list&#39;s imports, by id or slug. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 200. (optional)</param>
+        /// <returns>MarketingImportPage</returns>
+        public MarketingImportPage GetMarketingImports(string? list = default, long? limit = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingImportPage> localVarResponse = GetMarketingImportsWithHttpInfo(list, limit);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns the org&#39;s imports, newest first, each with its report. Returns the org&#39;s imports, newest first, each with its report.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="list">List keeps one list&#39;s imports, by id or slug. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 200. (optional)</param>
+        /// <returns>ApiResponse of MarketingImportPage</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingImportPage> GetMarketingImportsWithHttpInfo(string? list = default, long? limit = default)
+        {
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (list != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "list", list));
+            }
+            if (limit != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+            }
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<MarketingImportPage>("/v1/marketing/imports", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingImports", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns the org&#39;s imports, newest first, each with its report. Returns the org&#39;s imports, newest first, each with its report.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="list">List keeps one list&#39;s imports, by id or slug. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 200. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingImportPage</returns>
+        public async System.Threading.Tasks.Task<MarketingImportPage> GetMarketingImportsAsync(string? list = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingImportPage> localVarResponse = await GetMarketingImportsWithHttpInfoAsync(list, limit, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns the org&#39;s imports, newest first, each with its report. Returns the org&#39;s imports, newest first, each with its report.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="list">List keeps one list&#39;s imports, by id or slug. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 200. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingImportPage)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingImportPage>> GetMarketingImportsWithHttpInfoAsync(string? list = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default)
+        {
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (list != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "list", list));
+            }
+            if (limit != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+            }
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<MarketingImportPage>("/v1/marketing/imports", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingImports", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far. Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <returns>MarketingImport</returns>
+        public MarketingImport GetMarketingImportsById(string id)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingImport> localVarResponse = GetMarketingImportsByIdWithHttpInfo(id);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far. Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <returns>ApiResponse of MarketingImport</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingImport> GetMarketingImportsByIdWithHttpInfo(string id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingImportsById");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<MarketingImport>("/v1/marketing/imports/{id}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingImportsById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far. Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingImport</returns>
+        public async System.Threading.Tasks.Task<MarketingImport> GetMarketingImportsByIdAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingImport> localVarResponse = await GetMarketingImportsByIdWithHttpInfoAsync(id, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far. Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingImport)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingImport>> GetMarketingImportsByIdWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingImportsById");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<MarketingImport>("/v1/marketing/imports/{id}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingImportsById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns the org&#39;s lists, newest first, each with its subscribers counted by status. Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>MarketingListPage</returns>
+        public MarketingListPage GetMarketingLists()
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingListPage> localVarResponse = GetMarketingListsWithHttpInfo();
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns the org&#39;s lists, newest first, each with its subscribers counted by status. Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of MarketingListPage</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingListPage> GetMarketingListsWithHttpInfo()
+        {
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<MarketingListPage>("/v1/marketing/lists", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingLists", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns the org&#39;s lists, newest first, each with its subscribers counted by status. Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingListPage</returns>
+        public async System.Threading.Tasks.Task<MarketingListPage> GetMarketingListsAsync(System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingListPage> localVarResponse = await GetMarketingListsWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns the org&#39;s lists, newest first, each with its subscribers counted by status. Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingListPage)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingListPage>> GetMarketingListsWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default)
+        {
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<MarketingListPage>("/v1/marketing/lists", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingLists", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status. Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <returns>MarketingList</returns>
+        public MarketingList GetMarketingListsById(string id)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingList> localVarResponse = GetMarketingListsByIdWithHttpInfo(id);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status. Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <returns>ApiResponse of MarketingList</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingList> GetMarketingListsByIdWithHttpInfo(string id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingListsById");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<MarketingList>("/v1/marketing/lists/{id}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingListsById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status. Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingList</returns>
+        public async System.Threading.Tasks.Task<MarketingList> GetMarketingListsByIdAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingList> localVarResponse = await GetMarketingListsByIdWithHttpInfoAsync(id, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status. Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingList)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingList>> GetMarketingListsByIdWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingListsById");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<MarketingList>("/v1/marketing/lists/{id}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingListsById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields. Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields. The selection takes the same query fields as the subscriber list (status, tag, source, ref, basis, q, field, value, the date ranges and segment). The answer streams as it is read, so a list of millions exports in bounded memory.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public void GetMarketingListsByIdExport(string id)
+        {
+            GetMarketingListsByIdExportWithHttpInfo(id);
+        }
+
+        /// <summary>
+        /// Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields. Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields. The selection takes the same query fields as the subscriber list (status, tag, source, ref, basis, q, field, value, the date ranges and segment). The answer streams as it is read, so a list of millions exports in bounded memory.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public Hanzo.AI.Client.ApiResponse<Object> GetMarketingListsByIdExportWithHttpInfo(string id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingListsByIdExport");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<Object>("/v1/marketing/lists/{id}/export", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingListsByIdExport", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields. Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields. The selection takes the same query fields as the subscriber list (status, tag, source, ref, basis, q, field, value, the date ranges and segment). The answer streams as it is read, so a list of millions exports in bounded memory.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task GetMarketingListsByIdExportAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            await GetMarketingListsByIdExportWithHttpInfoAsync(id, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields. Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields. The selection takes the same query fields as the subscriber list (status, tag, source, ref, basis, q, field, value, the date ranges and segment). The answer streams as it is read, so a list of millions exports in bounded memory.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<Object>> GetMarketingListsByIdExportWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingListsByIdExport");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/v1/marketing/lists/{id}/export", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingListsByIdExport", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns one list&#39;s saved segments, newest first. Returns one list&#39;s saved segments, newest first.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <returns>MarketingSegmentPage</returns>
+        public MarketingSegmentPage GetMarketingListsByIdSegments(string id)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingSegmentPage> localVarResponse = GetMarketingListsByIdSegmentsWithHttpInfo(id);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns one list&#39;s saved segments, newest first. Returns one list&#39;s saved segments, newest first.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <returns>ApiResponse of MarketingSegmentPage</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingSegmentPage> GetMarketingListsByIdSegmentsWithHttpInfo(string id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingListsByIdSegments");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<MarketingSegmentPage>("/v1/marketing/lists/{id}/segments", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingListsByIdSegments", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns one list&#39;s saved segments, newest first. Returns one list&#39;s saved segments, newest first.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingSegmentPage</returns>
+        public async System.Threading.Tasks.Task<MarketingSegmentPage> GetMarketingListsByIdSegmentsAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingSegmentPage> localVarResponse = await GetMarketingListsByIdSegmentsWithHttpInfoAsync(id, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns one list&#39;s saved segments, newest first. Returns one list&#39;s saved segments, newest first.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list&#39;s id or its slug.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingSegmentPage)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingSegmentPage>> GetMarketingListsByIdSegmentsWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingListsByIdSegments");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<MarketingSegmentPage>("/v1/marketing/lists/{id}/segments", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingListsByIdSegments", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate. Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate. Every number is read from kept counts, never by reading the list.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="from">From is the first day, YYYY-MM-DD (UTC); 30 days before To by default. (optional)</param>
+        /// <param name="to">To is the last day, YYYY-MM-DD (UTC); today by default. At most 366 days after From. (optional)</param>
+        /// <returns>MarketingListStats</returns>
+        public MarketingListStats GetMarketingListsByIdStats(string id, string? from = default, string? to = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingListStats> localVarResponse = GetMarketingListsByIdStatsWithHttpInfo(id, from, to);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate. Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate. Every number is read from kept counts, never by reading the list.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="from">From is the first day, YYYY-MM-DD (UTC); 30 days before To by default. (optional)</param>
+        /// <param name="to">To is the last day, YYYY-MM-DD (UTC); today by default. At most 366 days after From. (optional)</param>
+        /// <returns>ApiResponse of MarketingListStats</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingListStats> GetMarketingListsByIdStatsWithHttpInfo(string id, string? from = default, string? to = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingListsByIdStats");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            if (from != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "from", from));
+            }
+            if (to != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "to", to));
+            }
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<MarketingListStats>("/v1/marketing/lists/{id}/stats", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingListsByIdStats", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate. Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate. Every number is read from kept counts, never by reading the list.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="from">From is the first day, YYYY-MM-DD (UTC); 30 days before To by default. (optional)</param>
+        /// <param name="to">To is the last day, YYYY-MM-DD (UTC); today by default. At most 366 days after From. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingListStats</returns>
+        public async System.Threading.Tasks.Task<MarketingListStats> GetMarketingListsByIdStatsAsync(string id, string? from = default, string? to = default, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingListStats> localVarResponse = await GetMarketingListsByIdStatsWithHttpInfoAsync(id, from, to, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate. Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate. Every number is read from kept counts, never by reading the list.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="from">From is the first day, YYYY-MM-DD (UTC); 30 days before To by default. (optional)</param>
+        /// <param name="to">To is the last day, YYYY-MM-DD (UTC); today by default. At most 366 days after From. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingListStats)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingListStats>> GetMarketingListsByIdStatsWithHttpInfoAsync(string id, string? from = default, string? to = default, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingListsByIdStats");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            if (from != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "from", from));
+            }
+            if (to != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "to", to));
+            }
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<MarketingListStats>("/v1/marketing/lists/{id}/stats", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingListsByIdStats", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns a page of one list&#39;s subscribers, newest first unless asked otherwise. Returns a page of one list&#39;s subscribers, newest first unless asked otherwise. Every filter (status, tag, source, ref, consent basis, a prefix of the address or name, a custom field&#39;s value, ranges of when they joined and confirmed, and whether they opened or clicked since a time) walks an index of its own, so a page costs the same on a list of ten rows or ten million. Continue with next.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="status">Status is one status or several, comma-separated: pending, subscribed, unsubscribed, bounced, complained, cleaned. (optional)</param>
+        /// <param name="tag">Tag keeps subscribers carrying this tag. (optional)</param>
+        /// <param name="source">Source keeps subscribers that came from this kind of source: form, page, api, import or commerce. (optional)</param>
+        /// <param name="varRef">Ref keeps subscribers from one source instance: a form id, a page, an import batch id. (optional)</param>
+        /// <param name="basis">Basis keeps subscribers by the consent basis recorded for them: explicit, legitimate_interest or unverified. (optional)</param>
+        /// <param name="q">Q keeps subscribers whose address or name begins with it, case-insensitively. A search is ordered by address. (optional)</param>
+        /// <param name="field">Field names a custom field, and Value keeps subscribers whose value for it is exactly this. (optional)</param>
+        /// <param name="value">Value is the custom field&#39;s value Field keeps. (optional)</param>
+        /// <param name="createdAfter">CreatedAfter and CreatedBefore bound when the subscriber joined the list, unix seconds, inclusive. Zero is unbounded. (optional)</param>
+        /// <param name="createdBefore">CreatedBefore is the upper bound of CreatedAfter&#39;s range. (optional)</param>
+        /// <param name="confirmedAfter">ConfirmedAfter and ConfirmedBefore bound when the subscription was confirmed, unix seconds, inclusive. (optional)</param>
+        /// <param name="confirmedBefore">ConfirmedBefore is the upper bound of ConfirmedAfter&#39;s range. (optional)</param>
+        /// <param name="openedAfter">OpenedAfter keeps subscribers who opened a broadcast at or after this time. (optional)</param>
+        /// <param name="notOpenedSince">NotOpenedSince keeps subscribers who have opened nothing since this time, including those who never opened anything. (optional)</param>
+        /// <param name="clickedAfter">ClickedAfter keeps subscribers who clicked a link at or after this time. (optional)</param>
+        /// <param name="segment">Segment applies a saved segment of the list; the filter fields narrow it further. (optional)</param>
+        /// <param name="sort">Sort is created (the default), email, name, confirmed or opened. A search (q) is always by address. (optional)</param>
+        /// <param name="order">Order is desc (the default) or asc. (optional)</param>
+        /// <param name="cursor">Cursor continues from where the previous page ended. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 500. (optional)</param>
+        /// <returns>MarketingSubscriberPage</returns>
+        public MarketingSubscriberPage GetMarketingListsByIdSubscribers(string id, string? status = default, string? tag = default, string? source = default, string? varRef = default, string? basis = default, string? q = default, string? field = default, string? value = default, long? createdAfter = default, long? createdBefore = default, long? confirmedAfter = default, long? confirmedBefore = default, long? openedAfter = default, long? notOpenedSince = default, long? clickedAfter = default, string? segment = default, string? sort = default, string? order = default, string? cursor = default, long? limit = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingSubscriberPage> localVarResponse = GetMarketingListsByIdSubscribersWithHttpInfo(id, status, tag, source, varRef, basis, q, field, value, createdAfter, createdBefore, confirmedAfter, confirmedBefore, openedAfter, notOpenedSince, clickedAfter, segment, sort, order, cursor, limit);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns a page of one list&#39;s subscribers, newest first unless asked otherwise. Returns a page of one list&#39;s subscribers, newest first unless asked otherwise. Every filter (status, tag, source, ref, consent basis, a prefix of the address or name, a custom field&#39;s value, ranges of when they joined and confirmed, and whether they opened or clicked since a time) walks an index of its own, so a page costs the same on a list of ten rows or ten million. Continue with next.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="status">Status is one status or several, comma-separated: pending, subscribed, unsubscribed, bounced, complained, cleaned. (optional)</param>
+        /// <param name="tag">Tag keeps subscribers carrying this tag. (optional)</param>
+        /// <param name="source">Source keeps subscribers that came from this kind of source: form, page, api, import or commerce. (optional)</param>
+        /// <param name="varRef">Ref keeps subscribers from one source instance: a form id, a page, an import batch id. (optional)</param>
+        /// <param name="basis">Basis keeps subscribers by the consent basis recorded for them: explicit, legitimate_interest or unverified. (optional)</param>
+        /// <param name="q">Q keeps subscribers whose address or name begins with it, case-insensitively. A search is ordered by address. (optional)</param>
+        /// <param name="field">Field names a custom field, and Value keeps subscribers whose value for it is exactly this. (optional)</param>
+        /// <param name="value">Value is the custom field&#39;s value Field keeps. (optional)</param>
+        /// <param name="createdAfter">CreatedAfter and CreatedBefore bound when the subscriber joined the list, unix seconds, inclusive. Zero is unbounded. (optional)</param>
+        /// <param name="createdBefore">CreatedBefore is the upper bound of CreatedAfter&#39;s range. (optional)</param>
+        /// <param name="confirmedAfter">ConfirmedAfter and ConfirmedBefore bound when the subscription was confirmed, unix seconds, inclusive. (optional)</param>
+        /// <param name="confirmedBefore">ConfirmedBefore is the upper bound of ConfirmedAfter&#39;s range. (optional)</param>
+        /// <param name="openedAfter">OpenedAfter keeps subscribers who opened a broadcast at or after this time. (optional)</param>
+        /// <param name="notOpenedSince">NotOpenedSince keeps subscribers who have opened nothing since this time, including those who never opened anything. (optional)</param>
+        /// <param name="clickedAfter">ClickedAfter keeps subscribers who clicked a link at or after this time. (optional)</param>
+        /// <param name="segment">Segment applies a saved segment of the list; the filter fields narrow it further. (optional)</param>
+        /// <param name="sort">Sort is created (the default), email, name, confirmed or opened. A search (q) is always by address. (optional)</param>
+        /// <param name="order">Order is desc (the default) or asc. (optional)</param>
+        /// <param name="cursor">Cursor continues from where the previous page ended. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 500. (optional)</param>
+        /// <returns>ApiResponse of MarketingSubscriberPage</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingSubscriberPage> GetMarketingListsByIdSubscribersWithHttpInfo(string id, string? status = default, string? tag = default, string? source = default, string? varRef = default, string? basis = default, string? q = default, string? field = default, string? value = default, long? createdAfter = default, long? createdBefore = default, long? confirmedAfter = default, long? confirmedBefore = default, long? openedAfter = default, long? notOpenedSince = default, long? clickedAfter = default, string? segment = default, string? sort = default, string? order = default, string? cursor = default, long? limit = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingListsByIdSubscribers");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            if (status != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "status", status));
+            }
+            if (tag != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "tag", tag));
+            }
+            if (source != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "source", source));
+            }
+            if (varRef != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "ref", varRef));
+            }
+            if (basis != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "basis", basis));
+            }
+            if (q != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "q", q));
+            }
+            if (field != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "field", field));
+            }
+            if (value != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "value", value));
+            }
+            if (createdAfter != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "createdAfter", createdAfter));
+            }
+            if (createdBefore != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "createdBefore", createdBefore));
+            }
+            if (confirmedAfter != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "confirmedAfter", confirmedAfter));
+            }
+            if (confirmedBefore != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "confirmedBefore", confirmedBefore));
+            }
+            if (openedAfter != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "openedAfter", openedAfter));
+            }
+            if (notOpenedSince != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "notOpenedSince", notOpenedSince));
+            }
+            if (clickedAfter != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "clickedAfter", clickedAfter));
+            }
+            if (segment != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "segment", segment));
+            }
+            if (sort != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "sort", sort));
+            }
+            if (order != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "order", order));
+            }
+            if (cursor != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "cursor", cursor));
+            }
+            if (limit != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+            }
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<MarketingSubscriberPage>("/v1/marketing/lists/{id}/subscribers", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingListsByIdSubscribers", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns a page of one list&#39;s subscribers, newest first unless asked otherwise. Returns a page of one list&#39;s subscribers, newest first unless asked otherwise. Every filter (status, tag, source, ref, consent basis, a prefix of the address or name, a custom field&#39;s value, ranges of when they joined and confirmed, and whether they opened or clicked since a time) walks an index of its own, so a page costs the same on a list of ten rows or ten million. Continue with next.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="status">Status is one status or several, comma-separated: pending, subscribed, unsubscribed, bounced, complained, cleaned. (optional)</param>
+        /// <param name="tag">Tag keeps subscribers carrying this tag. (optional)</param>
+        /// <param name="source">Source keeps subscribers that came from this kind of source: form, page, api, import or commerce. (optional)</param>
+        /// <param name="varRef">Ref keeps subscribers from one source instance: a form id, a page, an import batch id. (optional)</param>
+        /// <param name="basis">Basis keeps subscribers by the consent basis recorded for them: explicit, legitimate_interest or unverified. (optional)</param>
+        /// <param name="q">Q keeps subscribers whose address or name begins with it, case-insensitively. A search is ordered by address. (optional)</param>
+        /// <param name="field">Field names a custom field, and Value keeps subscribers whose value for it is exactly this. (optional)</param>
+        /// <param name="value">Value is the custom field&#39;s value Field keeps. (optional)</param>
+        /// <param name="createdAfter">CreatedAfter and CreatedBefore bound when the subscriber joined the list, unix seconds, inclusive. Zero is unbounded. (optional)</param>
+        /// <param name="createdBefore">CreatedBefore is the upper bound of CreatedAfter&#39;s range. (optional)</param>
+        /// <param name="confirmedAfter">ConfirmedAfter and ConfirmedBefore bound when the subscription was confirmed, unix seconds, inclusive. (optional)</param>
+        /// <param name="confirmedBefore">ConfirmedBefore is the upper bound of ConfirmedAfter&#39;s range. (optional)</param>
+        /// <param name="openedAfter">OpenedAfter keeps subscribers who opened a broadcast at or after this time. (optional)</param>
+        /// <param name="notOpenedSince">NotOpenedSince keeps subscribers who have opened nothing since this time, including those who never opened anything. (optional)</param>
+        /// <param name="clickedAfter">ClickedAfter keeps subscribers who clicked a link at or after this time. (optional)</param>
+        /// <param name="segment">Segment applies a saved segment of the list; the filter fields narrow it further. (optional)</param>
+        /// <param name="sort">Sort is created (the default), email, name, confirmed or opened. A search (q) is always by address. (optional)</param>
+        /// <param name="order">Order is desc (the default) or asc. (optional)</param>
+        /// <param name="cursor">Cursor continues from where the previous page ended. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 500. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingSubscriberPage</returns>
+        public async System.Threading.Tasks.Task<MarketingSubscriberPage> GetMarketingListsByIdSubscribersAsync(string id, string? status = default, string? tag = default, string? source = default, string? varRef = default, string? basis = default, string? q = default, string? field = default, string? value = default, long? createdAfter = default, long? createdBefore = default, long? confirmedAfter = default, long? confirmedBefore = default, long? openedAfter = default, long? notOpenedSince = default, long? clickedAfter = default, string? segment = default, string? sort = default, string? order = default, string? cursor = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingSubscriberPage> localVarResponse = await GetMarketingListsByIdSubscribersWithHttpInfoAsync(id, status, tag, source, varRef, basis, q, field, value, createdAfter, createdBefore, confirmedAfter, confirmedBefore, openedAfter, notOpenedSince, clickedAfter, segment, sort, order, cursor, limit, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns a page of one list&#39;s subscribers, newest first unless asked otherwise. Returns a page of one list&#39;s subscribers, newest first unless asked otherwise. Every filter (status, tag, source, ref, consent basis, a prefix of the address or name, a custom field&#39;s value, ranges of when they joined and confirmed, and whether they opened or clicked since a time) walks an index of its own, so a page costs the same on a list of ten rows or ten million. Continue with next.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="status">Status is one status or several, comma-separated: pending, subscribed, unsubscribed, bounced, complained, cleaned. (optional)</param>
+        /// <param name="tag">Tag keeps subscribers carrying this tag. (optional)</param>
+        /// <param name="source">Source keeps subscribers that came from this kind of source: form, page, api, import or commerce. (optional)</param>
+        /// <param name="varRef">Ref keeps subscribers from one source instance: a form id, a page, an import batch id. (optional)</param>
+        /// <param name="basis">Basis keeps subscribers by the consent basis recorded for them: explicit, legitimate_interest or unverified. (optional)</param>
+        /// <param name="q">Q keeps subscribers whose address or name begins with it, case-insensitively. A search is ordered by address. (optional)</param>
+        /// <param name="field">Field names a custom field, and Value keeps subscribers whose value for it is exactly this. (optional)</param>
+        /// <param name="value">Value is the custom field&#39;s value Field keeps. (optional)</param>
+        /// <param name="createdAfter">CreatedAfter and CreatedBefore bound when the subscriber joined the list, unix seconds, inclusive. Zero is unbounded. (optional)</param>
+        /// <param name="createdBefore">CreatedBefore is the upper bound of CreatedAfter&#39;s range. (optional)</param>
+        /// <param name="confirmedAfter">ConfirmedAfter and ConfirmedBefore bound when the subscription was confirmed, unix seconds, inclusive. (optional)</param>
+        /// <param name="confirmedBefore">ConfirmedBefore is the upper bound of ConfirmedAfter&#39;s range. (optional)</param>
+        /// <param name="openedAfter">OpenedAfter keeps subscribers who opened a broadcast at or after this time. (optional)</param>
+        /// <param name="notOpenedSince">NotOpenedSince keeps subscribers who have opened nothing since this time, including those who never opened anything. (optional)</param>
+        /// <param name="clickedAfter">ClickedAfter keeps subscribers who clicked a link at or after this time. (optional)</param>
+        /// <param name="segment">Segment applies a saved segment of the list; the filter fields narrow it further. (optional)</param>
+        /// <param name="sort">Sort is created (the default), email, name, confirmed or opened. A search (q) is always by address. (optional)</param>
+        /// <param name="order">Order is desc (the default) or asc. (optional)</param>
+        /// <param name="cursor">Cursor continues from where the previous page ended. (optional)</param>
+        /// <param name="limit">Limit is the page size, 50 by default and at most 500. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingSubscriberPage)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingSubscriberPage>> GetMarketingListsByIdSubscribersWithHttpInfoAsync(string id, string? status = default, string? tag = default, string? source = default, string? varRef = default, string? basis = default, string? q = default, string? field = default, string? value = default, long? createdAfter = default, long? createdBefore = default, long? confirmedAfter = default, long? confirmedBefore = default, long? openedAfter = default, long? notOpenedSince = default, long? clickedAfter = default, string? segment = default, string? sort = default, string? order = default, string? cursor = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingListsByIdSubscribers");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            if (status != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "status", status));
+            }
+            if (tag != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "tag", tag));
+            }
+            if (source != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "source", source));
+            }
+            if (varRef != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "ref", varRef));
+            }
+            if (basis != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "basis", basis));
+            }
+            if (q != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "q", q));
+            }
+            if (field != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "field", field));
+            }
+            if (value != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "value", value));
+            }
+            if (createdAfter != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "createdAfter", createdAfter));
+            }
+            if (createdBefore != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "createdBefore", createdBefore));
+            }
+            if (confirmedAfter != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "confirmedAfter", confirmedAfter));
+            }
+            if (confirmedBefore != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "confirmedBefore", confirmedBefore));
+            }
+            if (openedAfter != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "openedAfter", openedAfter));
+            }
+            if (notOpenedSince != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "notOpenedSince", notOpenedSince));
+            }
+            if (clickedAfter != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "clickedAfter", clickedAfter));
+            }
+            if (segment != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "segment", segment));
+            }
+            if (sort != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "sort", sort));
+            }
+            if (order != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "order", order));
+            }
+            if (cursor != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "cursor", cursor));
+            }
+            if (limit != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+            }
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<MarketingSubscriberPage>("/v1/marketing/lists/{id}/subscribers", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingListsByIdSubscribers", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement. Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the subscriber&#39;s id.</param>
+        /// <returns>MarketingSubscriber</returns>
+        public MarketingSubscriber GetMarketingListsByIdSubscribersBySid(string id, long? sid)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingSubscriber> localVarResponse = GetMarketingListsByIdSubscribersBySidWithHttpInfo(id, sid);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement. Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the subscriber&#39;s id.</param>
+        /// <returns>ApiResponse of MarketingSubscriber</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingSubscriber> GetMarketingListsByIdSubscribersBySidWithHttpInfo(string id, long? sid)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingListsByIdSubscribersBySid");
+
+            // verify the required parameter 'sid' is set
+            if (sid == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'sid' when calling MarketingApi->GetMarketingListsByIdSubscribersBySid");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.PathParameters.Add("sid", Hanzo.AI.Client.ClientUtils.ParameterToString(sid)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<MarketingSubscriber>("/v1/marketing/lists/{id}/subscribers/{sid}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingListsByIdSubscribersBySid", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement. Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the subscriber&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingSubscriber</returns>
+        public async System.Threading.Tasks.Task<MarketingSubscriber> GetMarketingListsByIdSubscribersBySidAsync(string id, long? sid, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingSubscriber> localVarResponse = await GetMarketingListsByIdSubscribersBySidWithHttpInfoAsync(id, sid, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement. Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug.</param>
+        /// <param name="sid">SID is the subscriber&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingSubscriber)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingSubscriber>> GetMarketingListsByIdSubscribersBySidWithHttpInfoAsync(string id, long? sid, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->GetMarketingListsByIdSubscribersBySid");
+
+            // verify the required parameter 'sid' is set
+            if (sid == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'sid' when calling MarketingApi->GetMarketingListsByIdSubscribersBySid");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.PathParameters.Add("sid", Hanzo.AI.Client.ClientUtils.ParameterToString(sid)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<MarketingSubscriber>("/v1/marketing/lists/{id}/subscribers/{sid}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingListsByIdSubscribersBySid", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
         /// Returns every promo the deployment offers with its live counters: how many orgs have redeemed it and how many redemptions remain under the cap. Returns every promo the deployment offers with its live counters: how many orgs have redeemed it and how many redemptions remain under the cap. The promos are fleet-wide, not per-org — only the counters move.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
@@ -4706,6 +8939,121 @@ namespace Hanzo.AI.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetMarketingPromosByCodeRedemption", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty. Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>MarketingSender</returns>
+        public MarketingSender GetMarketingSender()
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingSender> localVarResponse = GetMarketingSenderWithHttpInfo();
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty. Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of MarketingSender</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingSender> GetMarketingSenderWithHttpInfo()
+        {
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<MarketingSender>("/v1/marketing/sender", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingSender", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty. Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingSender</returns>
+        public async System.Threading.Tasks.Task<MarketingSender> GetMarketingSenderAsync(System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingSender> localVarResponse = await GetMarketingSenderWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty. Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingSender)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingSender>> GetMarketingSenderWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default)
+        {
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<MarketingSender>("/v1/marketing/sender", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMarketingSender", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 
@@ -5628,10 +9976,11 @@ namespace Hanzo.AI.Api
         /// <param name="address">Address is the recipient to opt out. (optional)</param>
         /// <param name="token">Token is the HMAC over (org, channel, address). It is the ONLY authority here — there is no principal — so it binds the request to one tuple and nothing else. (optional)</param>
         /// <param name="company">Company opts out everyone at the address&#39;s domain as well, in this org alone: a company&#39;s unsubscribe. An address at a free mail provider is a person&#39;s and is refused 422. (optional)</param>
+        /// <param name="list">List is the marketing list a broadcast&#39;s link leaves; with it the token is the list&#39;s, the address leaves that list alone, and the org&#39;s other mail still reaches it. (optional)</param>
         /// <returns>MarketingUnsubscribed</returns>
-        public MarketingUnsubscribed GetMarketingUnsubscribe(string? org = default, string? channel = default, string? address = default, string? token = default, bool? company = default)
+        public MarketingUnsubscribed GetMarketingUnsubscribe(string? org = default, string? channel = default, string? address = default, string? token = default, bool? company = default, string? list = default)
         {
-            Hanzo.AI.Client.ApiResponse<MarketingUnsubscribed> localVarResponse = GetMarketingUnsubscribeWithHttpInfo(org, channel, address, token, company);
+            Hanzo.AI.Client.ApiResponse<MarketingUnsubscribed> localVarResponse = GetMarketingUnsubscribeWithHttpInfo(org, channel, address, token, company, list);
             return localVarResponse.Data;
         }
 
@@ -5644,8 +9993,9 @@ namespace Hanzo.AI.Api
         /// <param name="address">Address is the recipient to opt out. (optional)</param>
         /// <param name="token">Token is the HMAC over (org, channel, address). It is the ONLY authority here — there is no principal — so it binds the request to one tuple and nothing else. (optional)</param>
         /// <param name="company">Company opts out everyone at the address&#39;s domain as well, in this org alone: a company&#39;s unsubscribe. An address at a free mail provider is a person&#39;s and is refused 422. (optional)</param>
+        /// <param name="list">List is the marketing list a broadcast&#39;s link leaves; with it the token is the list&#39;s, the address leaves that list alone, and the org&#39;s other mail still reaches it. (optional)</param>
         /// <returns>ApiResponse of MarketingUnsubscribed</returns>
-        public Hanzo.AI.Client.ApiResponse<MarketingUnsubscribed> GetMarketingUnsubscribeWithHttpInfo(string? org = default, string? channel = default, string? address = default, string? token = default, bool? company = default)
+        public Hanzo.AI.Client.ApiResponse<MarketingUnsubscribed> GetMarketingUnsubscribeWithHttpInfo(string? org = default, string? channel = default, string? address = default, string? token = default, bool? company = default, string? list = default)
         {
             Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
 
@@ -5683,6 +10033,10 @@ namespace Hanzo.AI.Api
             if (company != null)
             {
                 localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "company", company));
+            }
+            if (list != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "list", list));
             }
 
 
@@ -5707,11 +10061,12 @@ namespace Hanzo.AI.Api
         /// <param name="address">Address is the recipient to opt out. (optional)</param>
         /// <param name="token">Token is the HMAC over (org, channel, address). It is the ONLY authority here — there is no principal — so it binds the request to one tuple and nothing else. (optional)</param>
         /// <param name="company">Company opts out everyone at the address&#39;s domain as well, in this org alone: a company&#39;s unsubscribe. An address at a free mail provider is a person&#39;s and is refused 422. (optional)</param>
+        /// <param name="list">List is the marketing list a broadcast&#39;s link leaves; with it the token is the list&#39;s, the address leaves that list alone, and the org&#39;s other mail still reaches it. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of MarketingUnsubscribed</returns>
-        public async System.Threading.Tasks.Task<MarketingUnsubscribed> GetMarketingUnsubscribeAsync(string? org = default, string? channel = default, string? address = default, string? token = default, bool? company = default, System.Threading.CancellationToken cancellationToken = default)
+        public async System.Threading.Tasks.Task<MarketingUnsubscribed> GetMarketingUnsubscribeAsync(string? org = default, string? channel = default, string? address = default, string? token = default, bool? company = default, string? list = default, System.Threading.CancellationToken cancellationToken = default)
         {
-            Hanzo.AI.Client.ApiResponse<MarketingUnsubscribed> localVarResponse = await GetMarketingUnsubscribeWithHttpInfoAsync(org, channel, address, token, company, cancellationToken).ConfigureAwait(false);
+            Hanzo.AI.Client.ApiResponse<MarketingUnsubscribed> localVarResponse = await GetMarketingUnsubscribeWithHttpInfoAsync(org, channel, address, token, company, list, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -5724,9 +10079,10 @@ namespace Hanzo.AI.Api
         /// <param name="address">Address is the recipient to opt out. (optional)</param>
         /// <param name="token">Token is the HMAC over (org, channel, address). It is the ONLY authority here — there is no principal — so it binds the request to one tuple and nothing else. (optional)</param>
         /// <param name="company">Company opts out everyone at the address&#39;s domain as well, in this org alone: a company&#39;s unsubscribe. An address at a free mail provider is a person&#39;s and is refused 422. (optional)</param>
+        /// <param name="list">List is the marketing list a broadcast&#39;s link leaves; with it the token is the list&#39;s, the address leaves that list alone, and the org&#39;s other mail still reaches it. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (MarketingUnsubscribed)</returns>
-        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingUnsubscribed>> GetMarketingUnsubscribeWithHttpInfoAsync(string? org = default, string? channel = default, string? address = default, string? token = default, bool? company = default, System.Threading.CancellationToken cancellationToken = default)
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingUnsubscribed>> GetMarketingUnsubscribeWithHttpInfoAsync(string? org = default, string? channel = default, string? address = default, string? token = default, bool? company = default, string? list = default, System.Threading.CancellationToken cancellationToken = default)
         {
 
             Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
@@ -5767,6 +10123,10 @@ namespace Hanzo.AI.Api
             {
                 localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "company", company));
             }
+            if (list != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "list", list));
+            }
 
 
             // make the HTTP request
@@ -5776,6 +10136,455 @@ namespace Hanzo.AI.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetMarketingUnsubscribe", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Changes the fields the body names on a draft or scheduled broadcast and answers it. Changes the fields the body names on a draft or scheduled broadcast and answers it. One that is sending or done is 409.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast to change, from the path; ignored on create.</param>
+        /// <param name="marketingBroadcastIn"></param>
+        /// <returns>MarketingBroadcast</returns>
+        public MarketingBroadcast PatchMarketingBroadcastsById(string id, MarketingBroadcastIn marketingBroadcastIn)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingBroadcast> localVarResponse = PatchMarketingBroadcastsByIdWithHttpInfo(id, marketingBroadcastIn);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Changes the fields the body names on a draft or scheduled broadcast and answers it. Changes the fields the body names on a draft or scheduled broadcast and answers it. One that is sending or done is 409.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast to change, from the path; ignored on create.</param>
+        /// <param name="marketingBroadcastIn"></param>
+        /// <returns>ApiResponse of MarketingBroadcast</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingBroadcast> PatchMarketingBroadcastsByIdWithHttpInfo(string id, MarketingBroadcastIn marketingBroadcastIn)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PatchMarketingBroadcastsById");
+
+            // verify the required parameter 'marketingBroadcastIn' is set
+            if (marketingBroadcastIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingBroadcastIn' when calling MarketingApi->PatchMarketingBroadcastsById");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.Data = marketingBroadcastIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Patch<MarketingBroadcast>("/v1/marketing/broadcasts/{id}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PatchMarketingBroadcastsById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Changes the fields the body names on a draft or scheduled broadcast and answers it. Changes the fields the body names on a draft or scheduled broadcast and answers it. One that is sending or done is 409.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast to change, from the path; ignored on create.</param>
+        /// <param name="marketingBroadcastIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingBroadcast</returns>
+        public async System.Threading.Tasks.Task<MarketingBroadcast> PatchMarketingBroadcastsByIdAsync(string id, MarketingBroadcastIn marketingBroadcastIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingBroadcast> localVarResponse = await PatchMarketingBroadcastsByIdWithHttpInfoAsync(id, marketingBroadcastIn, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Changes the fields the body names on a draft or scheduled broadcast and answers it. Changes the fields the body names on a draft or scheduled broadcast and answers it. One that is sending or done is 409.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast to change, from the path; ignored on create.</param>
+        /// <param name="marketingBroadcastIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingBroadcast)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingBroadcast>> PatchMarketingBroadcastsByIdWithHttpInfoAsync(string id, MarketingBroadcastIn marketingBroadcastIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PatchMarketingBroadcastsById");
+
+            // verify the required parameter 'marketingBroadcastIn' is set
+            if (marketingBroadcastIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingBroadcastIn' when calling MarketingApi->PatchMarketingBroadcastsById");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.Data = marketingBroadcastIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PatchAsync<MarketingBroadcast>("/v1/marketing/broadcasts/{id}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PatchMarketingBroadcastsById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Changes the fields the body names on one of the org&#39;s lists and answers the list. Changes the fields the body names on one of the org&#39;s lists and answers the list. A field left out keeps its value; an empty string clears a sender field back to the org&#39;s.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list to change, from the path; ignored on create.</param>
+        /// <param name="marketingListIn"></param>
+        /// <returns>MarketingList</returns>
+        public MarketingList PatchMarketingListsById(string id, MarketingListIn marketingListIn)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingList> localVarResponse = PatchMarketingListsByIdWithHttpInfo(id, marketingListIn);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Changes the fields the body names on one of the org&#39;s lists and answers the list. Changes the fields the body names on one of the org&#39;s lists and answers the list. A field left out keeps its value; an empty string clears a sender field back to the org&#39;s.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list to change, from the path; ignored on create.</param>
+        /// <param name="marketingListIn"></param>
+        /// <returns>ApiResponse of MarketingList</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingList> PatchMarketingListsByIdWithHttpInfo(string id, MarketingListIn marketingListIn)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PatchMarketingListsById");
+
+            // verify the required parameter 'marketingListIn' is set
+            if (marketingListIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingListIn' when calling MarketingApi->PatchMarketingListsById");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.Data = marketingListIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Patch<MarketingList>("/v1/marketing/lists/{id}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PatchMarketingListsById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Changes the fields the body names on one of the org&#39;s lists and answers the list. Changes the fields the body names on one of the org&#39;s lists and answers the list. A field left out keeps its value; an empty string clears a sender field back to the org&#39;s.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list to change, from the path; ignored on create.</param>
+        /// <param name="marketingListIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingList</returns>
+        public async System.Threading.Tasks.Task<MarketingList> PatchMarketingListsByIdAsync(string id, MarketingListIn marketingListIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingList> localVarResponse = await PatchMarketingListsByIdWithHttpInfoAsync(id, marketingListIn, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Changes the fields the body names on one of the org&#39;s lists and answers the list. Changes the fields the body names on one of the org&#39;s lists and answers the list. A field left out keeps its value; an empty string clears a sender field back to the org&#39;s.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list to change, from the path; ignored on create.</param>
+        /// <param name="marketingListIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingList)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingList>> PatchMarketingListsByIdWithHttpInfoAsync(string id, MarketingListIn marketingListIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PatchMarketingListsById");
+
+            // verify the required parameter 'marketingListIn' is set
+            if (marketingListIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingListIn' when calling MarketingApi->PatchMarketingListsById");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.Data = marketingListIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PatchAsync<MarketingList>("/v1/marketing/lists/{id}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PatchMarketingListsById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Changes the fields the body names on one subscriber and answers the row. Changes the fields the body names on one subscriber and answers the row. A status change follows the same rule as add: an address that unsubscribed or complained is not put back by the org.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="sid">SID is the subscriber to change, from the path; ignored on add.</param>
+        /// <param name="marketingSubscriberIn"></param>
+        /// <returns>MarketingSubscriber</returns>
+        public MarketingSubscriber PatchMarketingListsByIdSubscribersBySid(string id, long? sid, MarketingSubscriberIn marketingSubscriberIn)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingSubscriber> localVarResponse = PatchMarketingListsByIdSubscribersBySidWithHttpInfo(id, sid, marketingSubscriberIn);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Changes the fields the body names on one subscriber and answers the row. Changes the fields the body names on one subscriber and answers the row. A status change follows the same rule as add: an address that unsubscribed or complained is not put back by the org.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="sid">SID is the subscriber to change, from the path; ignored on add.</param>
+        /// <param name="marketingSubscriberIn"></param>
+        /// <returns>ApiResponse of MarketingSubscriber</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingSubscriber> PatchMarketingListsByIdSubscribersBySidWithHttpInfo(string id, long? sid, MarketingSubscriberIn marketingSubscriberIn)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PatchMarketingListsByIdSubscribersBySid");
+
+            // verify the required parameter 'sid' is set
+            if (sid == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'sid' when calling MarketingApi->PatchMarketingListsByIdSubscribersBySid");
+
+            // verify the required parameter 'marketingSubscriberIn' is set
+            if (marketingSubscriberIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingSubscriberIn' when calling MarketingApi->PatchMarketingListsByIdSubscribersBySid");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.PathParameters.Add("sid", Hanzo.AI.Client.ClientUtils.ParameterToString(sid)); // path parameter
+            localVarRequestOptions.Data = marketingSubscriberIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Patch<MarketingSubscriber>("/v1/marketing/lists/{id}/subscribers/{sid}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PatchMarketingListsByIdSubscribersBySid", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Changes the fields the body names on one subscriber and answers the row. Changes the fields the body names on one subscriber and answers the row. A status change follows the same rule as add: an address that unsubscribed or complained is not put back by the org.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="sid">SID is the subscriber to change, from the path; ignored on add.</param>
+        /// <param name="marketingSubscriberIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingSubscriber</returns>
+        public async System.Threading.Tasks.Task<MarketingSubscriber> PatchMarketingListsByIdSubscribersBySidAsync(string id, long? sid, MarketingSubscriberIn marketingSubscriberIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingSubscriber> localVarResponse = await PatchMarketingListsByIdSubscribersBySidWithHttpInfoAsync(id, sid, marketingSubscriberIn, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Changes the fields the body names on one subscriber and answers the row. Changes the fields the body names on one subscriber and answers the row. A status change follows the same rule as add: an address that unsubscribed or complained is not put back by the org.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="sid">SID is the subscriber to change, from the path; ignored on add.</param>
+        /// <param name="marketingSubscriberIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingSubscriber)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingSubscriber>> PatchMarketingListsByIdSubscribersBySidWithHttpInfoAsync(string id, long? sid, MarketingSubscriberIn marketingSubscriberIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PatchMarketingListsByIdSubscribersBySid");
+
+            // verify the required parameter 'sid' is set
+            if (sid == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'sid' when calling MarketingApi->PatchMarketingListsByIdSubscribersBySid");
+
+            // verify the required parameter 'marketingSubscriberIn' is set
+            if (marketingSubscriberIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingSubscriberIn' when calling MarketingApi->PatchMarketingListsByIdSubscribersBySid");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.PathParameters.Add("sid", Hanzo.AI.Client.ClientUtils.ParameterToString(sid)); // path parameter
+            localVarRequestOptions.Data = marketingSubscriberIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PatchAsync<MarketingSubscriber>("/v1/marketing/lists/{id}/subscribers/{sid}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PatchMarketingListsByIdSubscribersBySid", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 
@@ -6438,6 +11247,556 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
+        /// Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it. Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it. With scheduledAt it is scheduled; without, a draft until sent.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingBroadcastIn"></param>
+        /// <returns>MarketingBroadcast</returns>
+        public MarketingBroadcast PostMarketingBroadcasts(MarketingBroadcastIn marketingBroadcastIn)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingBroadcast> localVarResponse = PostMarketingBroadcastsWithHttpInfo(marketingBroadcastIn);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it. Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it. With scheduledAt it is scheduled; without, a draft until sent.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingBroadcastIn"></param>
+        /// <returns>ApiResponse of MarketingBroadcast</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingBroadcast> PostMarketingBroadcastsWithHttpInfo(MarketingBroadcastIn marketingBroadcastIn)
+        {
+            // verify the required parameter 'marketingBroadcastIn' is set
+            if (marketingBroadcastIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingBroadcastIn' when calling MarketingApi->PostMarketingBroadcasts");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = marketingBroadcastIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<MarketingBroadcast>("/v1/marketing/broadcasts", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingBroadcasts", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it. Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it. With scheduledAt it is scheduled; without, a draft until sent.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingBroadcastIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingBroadcast</returns>
+        public async System.Threading.Tasks.Task<MarketingBroadcast> PostMarketingBroadcastsAsync(MarketingBroadcastIn marketingBroadcastIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingBroadcast> localVarResponse = await PostMarketingBroadcastsWithHttpInfoAsync(marketingBroadcastIn, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it. Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it. With scheduledAt it is scheduled; without, a draft until sent.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingBroadcastIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingBroadcast)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingBroadcast>> PostMarketingBroadcastsWithHttpInfoAsync(MarketingBroadcastIn marketingBroadcastIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'marketingBroadcastIn' is set
+            if (marketingBroadcastIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingBroadcastIn' when calling MarketingApi->PostMarketingBroadcasts");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = marketingBroadcastIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<MarketingBroadcast>("/v1/marketing/broadcasts", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingBroadcasts", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Stops a scheduled or sending broadcast and answers it. Stops a scheduled or sending broadcast and answers it. Who it already reached stays recorded.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <returns>MarketingBroadcast</returns>
+        public MarketingBroadcast PostMarketingBroadcastsByIdCancel(string id)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingBroadcast> localVarResponse = PostMarketingBroadcastsByIdCancelWithHttpInfo(id);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Stops a scheduled or sending broadcast and answers it. Stops a scheduled or sending broadcast and answers it. Who it already reached stays recorded.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <returns>ApiResponse of MarketingBroadcast</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingBroadcast> PostMarketingBroadcastsByIdCancelWithHttpInfo(string id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PostMarketingBroadcastsByIdCancel");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<MarketingBroadcast>("/v1/marketing/broadcasts/{id}/cancel", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingBroadcastsByIdCancel", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Stops a scheduled or sending broadcast and answers it. Stops a scheduled or sending broadcast and answers it. Who it already reached stays recorded.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingBroadcast</returns>
+        public async System.Threading.Tasks.Task<MarketingBroadcast> PostMarketingBroadcastsByIdCancelAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingBroadcast> localVarResponse = await PostMarketingBroadcastsByIdCancelWithHttpInfoAsync(id, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Stops a scheduled or sending broadcast and answers it. Stops a scheduled or sending broadcast and answers it. Who it already reached stays recorded.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingBroadcast)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingBroadcast>> PostMarketingBroadcastsByIdCancelWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PostMarketingBroadcastsByIdCancel");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<MarketingBroadcast>("/v1/marketing/broadcasts/{id}/cancel", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingBroadcastsByIdCancel", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it. Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it. The list&#39;s sender must carry a postal address, which every commercial mail states (CAN-SPAM); without one it is 422.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast, from the path.</param>
+        /// <param name="marketingSendIn"></param>
+        /// <returns>MarketingBroadcast</returns>
+        public MarketingBroadcast PostMarketingBroadcastsByIdSend(string id, MarketingSendIn marketingSendIn)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingBroadcast> localVarResponse = PostMarketingBroadcastsByIdSendWithHttpInfo(id, marketingSendIn);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it. Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it. The list&#39;s sender must carry a postal address, which every commercial mail states (CAN-SPAM); without one it is 422.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast, from the path.</param>
+        /// <param name="marketingSendIn"></param>
+        /// <returns>ApiResponse of MarketingBroadcast</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingBroadcast> PostMarketingBroadcastsByIdSendWithHttpInfo(string id, MarketingSendIn marketingSendIn)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PostMarketingBroadcastsByIdSend");
+
+            // verify the required parameter 'marketingSendIn' is set
+            if (marketingSendIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingSendIn' when calling MarketingApi->PostMarketingBroadcastsByIdSend");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.Data = marketingSendIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<MarketingBroadcast>("/v1/marketing/broadcasts/{id}/send", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingBroadcastsByIdSend", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it. Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it. The list&#39;s sender must carry a postal address, which every commercial mail states (CAN-SPAM); without one it is 422.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast, from the path.</param>
+        /// <param name="marketingSendIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingBroadcast</returns>
+        public async System.Threading.Tasks.Task<MarketingBroadcast> PostMarketingBroadcastsByIdSendAsync(string id, MarketingSendIn marketingSendIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingBroadcast> localVarResponse = await PostMarketingBroadcastsByIdSendWithHttpInfoAsync(id, marketingSendIn, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it. Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it. The list&#39;s sender must carry a postal address, which every commercial mail states (CAN-SPAM); without one it is 422.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast, from the path.</param>
+        /// <param name="marketingSendIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingBroadcast)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingBroadcast>> PostMarketingBroadcastsByIdSendWithHttpInfoAsync(string id, MarketingSendIn marketingSendIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PostMarketingBroadcastsByIdSend");
+
+            // verify the required parameter 'marketingSendIn' is set
+            if (marketingSendIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingSendIn' when calling MarketingApi->PostMarketingBroadcastsByIdSend");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.Data = marketingSendIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<MarketingBroadcast>("/v1/marketing/broadcasts/{id}/send", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingBroadcastsByIdSend", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes. Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast, from the path.</param>
+        /// <param name="marketingTestIn"></param>
+        /// <returns>MarketingTestOut</returns>
+        public MarketingTestOut PostMarketingBroadcastsByIdTest(string id, MarketingTestIn marketingTestIn)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingTestOut> localVarResponse = PostMarketingBroadcastsByIdTestWithHttpInfo(id, marketingTestIn);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes. Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast, from the path.</param>
+        /// <param name="marketingTestIn"></param>
+        /// <returns>ApiResponse of MarketingTestOut</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingTestOut> PostMarketingBroadcastsByIdTestWithHttpInfo(string id, MarketingTestIn marketingTestIn)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PostMarketingBroadcastsByIdTest");
+
+            // verify the required parameter 'marketingTestIn' is set
+            if (marketingTestIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingTestIn' when calling MarketingApi->PostMarketingBroadcastsByIdTest");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.Data = marketingTestIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<MarketingTestOut>("/v1/marketing/broadcasts/{id}/test", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingBroadcastsByIdTest", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes. Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast, from the path.</param>
+        /// <param name="marketingTestIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingTestOut</returns>
+        public async System.Threading.Tasks.Task<MarketingTestOut> PostMarketingBroadcastsByIdTestAsync(string id, MarketingTestIn marketingTestIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingTestOut> localVarResponse = await PostMarketingBroadcastsByIdTestWithHttpInfoAsync(id, marketingTestIn, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes. Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the broadcast, from the path.</param>
+        /// <param name="marketingTestIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingTestOut)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingTestOut>> PostMarketingBroadcastsByIdTestWithHttpInfoAsync(string id, MarketingTestIn marketingTestIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PostMarketingBroadcastsByIdTest");
+
+            // verify the required parameter 'marketingTestIn' is set
+            if (marketingTestIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingTestIn' when calling MarketingApi->PostMarketingBroadcastsByIdTest");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.Data = marketingTestIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<MarketingTestOut>("/v1/marketing/broadcasts/{id}/test", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingBroadcastsByIdTest", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
         /// Adds a post to the content calendar. Adds a post to the content calendar. Channel and body are required. A scheduledAt in the future makes the post \&quot;scheduled\&quot; and the durable sweep publishes it when it comes due — claimed once, so a post publishes at most once; without one it stays a draft.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
@@ -6845,6 +12204,395 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
+        /// Creates an import into one of the org&#39;s lists and answers it. Creates an import into one of the org&#39;s lists and answers it. For a file the import waits in state receiving for its bytes (PUT /v1/marketing/imports/{id}/data); for a source (from: commerce) it is queued at once. A key makes the call idempotent: a second create with it answers the first import. The rows are stamped with the import&#39;s id as their source ref, so a filter on ref selects the batch.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingImportIn"></param>
+        /// <returns>MarketingCreated</returns>
+        public MarketingCreated PostMarketingImports(MarketingImportIn marketingImportIn)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingCreated> localVarResponse = PostMarketingImportsWithHttpInfo(marketingImportIn);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Creates an import into one of the org&#39;s lists and answers it. Creates an import into one of the org&#39;s lists and answers it. For a file the import waits in state receiving for its bytes (PUT /v1/marketing/imports/{id}/data); for a source (from: commerce) it is queued at once. A key makes the call idempotent: a second create with it answers the first import. The rows are stamped with the import&#39;s id as their source ref, so a filter on ref selects the batch.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingImportIn"></param>
+        /// <returns>ApiResponse of MarketingCreated</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingCreated> PostMarketingImportsWithHttpInfo(MarketingImportIn marketingImportIn)
+        {
+            // verify the required parameter 'marketingImportIn' is set
+            if (marketingImportIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingImportIn' when calling MarketingApi->PostMarketingImports");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = marketingImportIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<MarketingCreated>("/v1/marketing/imports", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingImports", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Creates an import into one of the org&#39;s lists and answers it. Creates an import into one of the org&#39;s lists and answers it. For a file the import waits in state receiving for its bytes (PUT /v1/marketing/imports/{id}/data); for a source (from: commerce) it is queued at once. A key makes the call idempotent: a second create with it answers the first import. The rows are stamped with the import&#39;s id as their source ref, so a filter on ref selects the batch.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingImportIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingCreated</returns>
+        public async System.Threading.Tasks.Task<MarketingCreated> PostMarketingImportsAsync(MarketingImportIn marketingImportIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingCreated> localVarResponse = await PostMarketingImportsWithHttpInfoAsync(marketingImportIn, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Creates an import into one of the org&#39;s lists and answers it. Creates an import into one of the org&#39;s lists and answers it. For a file the import waits in state receiving for its bytes (PUT /v1/marketing/imports/{id}/data); for a source (from: commerce) it is queued at once. A key makes the call idempotent: a second create with it answers the first import. The rows are stamped with the import&#39;s id as their source ref, so a filter on ref selects the batch.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingImportIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingCreated)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingCreated>> PostMarketingImportsWithHttpInfoAsync(MarketingImportIn marketingImportIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'marketingImportIn' is set
+            if (marketingImportIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingImportIn' when calling MarketingApi->PostMarketingImports");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = marketingImportIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<MarketingCreated>("/v1/marketing/imports", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingImports", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Stops an import that has not finished and answers it. Stops an import that has not finished and answers it. The rows it already wrote stay; a filter on its id as ref selects them.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <returns>MarketingImport</returns>
+        public MarketingImport PostMarketingImportsByIdCancel(string id)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingImport> localVarResponse = PostMarketingImportsByIdCancelWithHttpInfo(id);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Stops an import that has not finished and answers it. Stops an import that has not finished and answers it. The rows it already wrote stay; a filter on its id as ref selects them.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <returns>ApiResponse of MarketingImport</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingImport> PostMarketingImportsByIdCancelWithHttpInfo(string id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PostMarketingImportsByIdCancel");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<MarketingImport>("/v1/marketing/imports/{id}/cancel", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingImportsByIdCancel", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Stops an import that has not finished and answers it. Stops an import that has not finished and answers it. The rows it already wrote stay; a filter on its id as ref selects them.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingImport</returns>
+        public async System.Threading.Tasks.Task<MarketingImport> PostMarketingImportsByIdCancelAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingImport> localVarResponse = await PostMarketingImportsByIdCancelWithHttpInfoAsync(id, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Stops an import that has not finished and answers it. Stops an import that has not finished and answers it. The rows it already wrote stay; a filter on its id as ref selects them.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingImport)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingImport>> PostMarketingImportsByIdCancelWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PostMarketingImportsByIdCancel");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<MarketingImport>("/v1/marketing/imports/{id}/cancel", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingImportsByIdCancel", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there. Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there. An import with no bytes is 409.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <returns>MarketingImport</returns>
+        public MarketingImport PostMarketingImportsByIdStart(string id)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingImport> localVarResponse = PostMarketingImportsByIdStartWithHttpInfo(id);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there. Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there. An import with no bytes is 409.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <returns>ApiResponse of MarketingImport</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingImport> PostMarketingImportsByIdStartWithHttpInfo(string id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PostMarketingImportsByIdStart");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<MarketingImport>("/v1/marketing/imports/{id}/start", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingImportsByIdStart", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there. Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there. An import with no bytes is 409.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingImport</returns>
+        public async System.Threading.Tasks.Task<MarketingImport> PostMarketingImportsByIdStartAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingImport> localVarResponse = await PostMarketingImportsByIdStartWithHttpInfoAsync(id, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there. Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there. An import with no bytes is 409.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the import&#39;s id.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingImport)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingImport>> PostMarketingImportsByIdStartWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PostMarketingImportsByIdStart");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<MarketingImport>("/v1/marketing/imports/{id}/start", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingImportsByIdStart", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
         /// Files one public form in the deployment&#39;s own CRM. Files one public form in the deployment&#39;s own CRM. A sales inquiry or a program application becomes a lead: the person, and the form on their timeline with every answer, the campaign and coupon its page carried; it is stated on the event plane and mailed to the brand&#39;s sales mailbox. A body naming a job opening becomes a candidate and its form, mailed to the brand&#39;s careers mailbox and stated nowhere. Program investor is an investor and their form at status submitted, stated nowhere, mailed to nobody, and sent a SAFE to sign (&#x60;sent&#x60; says whether it went). No account is needed: every record lands in the brand&#39;s org. A person signed in who applies to the beta also opens the products in beta (the CRM) for the org they act in. Answers 201 with an opaque reference.  A person signed in files under the address their token was issued to: a body naming another address is 400, and so is a sign-in issued with no address. An order that upgrades an organization names it in &#x60;upgrade&#x60;, sent signed in and acting in that organization (X-Org-Id) as its owner or an admin, and the lead records that verified handle; anyone else naming one is 403. &#x60;payment&#x60; is card or invoice, and an Enterprise inquiry paying by invoice is also stated as invoice_requested. X-Idempotency-Key makes a retry safe: the same key from the same address answers the same reference, and files, mails and states nothing twice; the same key sent with another form is 409. The sales mail states the payment and the verified organization to upgrade beside the answers.  A brand org whose Base cannot hold the CRM answers 503, a caller past ten forms in an hour 429, a body over 16 KiB 413, and a missing or malformed email 400 — in that order; an investor&#39;s form then answers 400 for its name, its amount (\&quot;The minimum investment is $25,000.\&quot;), its address, entity, title and phone, in that order.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
@@ -7231,6 +12979,572 @@ namespace Hanzo.AI.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("PostMarketingLeadsResume", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Creates a list in the org and answers 201 with it. Creates a list in the org and answers 201 with it. Name is required; a new list is private, asks public subscribers to confirm, and takes the org&#39;s sender for every sender field it leaves empty. A slug the org already uses is 409.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingListIn"></param>
+        /// <returns>MarketingList</returns>
+        public MarketingList PostMarketingLists(MarketingListIn marketingListIn)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingList> localVarResponse = PostMarketingListsWithHttpInfo(marketingListIn);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Creates a list in the org and answers 201 with it. Creates a list in the org and answers 201 with it. Name is required; a new list is private, asks public subscribers to confirm, and takes the org&#39;s sender for every sender field it leaves empty. A slug the org already uses is 409.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingListIn"></param>
+        /// <returns>ApiResponse of MarketingList</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingList> PostMarketingListsWithHttpInfo(MarketingListIn marketingListIn)
+        {
+            // verify the required parameter 'marketingListIn' is set
+            if (marketingListIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingListIn' when calling MarketingApi->PostMarketingLists");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = marketingListIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<MarketingList>("/v1/marketing/lists", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingLists", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Creates a list in the org and answers 201 with it. Creates a list in the org and answers 201 with it. Name is required; a new list is private, asks public subscribers to confirm, and takes the org&#39;s sender for every sender field it leaves empty. A slug the org already uses is 409.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingListIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingList</returns>
+        public async System.Threading.Tasks.Task<MarketingList> PostMarketingListsAsync(MarketingListIn marketingListIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingList> localVarResponse = await PostMarketingListsWithHttpInfoAsync(marketingListIn, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Creates a list in the org and answers 201 with it. Creates a list in the org and answers 201 with it. Name is required; a new list is private, asks public subscribers to confirm, and takes the org&#39;s sender for every sender field it leaves empty. A slug the org already uses is 409.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingListIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingList)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingList>> PostMarketingListsWithHttpInfoAsync(MarketingListIn marketingListIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'marketingListIn' is set
+            if (marketingListIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingListIn' when calling MarketingApi->PostMarketingLists");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = marketingListIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<MarketingList>("/v1/marketing/lists", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingLists", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now. Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingSegmentIn"></param>
+        /// <returns>MarketingSegment</returns>
+        public MarketingSegment PostMarketingListsByIdSegments(string id, MarketingSegmentIn marketingSegmentIn)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingSegment> localVarResponse = PostMarketingListsByIdSegmentsWithHttpInfo(id, marketingSegmentIn);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now. Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingSegmentIn"></param>
+        /// <returns>ApiResponse of MarketingSegment</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingSegment> PostMarketingListsByIdSegmentsWithHttpInfo(string id, MarketingSegmentIn marketingSegmentIn)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PostMarketingListsByIdSegments");
+
+            // verify the required parameter 'marketingSegmentIn' is set
+            if (marketingSegmentIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingSegmentIn' when calling MarketingApi->PostMarketingListsByIdSegments");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.Data = marketingSegmentIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<MarketingSegment>("/v1/marketing/lists/{id}/segments", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingListsByIdSegments", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now. Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingSegmentIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingSegment</returns>
+        public async System.Threading.Tasks.Task<MarketingSegment> PostMarketingListsByIdSegmentsAsync(string id, MarketingSegmentIn marketingSegmentIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingSegment> localVarResponse = await PostMarketingListsByIdSegmentsWithHttpInfoAsync(id, marketingSegmentIn, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now. Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingSegmentIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingSegment)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingSegment>> PostMarketingListsByIdSegmentsWithHttpInfoAsync(string id, MarketingSegmentIn marketingSegmentIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PostMarketingListsByIdSegments");
+
+            // verify the required parameter 'marketingSegmentIn' is set
+            if (marketingSegmentIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingSegmentIn' when calling MarketingApi->PostMarketingListsByIdSegments");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.Data = marketingSegmentIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<MarketingSegment>("/v1/marketing/lists/{id}/segments", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingListsByIdSegments", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row. Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row. Pending mails the address a link to confirm. An address that unsubscribed or complained cannot be put back by the org: it is 409, and the person rejoins by subscribing and confirming again.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingSubscriberIn"></param>
+        /// <returns>MarketingAdded</returns>
+        public MarketingAdded PostMarketingListsByIdSubscribers(string id, MarketingSubscriberIn marketingSubscriberIn)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingAdded> localVarResponse = PostMarketingListsByIdSubscribersWithHttpInfo(id, marketingSubscriberIn);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row. Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row. Pending mails the address a link to confirm. An address that unsubscribed or complained cannot be put back by the org: it is 409, and the person rejoins by subscribing and confirming again.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingSubscriberIn"></param>
+        /// <returns>ApiResponse of MarketingAdded</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingAdded> PostMarketingListsByIdSubscribersWithHttpInfo(string id, MarketingSubscriberIn marketingSubscriberIn)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PostMarketingListsByIdSubscribers");
+
+            // verify the required parameter 'marketingSubscriberIn' is set
+            if (marketingSubscriberIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingSubscriberIn' when calling MarketingApi->PostMarketingListsByIdSubscribers");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.Data = marketingSubscriberIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<MarketingAdded>("/v1/marketing/lists/{id}/subscribers", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingListsByIdSubscribers", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row. Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row. Pending mails the address a link to confirm. An address that unsubscribed or complained cannot be put back by the org: it is 409, and the person rejoins by subscribing and confirming again.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingSubscriberIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingAdded</returns>
+        public async System.Threading.Tasks.Task<MarketingAdded> PostMarketingListsByIdSubscribersAsync(string id, MarketingSubscriberIn marketingSubscriberIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingAdded> localVarResponse = await PostMarketingListsByIdSubscribersWithHttpInfoAsync(id, marketingSubscriberIn, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row. Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row. Pending mails the address a link to confirm. An address that unsubscribed or complained cannot be put back by the org: it is 409, and the person rejoins by subscribing and confirming again.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingSubscriberIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingAdded)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingAdded>> PostMarketingListsByIdSubscribersWithHttpInfoAsync(string id, MarketingSubscriberIn marketingSubscriberIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PostMarketingListsByIdSubscribers");
+
+            // verify the required parameter 'marketingSubscriberIn' is set
+            if (marketingSubscriberIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingSubscriberIn' when calling MarketingApi->PostMarketingListsByIdSubscribers");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.Data = marketingSubscriberIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<MarketingAdded>("/v1/marketing/lists/{id}/subscribers", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingListsByIdSubscribers", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Applies one action to a selection of a list and answers how many rows it matched and changed. Applies one action to a selection of a list and answers how many rows it matched and changed. The selection is ids, a saved segment, a filter, or the whole list. It walks the selection in batches of a thousand, one transaction each, so millions of rows move in bounded memory: tag and untag add or remove a tag; move moves the rows to another list of the org; unsubscribe and clean set those statuses on every row that is pending or subscribed, each telling the CRM and the event stream; delete removes the rows and their evidence.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingBulkIn"></param>
+        /// <returns>MarketingBulkOut</returns>
+        public MarketingBulkOut PostMarketingListsByIdSubscribersBulk(string id, MarketingBulkIn marketingBulkIn)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingBulkOut> localVarResponse = PostMarketingListsByIdSubscribersBulkWithHttpInfo(id, marketingBulkIn);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Applies one action to a selection of a list and answers how many rows it matched and changed. Applies one action to a selection of a list and answers how many rows it matched and changed. The selection is ids, a saved segment, a filter, or the whole list. It walks the selection in batches of a thousand, one transaction each, so millions of rows move in bounded memory: tag and untag add or remove a tag; move moves the rows to another list of the org; unsubscribe and clean set those statuses on every row that is pending or subscribed, each telling the CRM and the event stream; delete removes the rows and their evidence.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingBulkIn"></param>
+        /// <returns>ApiResponse of MarketingBulkOut</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingBulkOut> PostMarketingListsByIdSubscribersBulkWithHttpInfo(string id, MarketingBulkIn marketingBulkIn)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PostMarketingListsByIdSubscribersBulk");
+
+            // verify the required parameter 'marketingBulkIn' is set
+            if (marketingBulkIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingBulkIn' when calling MarketingApi->PostMarketingListsByIdSubscribersBulk");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.Data = marketingBulkIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<MarketingBulkOut>("/v1/marketing/lists/{id}/subscribers/bulk", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingListsByIdSubscribersBulk", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Applies one action to a selection of a list and answers how many rows it matched and changed. Applies one action to a selection of a list and answers how many rows it matched and changed. The selection is ids, a saved segment, a filter, or the whole list. It walks the selection in batches of a thousand, one transaction each, so millions of rows move in bounded memory: tag and untag add or remove a tag; move moves the rows to another list of the org; unsubscribe and clean set those statuses on every row that is pending or subscribed, each telling the CRM and the event stream; delete removes the rows and their evidence.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingBulkIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingBulkOut</returns>
+        public async System.Threading.Tasks.Task<MarketingBulkOut> PostMarketingListsByIdSubscribersBulkAsync(string id, MarketingBulkIn marketingBulkIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingBulkOut> localVarResponse = await PostMarketingListsByIdSubscribersBulkWithHttpInfoAsync(id, marketingBulkIn, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Applies one action to a selection of a list and answers how many rows it matched and changed. Applies one action to a selection of a list and answers how many rows it matched and changed. The selection is ids, a saved segment, a filter, or the whole list. It walks the selection in batches of a thousand, one transaction each, so millions of rows move in bounded memory: tag and untag add or remove a tag; move moves the rows to another list of the org; unsubscribe and clean set those statuses on every row that is pending or subscribed, each telling the CRM and the event stream; delete removes the rows and their evidence.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="marketingBulkIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingBulkOut)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingBulkOut>> PostMarketingListsByIdSubscribersBulkWithHttpInfoAsync(string id, MarketingBulkIn marketingBulkIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PostMarketingListsByIdSubscribersBulk");
+
+            // verify the required parameter 'marketingBulkIn' is set
+            if (marketingBulkIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingBulkIn' when calling MarketingApi->PostMarketingListsByIdSubscribersBulk");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.Data = marketingBulkIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<MarketingBulkOut>("/v1/marketing/lists/{id}/subscribers/bulk", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostMarketingListsByIdSubscribersBulk", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 
@@ -8595,11 +14909,12 @@ namespace Hanzo.AI.Api
         /// <param name="channel">Channel is the surface to opt out of. (optional)</param>
         /// <param name="address">Address is the recipient to opt out. (optional)</param>
         /// <param name="token">Token is the HMAC over (org, channel, address), the only authority here. (optional)</param>
+        /// <param name="list">List is the marketing list the link leaves, as on the signed link. (optional)</param>
         /// <param name="listUnsubscribe">OneClick is the form&#39;s List-Unsubscribe field, \\\&quot;One-Click\\\&quot; from a mail client. The token decides; this field only names the form. (optional)</param>
         /// <returns>MarketingUnsubscribed</returns>
-        public MarketingUnsubscribed PostMarketingUnsubscribe(string? org = default, string? channel = default, string? address = default, string? token = default, string? listUnsubscribe = default)
+        public MarketingUnsubscribed PostMarketingUnsubscribe(string? org = default, string? channel = default, string? address = default, string? token = default, string? list = default, string? listUnsubscribe = default)
         {
-            Hanzo.AI.Client.ApiResponse<MarketingUnsubscribed> localVarResponse = PostMarketingUnsubscribeWithHttpInfo(org, channel, address, token, listUnsubscribe);
+            Hanzo.AI.Client.ApiResponse<MarketingUnsubscribed> localVarResponse = PostMarketingUnsubscribeWithHttpInfo(org, channel, address, token, list, listUnsubscribe);
             return localVarResponse.Data;
         }
 
@@ -8611,9 +14926,10 @@ namespace Hanzo.AI.Api
         /// <param name="channel">Channel is the surface to opt out of. (optional)</param>
         /// <param name="address">Address is the recipient to opt out. (optional)</param>
         /// <param name="token">Token is the HMAC over (org, channel, address), the only authority here. (optional)</param>
+        /// <param name="list">List is the marketing list the link leaves, as on the signed link. (optional)</param>
         /// <param name="listUnsubscribe">OneClick is the form&#39;s List-Unsubscribe field, \\\&quot;One-Click\\\&quot; from a mail client. The token decides; this field only names the form. (optional)</param>
         /// <returns>ApiResponse of MarketingUnsubscribed</returns>
-        public Hanzo.AI.Client.ApiResponse<MarketingUnsubscribed> PostMarketingUnsubscribeWithHttpInfo(string? org = default, string? channel = default, string? address = default, string? token = default, string? listUnsubscribe = default)
+        public Hanzo.AI.Client.ApiResponse<MarketingUnsubscribed> PostMarketingUnsubscribeWithHttpInfo(string? org = default, string? channel = default, string? address = default, string? token = default, string? list = default, string? listUnsubscribe = default)
         {
             Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
 
@@ -8650,6 +14966,10 @@ namespace Hanzo.AI.Api
             {
                 localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "token", token));
             }
+            if (list != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "list", list));
+            }
             if (listUnsubscribe != null)
             {
                 localVarRequestOptions.FormParameters.Add("List-Unsubscribe", Hanzo.AI.Client.ClientUtils.ParameterToString(listUnsubscribe)); // form parameter
@@ -8682,12 +15002,13 @@ namespace Hanzo.AI.Api
         /// <param name="channel">Channel is the surface to opt out of. (optional)</param>
         /// <param name="address">Address is the recipient to opt out. (optional)</param>
         /// <param name="token">Token is the HMAC over (org, channel, address), the only authority here. (optional)</param>
+        /// <param name="list">List is the marketing list the link leaves, as on the signed link. (optional)</param>
         /// <param name="listUnsubscribe">OneClick is the form&#39;s List-Unsubscribe field, \\\&quot;One-Click\\\&quot; from a mail client. The token decides; this field only names the form. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of MarketingUnsubscribed</returns>
-        public async System.Threading.Tasks.Task<MarketingUnsubscribed> PostMarketingUnsubscribeAsync(string? org = default, string? channel = default, string? address = default, string? token = default, string? listUnsubscribe = default, System.Threading.CancellationToken cancellationToken = default)
+        public async System.Threading.Tasks.Task<MarketingUnsubscribed> PostMarketingUnsubscribeAsync(string? org = default, string? channel = default, string? address = default, string? token = default, string? list = default, string? listUnsubscribe = default, System.Threading.CancellationToken cancellationToken = default)
         {
-            Hanzo.AI.Client.ApiResponse<MarketingUnsubscribed> localVarResponse = await PostMarketingUnsubscribeWithHttpInfoAsync(org, channel, address, token, listUnsubscribe, cancellationToken).ConfigureAwait(false);
+            Hanzo.AI.Client.ApiResponse<MarketingUnsubscribed> localVarResponse = await PostMarketingUnsubscribeWithHttpInfoAsync(org, channel, address, token, list, listUnsubscribe, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -8699,10 +15020,11 @@ namespace Hanzo.AI.Api
         /// <param name="channel">Channel is the surface to opt out of. (optional)</param>
         /// <param name="address">Address is the recipient to opt out. (optional)</param>
         /// <param name="token">Token is the HMAC over (org, channel, address), the only authority here. (optional)</param>
+        /// <param name="list">List is the marketing list the link leaves, as on the signed link. (optional)</param>
         /// <param name="listUnsubscribe">OneClick is the form&#39;s List-Unsubscribe field, \\\&quot;One-Click\\\&quot; from a mail client. The token decides; this field only names the form. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (MarketingUnsubscribed)</returns>
-        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingUnsubscribed>> PostMarketingUnsubscribeWithHttpInfoAsync(string? org = default, string? channel = default, string? address = default, string? token = default, string? listUnsubscribe = default, System.Threading.CancellationToken cancellationToken = default)
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingUnsubscribed>> PostMarketingUnsubscribeWithHttpInfoAsync(string? org = default, string? channel = default, string? address = default, string? token = default, string? list = default, string? listUnsubscribe = default, System.Threading.CancellationToken cancellationToken = default)
         {
 
             Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
@@ -8740,6 +15062,10 @@ namespace Hanzo.AI.Api
             if (token != null)
             {
                 localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "token", token));
+            }
+            if (list != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "list", list));
             }
             if (listUnsubscribe != null)
             {
@@ -9181,6 +15507,550 @@ namespace Hanzo.AI.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("PutMarketingCampaignsById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Replaces the org&#39;s custom fields with the set the body carries and answers it. Replaces the org&#39;s custom fields with the set the body carries and answers it. A field dropped from the set is removed from every subscriber; a field kept keeps its values when its type does not change, and a changed type is 409 while any subscriber has a value for it.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingFieldSet"></param>
+        /// <returns>MarketingFieldSet</returns>
+        public MarketingFieldSet PutMarketingFields(MarketingFieldSet marketingFieldSet)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingFieldSet> localVarResponse = PutMarketingFieldsWithHttpInfo(marketingFieldSet);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Replaces the org&#39;s custom fields with the set the body carries and answers it. Replaces the org&#39;s custom fields with the set the body carries and answers it. A field dropped from the set is removed from every subscriber; a field kept keeps its values when its type does not change, and a changed type is 409 while any subscriber has a value for it.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingFieldSet"></param>
+        /// <returns>ApiResponse of MarketingFieldSet</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingFieldSet> PutMarketingFieldsWithHttpInfo(MarketingFieldSet marketingFieldSet)
+        {
+            // verify the required parameter 'marketingFieldSet' is set
+            if (marketingFieldSet == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingFieldSet' when calling MarketingApi->PutMarketingFields");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = marketingFieldSet;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Put<MarketingFieldSet>("/v1/marketing/fields", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PutMarketingFields", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Replaces the org&#39;s custom fields with the set the body carries and answers it. Replaces the org&#39;s custom fields with the set the body carries and answers it. A field dropped from the set is removed from every subscriber; a field kept keeps its values when its type does not change, and a changed type is 409 while any subscriber has a value for it.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingFieldSet"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingFieldSet</returns>
+        public async System.Threading.Tasks.Task<MarketingFieldSet> PutMarketingFieldsAsync(MarketingFieldSet marketingFieldSet, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingFieldSet> localVarResponse = await PutMarketingFieldsWithHttpInfoAsync(marketingFieldSet, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Replaces the org&#39;s custom fields with the set the body carries and answers it. Replaces the org&#39;s custom fields with the set the body carries and answers it. A field dropped from the set is removed from every subscriber; a field kept keeps its values when its type does not change, and a changed type is 409 while any subscriber has a value for it.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingFieldSet"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingFieldSet)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingFieldSet>> PutMarketingFieldsWithHttpInfoAsync(MarketingFieldSet marketingFieldSet, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'marketingFieldSet' is set
+            if (marketingFieldSet == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingFieldSet' when calling MarketingApi->PutMarketingFields");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = marketingFieldSet;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PutAsync<MarketingFieldSet>("/v1/marketing/fields", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PutMarketingFields", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds. Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds. A piece at an offset the import has passed is taken only past what it holds, so a retried piece writes nothing twice; a piece past the end is 409 naming the offset to resume from. Send the file in order, in pieces of any size up to the request limit, then start it.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public void PutMarketingImportsByIdData(string id)
+        {
+            PutMarketingImportsByIdDataWithHttpInfo(id);
+        }
+
+        /// <summary>
+        /// Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds. Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds. A piece at an offset the import has passed is taken only past what it holds, so a retried piece writes nothing twice; a piece past the end is 409 naming the offset to resume from. Send the file in order, in pieces of any size up to the request limit, then start it.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public Hanzo.AI.Client.ApiResponse<Object> PutMarketingImportsByIdDataWithHttpInfo(string id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PutMarketingImportsByIdData");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Put<Object>("/v1/marketing/imports/{id}/data", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PutMarketingImportsByIdData", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds. Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds. A piece at an offset the import has passed is taken only past what it holds, so a retried piece writes nothing twice; a piece past the end is 409 naming the offset to resume from. Send the file in order, in pieces of any size up to the request limit, then start it.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task PutMarketingImportsByIdDataAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            await PutMarketingImportsByIdDataWithHttpInfoAsync(id, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds. Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds. A piece at an offset the import has passed is taken only past what it holds, so a retried piece writes nothing twice; a piece past the end is 409 naming the offset to resume from. Send the file in order, in pieces of any size up to the request limit, then start it.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<Object>> PutMarketingImportsByIdDataWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PutMarketingImportsByIdData");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PutAsync<Object>("/v1/marketing/imports/{id}/data", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PutMarketingImportsByIdData", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now. Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="sid">SID is the segment to change, from the path; ignored on create.</param>
+        /// <param name="marketingSegmentIn"></param>
+        /// <returns>MarketingSegment</returns>
+        public MarketingSegment PutMarketingListsByIdSegmentsBySid(string id, string sid, MarketingSegmentIn marketingSegmentIn)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingSegment> localVarResponse = PutMarketingListsByIdSegmentsBySidWithHttpInfo(id, sid, marketingSegmentIn);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now. Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="sid">SID is the segment to change, from the path; ignored on create.</param>
+        /// <param name="marketingSegmentIn"></param>
+        /// <returns>ApiResponse of MarketingSegment</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingSegment> PutMarketingListsByIdSegmentsBySidWithHttpInfo(string id, string sid, MarketingSegmentIn marketingSegmentIn)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PutMarketingListsByIdSegmentsBySid");
+
+            // verify the required parameter 'sid' is set
+            if (sid == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'sid' when calling MarketingApi->PutMarketingListsByIdSegmentsBySid");
+
+            // verify the required parameter 'marketingSegmentIn' is set
+            if (marketingSegmentIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingSegmentIn' when calling MarketingApi->PutMarketingListsByIdSegmentsBySid");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.PathParameters.Add("sid", Hanzo.AI.Client.ClientUtils.ParameterToString(sid)); // path parameter
+            localVarRequestOptions.Data = marketingSegmentIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Put<MarketingSegment>("/v1/marketing/lists/{id}/segments/{sid}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PutMarketingListsByIdSegmentsBySid", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now. Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="sid">SID is the segment to change, from the path; ignored on create.</param>
+        /// <param name="marketingSegmentIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingSegment</returns>
+        public async System.Threading.Tasks.Task<MarketingSegment> PutMarketingListsByIdSegmentsBySidAsync(string id, string sid, MarketingSegmentIn marketingSegmentIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingSegment> localVarResponse = await PutMarketingListsByIdSegmentsBySidWithHttpInfoAsync(id, sid, marketingSegmentIn, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now. Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the list, by id or slug, from the path.</param>
+        /// <param name="sid">SID is the segment to change, from the path; ignored on create.</param>
+        /// <param name="marketingSegmentIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingSegment)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingSegment>> PutMarketingListsByIdSegmentsBySidWithHttpInfoAsync(string id, string sid, MarketingSegmentIn marketingSegmentIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling MarketingApi->PutMarketingListsByIdSegmentsBySid");
+
+            // verify the required parameter 'sid' is set
+            if (sid == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'sid' when calling MarketingApi->PutMarketingListsByIdSegmentsBySid");
+
+            // verify the required parameter 'marketingSegmentIn' is set
+            if (marketingSegmentIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingSegmentIn' when calling MarketingApi->PutMarketingListsByIdSegmentsBySid");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+            localVarRequestOptions.PathParameters.Add("sid", Hanzo.AI.Client.ClientUtils.ParameterToString(sid)); // path parameter
+            localVarRequestOptions.Data = marketingSegmentIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PutAsync<MarketingSegment>("/v1/marketing/lists/{id}/segments/{sid}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PutMarketingListsByIdSegmentsBySid", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Replaces the org&#39;s sender and answers it. Replaces the org&#39;s sender and answers it. Every field is written; one left out is cleared.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingSender"></param>
+        /// <returns>MarketingSender</returns>
+        public MarketingSender PutMarketingSender(MarketingSender marketingSender)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingSender> localVarResponse = PutMarketingSenderWithHttpInfo(marketingSender);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Replaces the org&#39;s sender and answers it. Replaces the org&#39;s sender and answers it. Every field is written; one left out is cleared.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingSender"></param>
+        /// <returns>ApiResponse of MarketingSender</returns>
+        public Hanzo.AI.Client.ApiResponse<MarketingSender> PutMarketingSenderWithHttpInfo(MarketingSender marketingSender)
+        {
+            // verify the required parameter 'marketingSender' is set
+            if (marketingSender == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingSender' when calling MarketingApi->PutMarketingSender");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = marketingSender;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Put<MarketingSender>("/v1/marketing/sender", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PutMarketingSender", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Replaces the org&#39;s sender and answers it. Replaces the org&#39;s sender and answers it. Every field is written; one left out is cleared.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingSender"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MarketingSender</returns>
+        public async System.Threading.Tasks.Task<MarketingSender> PutMarketingSenderAsync(MarketingSender marketingSender, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<MarketingSender> localVarResponse = await PutMarketingSenderWithHttpInfoAsync(marketingSender, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Replaces the org&#39;s sender and answers it. Replaces the org&#39;s sender and answers it. Every field is written; one left out is cleared.  Org admin only.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="marketingSender"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MarketingSender)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<MarketingSender>> PutMarketingSenderWithHttpInfoAsync(MarketingSender marketingSender, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'marketingSender' is set
+            if (marketingSender == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'marketingSender' when calling MarketingApi->PutMarketingSender");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = marketingSender;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PutAsync<MarketingSender>("/v1/marketing/sender", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PutMarketingSender", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 

@@ -35,6 +35,7 @@ namespace Hanzo.AI.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="MarketingCampaign" /> class.
         /// </summary>
+        /// <param name="audience">Audience is who the campaign reaches: a saved cohort (aud_…), a mailing list (lst_…) or a saved segment of one (seg_…), as GET /v1/marketing/audiences lists them. Empty is none named; one the org does not have is refused..</param>
         /// <param name="budget">Budget is what the campaign is allowed to cost, in USD cents. A negative value is clamped to 0; nothing enforces the ceiling here..</param>
         /// <param name="channel">Channel is the delivery surface: email, sms, social, meta, google or tiktok. Empty means email..</param>
         /// <param name="createdAt">CreatedAt is unix seconds when the campaign was registered. Server-assigned and never rewritten — an update leaves it as it was..</param>
@@ -45,8 +46,13 @@ namespace Hanzo.AI.Model
         /// <param name="spend">Spend is what the campaign has cost so far, in USD cents, clamped to &gt;&#x3D; 0. The CALLER owns it: no send, ad buy or invoice moves it, so it changes only when create or update carries a new value. It is summed across the org&#39;s campaigns into GET /v1/marketing/summary..</param>
         /// <param name="status">Status is the lifecycle: draft, scheduled, active, paused or completed. Empty means draft..</param>
         /// <param name="updatedAt">UpdatedAt is unix seconds of the last write. Server-assigned on create and on every update or schedule change, and the campaign list is ordered by it, newest first..</param>
-        public MarketingCampaign(long? budget = default, string channel = default, long? createdAt = default, string id = default, string name = default, string objective = default, long? scheduledAt = default, long? spend = default, string status = default, long? updatedAt = default)
+        public MarketingCampaign(string audience = default, long? budget = default, string channel = default, long? createdAt = default, string id = default, string name = default, string objective = default, long? scheduledAt = default, long? spend = default, string status = default, long? updatedAt = default)
         {
+            this._Audience = audience;
+            if (this.Audience != null)
+            {
+                this._flagAudience = true;
+            }
             this._Budget = budget;
             if (this.Budget != null)
             {
@@ -100,6 +106,31 @@ namespace Hanzo.AI.Model
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 
+        /// <summary>
+        /// Audience is who the campaign reaches: a saved cohort (aud_…), a mailing list (lst_…) or a saved segment of one (seg_…), as GET /v1/marketing/audiences lists them. Empty is none named; one the org does not have is refused.
+        /// </summary>
+        /// <value>Audience is who the campaign reaches: a saved cohort (aud_…), a mailing list (lst_…) or a saved segment of one (seg_…), as GET /v1/marketing/audiences lists them. Empty is none named; one the org does not have is refused.</value>
+        [DataMember(Name = "audience", EmitDefaultValue = false)]
+        public string Audience
+        {
+            get{ return _Audience;}
+            set
+            {
+                _Audience = value;
+                _flagAudience = true;
+            }
+        }
+        private string _Audience;
+        private bool _flagAudience;
+
+        /// <summary>
+        /// Returns false as Audience should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeAudience()
+        {
+            return _flagAudience;
+        }
         /// <summary>
         /// Budget is what the campaign is allowed to cost, in USD cents. A negative value is clamped to 0; nothing enforces the ceiling here.
         /// </summary>
@@ -364,6 +395,7 @@ namespace Hanzo.AI.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class MarketingCampaign {\n");
+            sb.Append("  Audience: ").Append(Audience).Append("\n");
             sb.Append("  Budget: ").Append(Budget).Append("\n");
             sb.Append("  Channel: ").Append(Channel).Append("\n");
             sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");

@@ -195,7 +195,7 @@ namespace Hanzo.AI.Api
         /// OAuth return for any connector
         /// </summary>
         /// <remarks>
-        /// The single address every connector&#39;s OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.  It is public and carries no principal, so the org is taken ONLY from the signed state minted when the flow began; no header is trusted here. That state is single-use and is burned BEFORE the exchange, so one authorization is one attempt and a replayed return fails instead of exchanging twice.  Tokens are sealed into the org&#39;s KMS namespace BEFORE the connection row is written, so a failure of the secret store leaves no half-connected integration advertising a credential that was never stored. Token values never appear in the redirect, in a log line or in an error.  One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code&#39;s place so the App model needs no second address.
+        /// The single address every connector&#39;s OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.  It is public and carries no principal, so the org is taken ONLY from the signed state minted when the flow began; no header is trusted here. That state is single-use and is burned BEFORE the exchange, so one authorization is one attempt and a replayed return fails instead of exchanging twice.  Tokens are sealed into the org&#39;s KMS namespace BEFORE the connection row is written, so a failure of the secret store leaves no half-connected integration advertising a credential that was never stored. Token values never appear in the redirect, in a log line or in an error.  One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code&#39;s place so the App model needs no second address.  A GitHub connect that returns from GitHub&#39;s authorization page, rather than its install page, answers a short page instead of a redirect when the person already controls installations no organization holds: they choose which one to connect, or go on to install the app on another account. Nothing is bound until they choose.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="provider"></param>
@@ -206,7 +206,7 @@ namespace Hanzo.AI.Api
         /// OAuth return for any connector
         /// </summary>
         /// <remarks>
-        /// The single address every connector&#39;s OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.  It is public and carries no principal, so the org is taken ONLY from the signed state minted when the flow began; no header is trusted here. That state is single-use and is burned BEFORE the exchange, so one authorization is one attempt and a replayed return fails instead of exchanging twice.  Tokens are sealed into the org&#39;s KMS namespace BEFORE the connection row is written, so a failure of the secret store leaves no half-connected integration advertising a credential that was never stored. Token values never appear in the redirect, in a log line or in an error.  One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code&#39;s place so the App model needs no second address.
+        /// The single address every connector&#39;s OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.  It is public and carries no principal, so the org is taken ONLY from the signed state minted when the flow began; no header is trusted here. That state is single-use and is burned BEFORE the exchange, so one authorization is one attempt and a replayed return fails instead of exchanging twice.  Tokens are sealed into the org&#39;s KMS namespace BEFORE the connection row is written, so a failure of the secret store leaves no half-connected integration advertising a credential that was never stored. Token values never appear in the redirect, in a log line or in an error.  One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code&#39;s place so the App model needs no second address.  A GitHub connect that returns from GitHub&#39;s authorization page, rather than its install page, answers a short page instead of a redirect when the person already controls installations no organization holds: they choose which one to connect, or go on to install the app on another account. Nothing is bound until they choose.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="provider"></param>
@@ -764,6 +764,27 @@ namespace Hanzo.AI.Api
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> GetProviderTwitterCallbackWithHttpInfo();
         /// <summary>
+        /// Reads the invite link of a group this org&#39;s number owns.
+        /// </summary>
+        /// <remarks>
+        /// Reads the invite link of a group this org&#39;s number owns.  Org admin, for the same reason creating one is: the link admits anyone who holds it.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="group">Group is the group id returned when the group was created. (optional)</param>
+        /// <returns>ProviderWhatsappGroupOut</returns>
+        ProviderWhatsappGroupOut GetProviderWhatsappGroups(string? group = default);
+
+        /// <summary>
+        /// Reads the invite link of a group this org&#39;s number owns.
+        /// </summary>
+        /// <remarks>
+        /// Reads the invite link of a group this org&#39;s number owns.  Org admin, for the same reason creating one is: the link admits anyone who holds it.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="group">Group is the group id returned when the group was created. (optional)</param>
+        /// <returns>ApiResponse of ProviderWhatsappGroupOut</returns>
+        ApiResponse<ProviderWhatsappGroupOut> GetProviderWhatsappGroupsWithHttpInfo(string? group = default);
+        /// <summary>
         /// WhatsApp Cloud API subscription challenge
         /// </summary>
         /// <remarks>
@@ -872,6 +893,27 @@ namespace Hanzo.AI.Api
         /// <param name="flow">Flow is the id deviceStartOut returned. Expired or another user&#39;s flow is indistinguishable from an unknown one: 404.</param>
         /// <returns>ApiResponse of ProviderDevicePollOut</returns>
         ApiResponse<ProviderDevicePollOut> PostConnectionByProviderDeviceByFlowPollWithHttpInfo(string provider, string flow);
+        /// <summary>
+        /// Answer the connect&#39;s account chooser
+        /// </summary>
+        /// <remarks>
+        /// The form the chooser page posts: &#x60;state&#x60; (the token the page was given), and either &#x60;account&#x60; (one of the accounts it offered) or &#x60;install&#x60; (go on to the provider&#39;s install page). It binds the chosen account to the organization that started the connect and redirects back to the page that asked, as the callback does.  It is public and carries no principal. Its authority is the token alone: signed like the callback&#39;s state, carrying the offered accounts under its signature, and single-use, so a page answers once and only with an account it offered.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="provider"></param>
+        /// <returns></returns>
+        void PostProviderByProviderChoose(string provider);
+
+        /// <summary>
+        /// Answer the connect&#39;s account chooser
+        /// </summary>
+        /// <remarks>
+        /// The form the chooser page posts: &#x60;state&#x60; (the token the page was given), and either &#x60;account&#x60; (one of the accounts it offered) or &#x60;install&#x60; (go on to the provider&#39;s install page). It binds the chosen account to the organization that started the connect and redirects back to the page that asked, as the callback does.  It is public and carries no principal. Its authority is the token alone: signed like the callback&#39;s state, carrying the offered accounts under its signature, and single-use, so a page answers once and only with an account it offered.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="provider"></param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> PostProviderByProviderChooseWithHttpInfo(string provider);
         /// <summary>
         /// Acquires the org&#39;s credential for one provider.
         /// </summary>
@@ -1155,7 +1197,7 @@ namespace Hanzo.AI.Api
         /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person.
         /// </summary>
         /// <remarks>
-        /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Every member may connect their own; it grants nothing the person does not already hold on GitHub.
+        /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Every member may connect their own; it grants nothing the person does not already hold on GitHub. The page shows GitHub&#39;s account picker (githubPick), so a connect after a Disconnect can choose another account: GitHub otherwise skips the page for anyone who authorized the App before.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="providerGithubUserConnectIn"></param>
@@ -1166,7 +1208,7 @@ namespace Hanzo.AI.Api
         /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person.
         /// </summary>
         /// <remarks>
-        /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Every member may connect their own; it grants nothing the person does not already hold on GitHub.
+        /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Every member may connect their own; it grants nothing the person does not already hold on GitHub. The page shows GitHub&#39;s account picker (githubPick), so a connect after a Disconnect can choose another account: GitHub otherwise skips the page for anyone who authorized the App before.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="providerGithubUserConnectIn"></param>
@@ -1552,6 +1594,27 @@ namespace Hanzo.AI.Api
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> PostProviderTelegramWebhookWithHttpInfo();
         /// <summary>
+        /// Creates a group on the org&#39;s WhatsApp number and returns its invite link.
+        /// </summary>
+        /// <remarks>
+        /// Creates a group on the org&#39;s WhatsApp number and returns its invite link.  Org admin, because the group speaks as the org&#39;s number and the invite link admits anyone who holds it.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="providerWhatsappGroupIn"></param>
+        /// <returns>ProviderWhatsappGroupOut</returns>
+        ProviderWhatsappGroupOut PostProviderWhatsappGroups(ProviderWhatsappGroupIn providerWhatsappGroupIn);
+
+        /// <summary>
+        /// Creates a group on the org&#39;s WhatsApp number and returns its invite link.
+        /// </summary>
+        /// <remarks>
+        /// Creates a group on the org&#39;s WhatsApp number and returns its invite link.  Org admin, because the group speaks as the org&#39;s number and the invite link admits anyone who holds it.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="providerWhatsappGroupIn"></param>
+        /// <returns>ApiResponse of ProviderWhatsappGroupOut</returns>
+        ApiResponse<ProviderWhatsappGroupOut> PostProviderWhatsappGroupsWithHttpInfo(ProviderWhatsappGroupIn providerWhatsappGroupIn);
+        /// <summary>
         /// WhatsApp Cloud API webhook
         /// </summary>
         /// <remarks>
@@ -1807,7 +1870,7 @@ namespace Hanzo.AI.Api
         /// OAuth return for any connector
         /// </summary>
         /// <remarks>
-        /// The single address every connector&#39;s OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.  It is public and carries no principal, so the org is taken ONLY from the signed state minted when the flow began; no header is trusted here. That state is single-use and is burned BEFORE the exchange, so one authorization is one attempt and a replayed return fails instead of exchanging twice.  Tokens are sealed into the org&#39;s KMS namespace BEFORE the connection row is written, so a failure of the secret store leaves no half-connected integration advertising a credential that was never stored. Token values never appear in the redirect, in a log line or in an error.  One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code&#39;s place so the App model needs no second address.
+        /// The single address every connector&#39;s OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.  It is public and carries no principal, so the org is taken ONLY from the signed state minted when the flow began; no header is trusted here. That state is single-use and is burned BEFORE the exchange, so one authorization is one attempt and a replayed return fails instead of exchanging twice.  Tokens are sealed into the org&#39;s KMS namespace BEFORE the connection row is written, so a failure of the secret store leaves no half-connected integration advertising a credential that was never stored. Token values never appear in the redirect, in a log line or in an error.  One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code&#39;s place so the App model needs no second address.  A GitHub connect that returns from GitHub&#39;s authorization page, rather than its install page, answers a short page instead of a redirect when the person already controls installations no organization holds: they choose which one to connect, or go on to install the app on another account. Nothing is bound until they choose.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="provider"></param>
@@ -1819,7 +1882,7 @@ namespace Hanzo.AI.Api
         /// OAuth return for any connector
         /// </summary>
         /// <remarks>
-        /// The single address every connector&#39;s OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.  It is public and carries no principal, so the org is taken ONLY from the signed state minted when the flow began; no header is trusted here. That state is single-use and is burned BEFORE the exchange, so one authorization is one attempt and a replayed return fails instead of exchanging twice.  Tokens are sealed into the org&#39;s KMS namespace BEFORE the connection row is written, so a failure of the secret store leaves no half-connected integration advertising a credential that was never stored. Token values never appear in the redirect, in a log line or in an error.  One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code&#39;s place so the App model needs no second address.
+        /// The single address every connector&#39;s OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.  It is public and carries no principal, so the org is taken ONLY from the signed state minted when the flow began; no header is trusted here. That state is single-use and is burned BEFORE the exchange, so one authorization is one attempt and a replayed return fails instead of exchanging twice.  Tokens are sealed into the org&#39;s KMS namespace BEFORE the connection row is written, so a failure of the secret store leaves no half-connected integration advertising a credential that was never stored. Token values never appear in the redirect, in a log line or in an error.  One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code&#39;s place so the App model needs no second address.  A GitHub connect that returns from GitHub&#39;s authorization page, rather than its install page, answers a short page instead of a redirect when the person already controls installations no organization holds: they choose which one to connect, or go on to install the app on another account. Nothing is bound until they choose.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="provider"></param>
@@ -2432,6 +2495,29 @@ namespace Hanzo.AI.Api
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetProviderTwitterCallbackWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
+        /// Reads the invite link of a group this org&#39;s number owns.
+        /// </summary>
+        /// <remarks>
+        /// Reads the invite link of a group this org&#39;s number owns.  Org admin, for the same reason creating one is: the link admits anyone who holds it.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="group">Group is the group id returned when the group was created. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ProviderWhatsappGroupOut</returns>
+        System.Threading.Tasks.Task<ProviderWhatsappGroupOut> GetProviderWhatsappGroupsAsync(string? group = default, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Reads the invite link of a group this org&#39;s number owns.
+        /// </summary>
+        /// <remarks>
+        /// Reads the invite link of a group this org&#39;s number owns.  Org admin, for the same reason creating one is: the link admits anyone who holds it.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="group">Group is the group id returned when the group was created. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ProviderWhatsappGroupOut)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ProviderWhatsappGroupOut>> GetProviderWhatsappGroupsWithHttpInfoAsync(string? group = default, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
         /// WhatsApp Cloud API subscription challenge
         /// </summary>
         /// <remarks>
@@ -2550,6 +2636,29 @@ namespace Hanzo.AI.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (ProviderDevicePollOut)</returns>
         System.Threading.Tasks.Task<ApiResponse<ProviderDevicePollOut>> PostConnectionByProviderDeviceByFlowPollWithHttpInfoAsync(string provider, string flow, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Answer the connect&#39;s account chooser
+        /// </summary>
+        /// <remarks>
+        /// The form the chooser page posts: &#x60;state&#x60; (the token the page was given), and either &#x60;account&#x60; (one of the accounts it offered) or &#x60;install&#x60; (go on to the provider&#39;s install page). It binds the chosen account to the organization that started the connect and redirects back to the page that asked, as the callback does.  It is public and carries no principal. Its authority is the token alone: signed like the callback&#39;s state, carrying the offered accounts under its signature, and single-use, so a page answers once and only with an account it offered.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="provider"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task PostProviderByProviderChooseAsync(string provider, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Answer the connect&#39;s account chooser
+        /// </summary>
+        /// <remarks>
+        /// The form the chooser page posts: &#x60;state&#x60; (the token the page was given), and either &#x60;account&#x60; (one of the accounts it offered) or &#x60;install&#x60; (go on to the provider&#39;s install page). It binds the chosen account to the organization that started the connect and redirects back to the page that asked, as the callback does.  It is public and carries no principal. Its authority is the token alone: signed like the callback&#39;s state, carrying the offered accounts under its signature, and single-use, so a page answers once and only with an account it offered.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="provider"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> PostProviderByProviderChooseWithHttpInfoAsync(string provider, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Acquires the org&#39;s credential for one provider.
         /// </summary>
@@ -2859,7 +2968,7 @@ namespace Hanzo.AI.Api
         /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person.
         /// </summary>
         /// <remarks>
-        /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Every member may connect their own; it grants nothing the person does not already hold on GitHub.
+        /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Every member may connect their own; it grants nothing the person does not already hold on GitHub. The page shows GitHub&#39;s account picker (githubPick), so a connect after a Disconnect can choose another account: GitHub otherwise skips the page for anyone who authorized the App before.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="providerGithubUserConnectIn"></param>
@@ -2871,7 +2980,7 @@ namespace Hanzo.AI.Api
         /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person.
         /// </summary>
         /// <remarks>
-        /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Every member may connect their own; it grants nothing the person does not already hold on GitHub.
+        /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Every member may connect their own; it grants nothing the person does not already hold on GitHub. The page shows GitHub&#39;s account picker (githubPick), so a connect after a Disconnect can choose another account: GitHub otherwise skips the page for anyone who authorized the App before.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="providerGithubUserConnectIn"></param>
@@ -3295,6 +3404,29 @@ namespace Hanzo.AI.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> PostProviderTelegramWebhookWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Creates a group on the org&#39;s WhatsApp number and returns its invite link.
+        /// </summary>
+        /// <remarks>
+        /// Creates a group on the org&#39;s WhatsApp number and returns its invite link.  Org admin, because the group speaks as the org&#39;s number and the invite link admits anyone who holds it.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="providerWhatsappGroupIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ProviderWhatsappGroupOut</returns>
+        System.Threading.Tasks.Task<ProviderWhatsappGroupOut> PostProviderWhatsappGroupsAsync(ProviderWhatsappGroupIn providerWhatsappGroupIn, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Creates a group on the org&#39;s WhatsApp number and returns its invite link.
+        /// </summary>
+        /// <remarks>
+        /// Creates a group on the org&#39;s WhatsApp number and returns its invite link.  Org admin, because the group speaks as the org&#39;s number and the invite link admits anyone who holds it.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="providerWhatsappGroupIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ProviderWhatsappGroupOut)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ProviderWhatsappGroupOut>> PostProviderWhatsappGroupsWithHttpInfoAsync(ProviderWhatsappGroupIn providerWhatsappGroupIn, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// WhatsApp Cloud API webhook
         /// </summary>
@@ -4578,7 +4710,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// OAuth return for any connector The single address every connector&#39;s OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.  It is public and carries no principal, so the org is taken ONLY from the signed state minted when the flow began; no header is trusted here. That state is single-use and is burned BEFORE the exchange, so one authorization is one attempt and a replayed return fails instead of exchanging twice.  Tokens are sealed into the org&#39;s KMS namespace BEFORE the connection row is written, so a failure of the secret store leaves no half-connected integration advertising a credential that was never stored. Token values never appear in the redirect, in a log line or in an error.  One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code&#39;s place so the App model needs no second address.
+        /// OAuth return for any connector The single address every connector&#39;s OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.  It is public and carries no principal, so the org is taken ONLY from the signed state minted when the flow began; no header is trusted here. That state is single-use and is burned BEFORE the exchange, so one authorization is one attempt and a replayed return fails instead of exchanging twice.  Tokens are sealed into the org&#39;s KMS namespace BEFORE the connection row is written, so a failure of the secret store leaves no half-connected integration advertising a credential that was never stored. Token values never appear in the redirect, in a log line or in an error.  One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code&#39;s place so the App model needs no second address.  A GitHub connect that returns from GitHub&#39;s authorization page, rather than its install page, answers a short page instead of a redirect when the person already controls installations no organization holds: they choose which one to connect, or go on to install the app on another account. Nothing is bound until they choose.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="provider"></param>
@@ -4589,7 +4721,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// OAuth return for any connector The single address every connector&#39;s OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.  It is public and carries no principal, so the org is taken ONLY from the signed state minted when the flow began; no header is trusted here. That state is single-use and is burned BEFORE the exchange, so one authorization is one attempt and a replayed return fails instead of exchanging twice.  Tokens are sealed into the org&#39;s KMS namespace BEFORE the connection row is written, so a failure of the secret store leaves no half-connected integration advertising a credential that was never stored. Token values never appear in the redirect, in a log line or in an error.  One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code&#39;s place so the App model needs no second address.
+        /// OAuth return for any connector The single address every connector&#39;s OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.  It is public and carries no principal, so the org is taken ONLY from the signed state minted when the flow began; no header is trusted here. That state is single-use and is burned BEFORE the exchange, so one authorization is one attempt and a replayed return fails instead of exchanging twice.  Tokens are sealed into the org&#39;s KMS namespace BEFORE the connection row is written, so a failure of the secret store leaves no half-connected integration advertising a credential that was never stored. Token values never appear in the redirect, in a log line or in an error.  One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code&#39;s place so the App model needs no second address.  A GitHub connect that returns from GitHub&#39;s authorization page, rather than its install page, answers a short page instead of a redirect when the person already controls installations no organization holds: they choose which one to connect, or go on to install the app on another account. Nothing is bound until they choose.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="provider"></param>
@@ -4637,7 +4769,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// OAuth return for any connector The single address every connector&#39;s OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.  It is public and carries no principal, so the org is taken ONLY from the signed state minted when the flow began; no header is trusted here. That state is single-use and is burned BEFORE the exchange, so one authorization is one attempt and a replayed return fails instead of exchanging twice.  Tokens are sealed into the org&#39;s KMS namespace BEFORE the connection row is written, so a failure of the secret store leaves no half-connected integration advertising a credential that was never stored. Token values never appear in the redirect, in a log line or in an error.  One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code&#39;s place so the App model needs no second address.
+        /// OAuth return for any connector The single address every connector&#39;s OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.  It is public and carries no principal, so the org is taken ONLY from the signed state minted when the flow began; no header is trusted here. That state is single-use and is burned BEFORE the exchange, so one authorization is one attempt and a replayed return fails instead of exchanging twice.  Tokens are sealed into the org&#39;s KMS namespace BEFORE the connection row is written, so a failure of the secret store leaves no half-connected integration advertising a credential that was never stored. Token values never appear in the redirect, in a log line or in an error.  One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code&#39;s place so the App model needs no second address.  A GitHub connect that returns from GitHub&#39;s authorization page, rather than its install page, answers a short page instead of a redirect when the person already controls installations no organization holds: they choose which one to connect, or go on to install the app on another account. Nothing is bound until they choose.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="provider"></param>
@@ -4649,7 +4781,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// OAuth return for any connector The single address every connector&#39;s OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.  It is public and carries no principal, so the org is taken ONLY from the signed state minted when the flow began; no header is trusted here. That state is single-use and is burned BEFORE the exchange, so one authorization is one attempt and a replayed return fails instead of exchanging twice.  Tokens are sealed into the org&#39;s KMS namespace BEFORE the connection row is written, so a failure of the secret store leaves no half-connected integration advertising a credential that was never stored. Token values never appear in the redirect, in a log line or in an error.  One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code&#39;s place so the App model needs no second address.
+        /// OAuth return for any connector The single address every connector&#39;s OAuth flow returns to. It exchanges the authorization the provider granted, records the connection, and ALWAYS redirects the browser back to the console — on success and on every labeled failure alike, so a user never lands on a raw JSON dead end.  It is public and carries no principal, so the org is taken ONLY from the signed state minted when the flow began; no header is trusted here. That state is single-use and is burned BEFORE the exchange, so one authorization is one attempt and a replayed return fails instead of exchanging twice.  Tokens are sealed into the org&#39;s KMS namespace BEFORE the connection row is written, so a failure of the secret store leaves no half-connected integration advertising a credential that was never stored. Token values never appear in the redirect, in a log line or in an error.  One generalization is worth knowing: a GitHub App installation returns an installation identifier instead of an OAuth code, and it is accepted in the code&#39;s place so the App model needs no second address.  A GitHub connect that returns from GitHub&#39;s authorization page, rather than its install page, answers a short page instead of a redirect when the person already controls installations no organization holds: they choose which one to connect, or go on to install the app on another account. Nothing is bound until they choose.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="provider"></param>
@@ -7934,6 +8066,133 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
+        /// Reads the invite link of a group this org&#39;s number owns. Reads the invite link of a group this org&#39;s number owns.  Org admin, for the same reason creating one is: the link admits anyone who holds it.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="group">Group is the group id returned when the group was created. (optional)</param>
+        /// <returns>ProviderWhatsappGroupOut</returns>
+        public ProviderWhatsappGroupOut GetProviderWhatsappGroups(string? group = default)
+        {
+            Hanzo.AI.Client.ApiResponse<ProviderWhatsappGroupOut> localVarResponse = GetProviderWhatsappGroupsWithHttpInfo(group);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Reads the invite link of a group this org&#39;s number owns. Reads the invite link of a group this org&#39;s number owns.  Org admin, for the same reason creating one is: the link admits anyone who holds it.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="group">Group is the group id returned when the group was created. (optional)</param>
+        /// <returns>ApiResponse of ProviderWhatsappGroupOut</returns>
+        public Hanzo.AI.Client.ApiResponse<ProviderWhatsappGroupOut> GetProviderWhatsappGroupsWithHttpInfo(string? group = default)
+        {
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (group != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "group", group));
+            }
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<ProviderWhatsappGroupOut>("/v1/provider/whatsapp/groups", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetProviderWhatsappGroups", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Reads the invite link of a group this org&#39;s number owns. Reads the invite link of a group this org&#39;s number owns.  Org admin, for the same reason creating one is: the link admits anyone who holds it.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="group">Group is the group id returned when the group was created. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ProviderWhatsappGroupOut</returns>
+        public async System.Threading.Tasks.Task<ProviderWhatsappGroupOut> GetProviderWhatsappGroupsAsync(string? group = default, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<ProviderWhatsappGroupOut> localVarResponse = await GetProviderWhatsappGroupsWithHttpInfoAsync(group, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Reads the invite link of a group this org&#39;s number owns. Reads the invite link of a group this org&#39;s number owns.  Org admin, for the same reason creating one is: the link admits anyone who holds it.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="group">Group is the group id returned when the group was created. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ProviderWhatsappGroupOut)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<ProviderWhatsappGroupOut>> GetProviderWhatsappGroupsWithHttpInfoAsync(string? group = default, System.Threading.CancellationToken cancellationToken = default)
+        {
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (group != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "group", group));
+            }
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<ProviderWhatsappGroupOut>("/v1/provider/whatsapp/groups", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetProviderWhatsappGroups", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
         /// WhatsApp Cloud API subscription challenge Meta calls this once when the webhook is subscribed, carrying the verify token this deployment was configured with and a challenge to echo. The token is compared in constant time before the echo — answering the challenge without checking it would let anyone point their own app at this address and have it confirm the subscription.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
@@ -8598,6 +8857,129 @@ namespace Hanzo.AI.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("PostConnectionByProviderDeviceByFlowPoll", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Answer the connect&#39;s account chooser The form the chooser page posts: &#x60;state&#x60; (the token the page was given), and either &#x60;account&#x60; (one of the accounts it offered) or &#x60;install&#x60; (go on to the provider&#39;s install page). It binds the chosen account to the organization that started the connect and redirects back to the page that asked, as the callback does.  It is public and carries no principal. Its authority is the token alone: signed like the callback&#39;s state, carrying the offered accounts under its signature, and single-use, so a page answers once and only with an account it offered.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="provider"></param>
+        /// <returns></returns>
+        public void PostProviderByProviderChoose(string provider)
+        {
+            PostProviderByProviderChooseWithHttpInfo(provider);
+        }
+
+        /// <summary>
+        /// Answer the connect&#39;s account chooser The form the chooser page posts: &#x60;state&#x60; (the token the page was given), and either &#x60;account&#x60; (one of the accounts it offered) or &#x60;install&#x60; (go on to the provider&#39;s install page). It binds the chosen account to the organization that started the connect and redirects back to the page that asked, as the callback does.  It is public and carries no principal. Its authority is the token alone: signed like the callback&#39;s state, carrying the offered accounts under its signature, and single-use, so a page answers once and only with an account it offered.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="provider"></param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public Hanzo.AI.Client.ApiResponse<Object> PostProviderByProviderChooseWithHttpInfo(string provider)
+        {
+            // verify the required parameter 'provider' is set
+            if (provider == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'provider' when calling ProviderApi->PostProviderByProviderChoose");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("provider", Hanzo.AI.Client.ClientUtils.ParameterToString(provider)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<Object>("/v1/provider/{provider}/choose", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostProviderByProviderChoose", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Answer the connect&#39;s account chooser The form the chooser page posts: &#x60;state&#x60; (the token the page was given), and either &#x60;account&#x60; (one of the accounts it offered) or &#x60;install&#x60; (go on to the provider&#39;s install page). It binds the chosen account to the organization that started the connect and redirects back to the page that asked, as the callback does.  It is public and carries no principal. Its authority is the token alone: signed like the callback&#39;s state, carrying the offered accounts under its signature, and single-use, so a page answers once and only with an account it offered.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="provider"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task PostProviderByProviderChooseAsync(string provider, System.Threading.CancellationToken cancellationToken = default)
+        {
+            await PostProviderByProviderChooseWithHttpInfoAsync(provider, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Answer the connect&#39;s account chooser The form the chooser page posts: &#x60;state&#x60; (the token the page was given), and either &#x60;account&#x60; (one of the accounts it offered) or &#x60;install&#x60; (go on to the provider&#39;s install page). It binds the chosen account to the organization that started the connect and redirects back to the page that asked, as the callback does.  It is public and carries no principal. Its authority is the token alone: signed like the callback&#39;s state, carrying the offered accounts under its signature, and single-use, so a page answers once and only with an account it offered.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="provider"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<Object>> PostProviderByProviderChooseWithHttpInfoAsync(string provider, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'provider' is set
+            if (provider == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'provider' when calling ProviderApi->PostProviderByProviderChoose");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("provider", Hanzo.AI.Client.ClientUtils.ParameterToString(provider)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<Object>("/v1/provider/{provider}/choose", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostProviderByProviderChoose", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 
@@ -10328,7 +10710,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Every member may connect their own; it grants nothing the person does not already hold on GitHub.
+        /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Every member may connect their own; it grants nothing the person does not already hold on GitHub. The page shows GitHub&#39;s account picker (githubPick), so a connect after a Disconnect can choose another account: GitHub otherwise skips the page for anyone who authorized the App before.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="providerGithubUserConnectIn"></param>
@@ -10340,7 +10722,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Every member may connect their own; it grants nothing the person does not already hold on GitHub.
+        /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Every member may connect their own; it grants nothing the person does not already hold on GitHub. The page shows GitHub&#39;s account picker (githubPick), so a connect after a Disconnect can choose another account: GitHub otherwise skips the page for anyone who authorized the App before.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="providerGithubUserConnectIn"></param>
@@ -10391,7 +10773,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Every member may connect their own; it grants nothing the person does not already hold on GitHub.
+        /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Every member may connect their own; it grants nothing the person does not already hold on GitHub. The page shows GitHub&#39;s account picker (githubPick), so a connect after a Disconnect can choose another account: GitHub otherwise skips the page for anyone who authorized the App before.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="providerGithubUserConnectIn"></param>
@@ -10404,7 +10786,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Every member may connect their own; it grants nothing the person does not already hold on GitHub.
+        /// Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Begins connecting the caller&#39;s own GitHub account: it answers the App&#39;s authorization page, carrying a state signed for this org and this person. Every member may connect their own; it grants nothing the person does not already hold on GitHub. The page shows GitHub&#39;s account picker (githubPick), so a connect after a Disconnect can choose another account: GitHub otherwise skips the page for anyone who authorized the App before.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="providerGithubUserConnectIn"></param>
@@ -12735,6 +13117,137 @@ namespace Hanzo.AI.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("PostProviderTelegramWebhook", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Creates a group on the org&#39;s WhatsApp number and returns its invite link. Creates a group on the org&#39;s WhatsApp number and returns its invite link.  Org admin, because the group speaks as the org&#39;s number and the invite link admits anyone who holds it.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="providerWhatsappGroupIn"></param>
+        /// <returns>ProviderWhatsappGroupOut</returns>
+        public ProviderWhatsappGroupOut PostProviderWhatsappGroups(ProviderWhatsappGroupIn providerWhatsappGroupIn)
+        {
+            Hanzo.AI.Client.ApiResponse<ProviderWhatsappGroupOut> localVarResponse = PostProviderWhatsappGroupsWithHttpInfo(providerWhatsappGroupIn);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Creates a group on the org&#39;s WhatsApp number and returns its invite link. Creates a group on the org&#39;s WhatsApp number and returns its invite link.  Org admin, because the group speaks as the org&#39;s number and the invite link admits anyone who holds it.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="providerWhatsappGroupIn"></param>
+        /// <returns>ApiResponse of ProviderWhatsappGroupOut</returns>
+        public Hanzo.AI.Client.ApiResponse<ProviderWhatsappGroupOut> PostProviderWhatsappGroupsWithHttpInfo(ProviderWhatsappGroupIn providerWhatsappGroupIn)
+        {
+            // verify the required parameter 'providerWhatsappGroupIn' is set
+            if (providerWhatsappGroupIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'providerWhatsappGroupIn' when calling ProviderApi->PostProviderWhatsappGroups");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = providerWhatsappGroupIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<ProviderWhatsappGroupOut>("/v1/provider/whatsapp/groups", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostProviderWhatsappGroups", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Creates a group on the org&#39;s WhatsApp number and returns its invite link. Creates a group on the org&#39;s WhatsApp number and returns its invite link.  Org admin, because the group speaks as the org&#39;s number and the invite link admits anyone who holds it.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="providerWhatsappGroupIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ProviderWhatsappGroupOut</returns>
+        public async System.Threading.Tasks.Task<ProviderWhatsappGroupOut> PostProviderWhatsappGroupsAsync(ProviderWhatsappGroupIn providerWhatsappGroupIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<ProviderWhatsappGroupOut> localVarResponse = await PostProviderWhatsappGroupsWithHttpInfoAsync(providerWhatsappGroupIn, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Creates a group on the org&#39;s WhatsApp number and returns its invite link. Creates a group on the org&#39;s WhatsApp number and returns its invite link.  Org admin, because the group speaks as the org&#39;s number and the invite link admits anyone who holds it.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="providerWhatsappGroupIn"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (ProviderWhatsappGroupOut)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<ProviderWhatsappGroupOut>> PostProviderWhatsappGroupsWithHttpInfoAsync(ProviderWhatsappGroupIn providerWhatsappGroupIn, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'providerWhatsappGroupIn' is set
+            if (providerWhatsappGroupIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'providerWhatsappGroupIn' when calling ProviderApi->PostProviderWhatsappGroups");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = providerWhatsappGroupIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<ProviderWhatsappGroupOut>("/v1/provider/whatsapp/groups", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostProviderWhatsappGroups", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 

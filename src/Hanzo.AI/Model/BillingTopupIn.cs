@@ -38,8 +38,9 @@ namespace Hanzo.AI.Model
         /// <param name="amountCents">AmountCents is how much to charge, in cents of Currency. Required..</param>
         /// <param name="currency">Currency is the ISO-4217 code to charge in. Empty takes the deployment&#39;s own default..</param>
         /// <param name="paymentMethodId">MethodID names a card the subject already saved, for the saved-card endpoint..</param>
+        /// <param name="provider">Provider names the explicit payment processor (\&quot;square\&quot; or \&quot;paypal\&quot;) when SourceID is a provider-specific order/token (e.g. a PayPal v2 Order ID)..</param>
         /// <param name="sourceId">SourceID is a single-use card token from the payment form, for the token endpoint. It is vaulted as part of the charge, so a caller never holds card numbers and this service never sees one..</param>
-        public BillingTopupIn(long? amountCents = default, string currency = default, string paymentMethodId = default, string sourceId = default)
+        public BillingTopupIn(long? amountCents = default, string currency = default, string paymentMethodId = default, string provider = default, string sourceId = default)
         {
             this._AmountCents = amountCents;
             if (this.AmountCents != null)
@@ -55,6 +56,11 @@ namespace Hanzo.AI.Model
             if (this.PaymentMethodId != null)
             {
                 this._flagPaymentMethodId = true;
+            }
+            this._Provider = provider;
+            if (this.Provider != null)
+            {
+                this._flagProvider = true;
             }
             this._SourceId = sourceId;
             if (this.SourceId != null)
@@ -140,6 +146,31 @@ namespace Hanzo.AI.Model
             return _flagPaymentMethodId;
         }
         /// <summary>
+        /// Provider names the explicit payment processor (\&quot;square\&quot; or \&quot;paypal\&quot;) when SourceID is a provider-specific order/token (e.g. a PayPal v2 Order ID).
+        /// </summary>
+        /// <value>Provider names the explicit payment processor (\&quot;square\&quot; or \&quot;paypal\&quot;) when SourceID is a provider-specific order/token (e.g. a PayPal v2 Order ID).</value>
+        [DataMember(Name = "provider", EmitDefaultValue = false)]
+        public string Provider
+        {
+            get{ return _Provider;}
+            set
+            {
+                _Provider = value;
+                _flagProvider = true;
+            }
+        }
+        private string _Provider;
+        private bool _flagProvider;
+
+        /// <summary>
+        /// Returns false as Provider should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeProvider()
+        {
+            return _flagProvider;
+        }
+        /// <summary>
         /// SourceID is a single-use card token from the payment form, for the token endpoint. It is vaulted as part of the charge, so a caller never holds card numbers and this service never sees one.
         /// </summary>
         /// <value>SourceID is a single-use card token from the payment form, for the token endpoint. It is vaulted as part of the charge, so a caller never holds card numbers and this service never sees one.</value>
@@ -181,6 +212,7 @@ namespace Hanzo.AI.Model
             sb.Append("  AmountCents: ").Append(AmountCents).Append("\n");
             sb.Append("  Currency: ").Append(Currency).Append("\n");
             sb.Append("  PaymentMethodId: ").Append(PaymentMethodId).Append("\n");
+            sb.Append("  Provider: ").Append(Provider).Append("\n");
             sb.Append("  SourceId: ").Append(SourceId).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");

@@ -36,7 +36,7 @@ namespace Hanzo.AI.Model
         /// Initializes a new instance of the <see cref="MarketingEnrollInput" /> class.
         /// </summary>
         /// <param name="address">Address is a single recipient, normalized (lower-cased, trimmed) before use. Give this OR audienceId, never both and never neither..</param>
-        /// <param name="audienceId">AudienceID fans the sequence out over a saved audience, resolved live to the org&#39;s mailable customers. Email only..</param>
+        /// <param name="audienceId">AudienceID fans the sequence out over an audience: a saved cohort (aud_…), resolved live to the org&#39;s mailable customers, or a list (lst_…) or a saved segment of one (seg_…), resolved to its subscribed members. Email only..</param>
         /// <param name="channel">Channel is the delivery surface; empty means email. An audience resolves mailboxes, so an audience enroll must be email..</param>
         /// <param name="id">ID is the sequence id from the path..</param>
         public MarketingEnrollInput(string address = default, string audienceId = default, string channel = default, string id = default)
@@ -90,9 +90,9 @@ namespace Hanzo.AI.Model
             return _flagAddress;
         }
         /// <summary>
-        /// AudienceID fans the sequence out over a saved audience, resolved live to the org&#39;s mailable customers. Email only.
+        /// AudienceID fans the sequence out over an audience: a saved cohort (aud_…), resolved live to the org&#39;s mailable customers, or a list (lst_…) or a saved segment of one (seg_…), resolved to its subscribed members. Email only.
         /// </summary>
-        /// <value>AudienceID fans the sequence out over a saved audience, resolved live to the org&#39;s mailable customers. Email only.</value>
+        /// <value>AudienceID fans the sequence out over an audience: a saved cohort (aud_…), resolved live to the org&#39;s mailable customers, or a list (lst_…) or a saved segment of one (seg_…), resolved to its subscribed members. Email only.</value>
         [DataMember(Name = "audienceId", EmitDefaultValue = false)]
         public string AudienceId
         {

@@ -37,8 +37,9 @@ namespace Hanzo.AI.Model
         /// </summary>
         /// <param name="assets">Assets is every (chain, token) pair the deposit-address rail accepts. Chains and Tokens are its two axes: a chain and a token each on offer are not a pair on offer, so a picker that crosses them can name an asset the rail will refuse..</param>
         /// <param name="chains">chains.</param>
+        /// <param name="gateway">gateway.</param>
         /// <param name="tokens">tokens.</param>
-        public BillingCryptoOptions(List<BillingCryptoPair> assets = default, List<string> chains = default, List<string> tokens = default)
+        public BillingCryptoOptions(List<BillingCryptoPair> assets = default, List<string> chains = default, List<string> gateway = default, List<string> tokens = default)
         {
             this._Assets = assets;
             if (this.Assets != null)
@@ -49,6 +50,11 @@ namespace Hanzo.AI.Model
             if (this.Chains != null)
             {
                 this._flagChains = true;
+            }
+            this._Gateway = gateway;
+            if (this.Gateway != null)
+            {
+                this._flagGateway = true;
             }
             this._Tokens = tokens;
             if (this.Tokens != null)
@@ -108,6 +114,30 @@ namespace Hanzo.AI.Model
             return _flagChains;
         }
         /// <summary>
+        /// Gets or Sets Gateway
+        /// </summary>
+        [DataMember(Name = "gateway", EmitDefaultValue = false)]
+        public List<string> Gateway
+        {
+            get{ return _Gateway;}
+            set
+            {
+                _Gateway = value;
+                _flagGateway = true;
+            }
+        }
+        private List<string> _Gateway;
+        private bool _flagGateway;
+
+        /// <summary>
+        /// Returns false as Gateway should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeGateway()
+        {
+            return _flagGateway;
+        }
+        /// <summary>
         /// Gets or Sets Tokens
         /// </summary>
         [DataMember(Name = "tokens", EmitDefaultValue = false)]
@@ -147,6 +177,7 @@ namespace Hanzo.AI.Model
             sb.Append("class BillingCryptoOptions {\n");
             sb.Append("  Assets: ").Append(Assets).Append("\n");
             sb.Append("  Chains: ").Append(Chains).Append("\n");
+            sb.Append("  Gateway: ").Append(Gateway).Append("\n");
             sb.Append("  Tokens: ").Append(Tokens).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");

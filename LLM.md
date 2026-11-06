@@ -15,19 +15,19 @@ the files listed in `.generated`; a hand edit there is caught by
 ## The shape, and how to measure it
 
 ```
-find src/Hanzo.AI/Api src/Hanzo.AI/Client src/Hanzo.AI/Model -name '*.cs' | wc -l   # 3385
+find src/Hanzo.AI/Api src/Hanzo.AI/Client src/Hanzo.AI/Model -name '*.cs' | wc -l   # 3435
 ls src/Hanzo.AI/Api/*.cs | wc -l                                                      # 130
 ```
 
-Measured at hanzo-inc/cloud v8.5.988 (`a779b8b2`): 1,877 paths, 2,603
-operations, 3,146 schemas. 413 operations carry no `responses` and become
+Measured at hanzo-inc/cloud v8.5.1026 (`834987f2`): 1,908 paths, 2,649
+operations, 3,197 schemas. 419 operations carry no `responses` and become
 `void` methods.
 
 ## Why the row is shaped the way it is
 
 - **`httpclient`, not `generichost`.** generichost names a response type per
-  operation from its `responses`; with 413 operations publishing none it
-  references 413 types it never emits (4,956 CS0246). httpclient builds clean.
+  operation from its `responses`; with 419 operations publishing none it
+  references one type per such operation it never emits (4,956 CS0246). httpclient builds clean.
 - **Nullable primitives + `conditionalSerialization`.** The default types an
   optional int/decimal/bool as a plain value type with EmitDefaultValue=false,
   so `Temperature = 0` never reaches the wire and every unset bool is sent as

@@ -242,24 +242,24 @@ namespace Hanzo.AI.Api
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> GetSandboxByIdTerminalWsWithHttpInfo(string id);
         /// <summary>
-        /// Answers the caller&#39;s sandbox quota: the wallet it belongs to, how many of that wallet&#39;s sandboxes are running, and how many may run at once.
+        /// Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound).
         /// </summary>
         /// <remarks>
-        /// Answers the caller&#39;s sandbox quota: the wallet it belongs to, how many of that wallet&#39;s sandboxes are running, and how many may run at once. A prepaid account holds 100 until it asks for more with PUT /v1/sandbox/quota.
+        /// Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound). Staff set the quota per org or per plan; where they set none it is 100.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>SandboxQuotaView</returns>
-        SandboxQuotaView GetSandboxQuota();
+        /// <returns>SandboxQuota</returns>
+        SandboxQuota GetSandboxQuota();
 
         /// <summary>
-        /// Answers the caller&#39;s sandbox quota: the wallet it belongs to, how many of that wallet&#39;s sandboxes are running, and how many may run at once.
+        /// Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound).
         /// </summary>
         /// <remarks>
-        /// Answers the caller&#39;s sandbox quota: the wallet it belongs to, how many of that wallet&#39;s sandboxes are running, and how many may run at once. A prepaid account holds 100 until it asks for more with PUT /v1/sandbox/quota.
+        /// Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound). Staff set the quota per org or per plan; where they set none it is 100.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of SandboxQuotaView</returns>
-        ApiResponse<SandboxQuotaView> GetSandboxQuotaWithHttpInfo();
+        /// <returns>ApiResponse of SandboxQuota</returns>
+        ApiResponse<SandboxQuota> GetSandboxQuotaWithHttpInfo();
         /// <summary>
         /// Lease a sandbox — a real computer — or resume one you hold
         /// </summary>
@@ -474,27 +474,6 @@ namespace Hanzo.AI.Api
         /// <param name="id">ID is the sandbox to address, from the path.</param>
         /// <returns>ApiResponse of SandboxTicketGrant</returns>
         ApiResponse<SandboxTicketGrant> PostSandboxByIdTerminalTicketWithHttpInfo(string id);
-        /// <summary>
-        /// Sets how many sandboxes the caller&#39;s wallet may hold running at once, to any number of one or more.
-        /// </summary>
-        /// <remarks>
-        /// Sets how many sandboxes the caller&#39;s wallet may hold running at once, to any number of one or more. It is granted while the wallet holds a balance: every sandbox is still paid for by the hour from it, so the balance, not this number, is what limits the work. A wallet with nothing in it is told to top up.
-        /// </remarks>
-        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="sandboxQuotaIn"></param>
-        /// <returns>SandboxQuotaView</returns>
-        SandboxQuotaView PutSandboxQuota(SandboxQuotaIn sandboxQuotaIn);
-
-        /// <summary>
-        /// Sets how many sandboxes the caller&#39;s wallet may hold running at once, to any number of one or more.
-        /// </summary>
-        /// <remarks>
-        /// Sets how many sandboxes the caller&#39;s wallet may hold running at once, to any number of one or more. It is granted while the wallet holds a balance: every sandbox is still paid for by the hour from it, so the balance, not this number, is what limits the work. A wallet with nothing in it is told to top up.
-        /// </remarks>
-        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="sandboxQuotaIn"></param>
-        /// <returns>ApiResponse of SandboxQuotaView</returns>
-        ApiResponse<SandboxQuotaView> PutSandboxQuotaWithHttpInfo(SandboxQuotaIn sandboxQuotaIn);
         /// <summary>
         /// Read a file from a sandbox you hold
         /// </summary>
@@ -823,26 +802,26 @@ namespace Hanzo.AI.Api
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetSandboxByIdTerminalWsWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
-        /// Answers the caller&#39;s sandbox quota: the wallet it belongs to, how many of that wallet&#39;s sandboxes are running, and how many may run at once.
+        /// Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound).
         /// </summary>
         /// <remarks>
-        /// Answers the caller&#39;s sandbox quota: the wallet it belongs to, how many of that wallet&#39;s sandboxes are running, and how many may run at once. A prepaid account holds 100 until it asks for more with PUT /v1/sandbox/quota.
+        /// Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound). Staff set the quota per org or per plan; where they set none it is 100.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of SandboxQuotaView</returns>
-        System.Threading.Tasks.Task<SandboxQuotaView> GetSandboxQuotaAsync(System.Threading.CancellationToken cancellationToken = default);
+        /// <returns>Task of SandboxQuota</returns>
+        System.Threading.Tasks.Task<SandboxQuota> GetSandboxQuotaAsync(System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Answers the caller&#39;s sandbox quota: the wallet it belongs to, how many of that wallet&#39;s sandboxes are running, and how many may run at once.
+        /// Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound).
         /// </summary>
         /// <remarks>
-        /// Answers the caller&#39;s sandbox quota: the wallet it belongs to, how many of that wallet&#39;s sandboxes are running, and how many may run at once. A prepaid account holds 100 until it asks for more with PUT /v1/sandbox/quota.
+        /// Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound). Staff set the quota per org or per plan; where they set none it is 100.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (SandboxQuotaView)</returns>
-        System.Threading.Tasks.Task<ApiResponse<SandboxQuotaView>> GetSandboxQuotaWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default);
+        /// <returns>Task of ApiResponse (SandboxQuota)</returns>
+        System.Threading.Tasks.Task<ApiResponse<SandboxQuota>> GetSandboxQuotaWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Lease a sandbox — a real computer — or resume one you hold
         /// </summary>
@@ -1077,29 +1056,6 @@ namespace Hanzo.AI.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (SandboxTicketGrant)</returns>
         System.Threading.Tasks.Task<ApiResponse<SandboxTicketGrant>> PostSandboxByIdTerminalTicketWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
-        /// <summary>
-        /// Sets how many sandboxes the caller&#39;s wallet may hold running at once, to any number of one or more.
-        /// </summary>
-        /// <remarks>
-        /// Sets how many sandboxes the caller&#39;s wallet may hold running at once, to any number of one or more. It is granted while the wallet holds a balance: every sandbox is still paid for by the hour from it, so the balance, not this number, is what limits the work. A wallet with nothing in it is told to top up.
-        /// </remarks>
-        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="sandboxQuotaIn"></param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of SandboxQuotaView</returns>
-        System.Threading.Tasks.Task<SandboxQuotaView> PutSandboxQuotaAsync(SandboxQuotaIn sandboxQuotaIn, System.Threading.CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Sets how many sandboxes the caller&#39;s wallet may hold running at once, to any number of one or more.
-        /// </summary>
-        /// <remarks>
-        /// Sets how many sandboxes the caller&#39;s wallet may hold running at once, to any number of one or more. It is granted while the wallet holds a balance: every sandbox is still paid for by the hour from it, so the balance, not this number, is what limits the work. A wallet with nothing in it is told to top up.
-        /// </remarks>
-        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="sandboxQuotaIn"></param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (SandboxQuotaView)</returns>
-        System.Threading.Tasks.Task<ApiResponse<SandboxQuotaView>> PutSandboxQuotaWithHttpInfoAsync(SandboxQuotaIn sandboxQuotaIn, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Read a file from a sandbox you hold
         /// </summary>
@@ -2682,22 +2638,22 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Answers the caller&#39;s sandbox quota: the wallet it belongs to, how many of that wallet&#39;s sandboxes are running, and how many may run at once. Answers the caller&#39;s sandbox quota: the wallet it belongs to, how many of that wallet&#39;s sandboxes are running, and how many may run at once. A prepaid account holds 100 until it asks for more with PUT /v1/sandbox/quota.
+        /// Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound). Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound). Staff set the quota per org or per plan; where they set none it is 100.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>SandboxQuotaView</returns>
-        public SandboxQuotaView GetSandboxQuota()
+        /// <returns>SandboxQuota</returns>
+        public SandboxQuota GetSandboxQuota()
         {
-            Hanzo.AI.Client.ApiResponse<SandboxQuotaView> localVarResponse = GetSandboxQuotaWithHttpInfo();
+            Hanzo.AI.Client.ApiResponse<SandboxQuota> localVarResponse = GetSandboxQuotaWithHttpInfo();
             return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Answers the caller&#39;s sandbox quota: the wallet it belongs to, how many of that wallet&#39;s sandboxes are running, and how many may run at once. Answers the caller&#39;s sandbox quota: the wallet it belongs to, how many of that wallet&#39;s sandboxes are running, and how many may run at once. A prepaid account holds 100 until it asks for more with PUT /v1/sandbox/quota.
+        /// Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound). Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound). Staff set the quota per org or per plan; where they set none it is 100.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of SandboxQuotaView</returns>
-        public Hanzo.AI.Client.ApiResponse<SandboxQuotaView> GetSandboxQuotaWithHttpInfo()
+        /// <returns>ApiResponse of SandboxQuota</returns>
+        public Hanzo.AI.Client.ApiResponse<SandboxQuota> GetSandboxQuotaWithHttpInfo()
         {
             Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
 
@@ -2725,7 +2681,7 @@ namespace Hanzo.AI.Api
             }
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<SandboxQuotaView>("/v1/sandbox/quota", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get<SandboxQuota>("/v1/sandbox/quota", localVarRequestOptions, this.Configuration);
 
             if (this.ExceptionFactory != null)
             {
@@ -2737,24 +2693,24 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Answers the caller&#39;s sandbox quota: the wallet it belongs to, how many of that wallet&#39;s sandboxes are running, and how many may run at once. Answers the caller&#39;s sandbox quota: the wallet it belongs to, how many of that wallet&#39;s sandboxes are running, and how many may run at once. A prepaid account holds 100 until it asks for more with PUT /v1/sandbox/quota.
+        /// Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound). Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound). Staff set the quota per org or per plan; where they set none it is 100.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of SandboxQuotaView</returns>
-        public async System.Threading.Tasks.Task<SandboxQuotaView> GetSandboxQuotaAsync(System.Threading.CancellationToken cancellationToken = default)
+        /// <returns>Task of SandboxQuota</returns>
+        public async System.Threading.Tasks.Task<SandboxQuota> GetSandboxQuotaAsync(System.Threading.CancellationToken cancellationToken = default)
         {
-            Hanzo.AI.Client.ApiResponse<SandboxQuotaView> localVarResponse = await GetSandboxQuotaWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
+            Hanzo.AI.Client.ApiResponse<SandboxQuota> localVarResponse = await GetSandboxQuotaWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Answers the caller&#39;s sandbox quota: the wallet it belongs to, how many of that wallet&#39;s sandboxes are running, and how many may run at once. Answers the caller&#39;s sandbox quota: the wallet it belongs to, how many of that wallet&#39;s sandboxes are running, and how many may run at once. A prepaid account holds 100 until it asks for more with PUT /v1/sandbox/quota.
+        /// Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound). Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound). Staff set the quota per org or per plan; where they set none it is 100.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (SandboxQuotaView)</returns>
-        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<SandboxQuotaView>> GetSandboxQuotaWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default)
+        /// <returns>Task of ApiResponse (SandboxQuota)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<SandboxQuota>> GetSandboxQuotaWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default)
         {
 
             Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
@@ -2785,7 +2741,7 @@ namespace Hanzo.AI.Api
 
             // make the HTTP request
 
-            var localVarResponse = await this.AsynchronousClient.GetAsync<SandboxQuotaView>("/v1/sandbox/quota", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<SandboxQuota>("/v1/sandbox/quota", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
@@ -4104,137 +4060,6 @@ namespace Hanzo.AI.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("PostSandboxByIdTerminalTicket", localVarResponse);
-                if (_exception != null) throw _exception;
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        /// Sets how many sandboxes the caller&#39;s wallet may hold running at once, to any number of one or more. Sets how many sandboxes the caller&#39;s wallet may hold running at once, to any number of one or more. It is granted while the wallet holds a balance: every sandbox is still paid for by the hour from it, so the balance, not this number, is what limits the work. A wallet with nothing in it is told to top up.
-        /// </summary>
-        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="sandboxQuotaIn"></param>
-        /// <returns>SandboxQuotaView</returns>
-        public SandboxQuotaView PutSandboxQuota(SandboxQuotaIn sandboxQuotaIn)
-        {
-            Hanzo.AI.Client.ApiResponse<SandboxQuotaView> localVarResponse = PutSandboxQuotaWithHttpInfo(sandboxQuotaIn);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Sets how many sandboxes the caller&#39;s wallet may hold running at once, to any number of one or more. Sets how many sandboxes the caller&#39;s wallet may hold running at once, to any number of one or more. It is granted while the wallet holds a balance: every sandbox is still paid for by the hour from it, so the balance, not this number, is what limits the work. A wallet with nothing in it is told to top up.
-        /// </summary>
-        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="sandboxQuotaIn"></param>
-        /// <returns>ApiResponse of SandboxQuotaView</returns>
-        public Hanzo.AI.Client.ApiResponse<SandboxQuotaView> PutSandboxQuotaWithHttpInfo(SandboxQuotaIn sandboxQuotaIn)
-        {
-            // verify the required parameter 'sandboxQuotaIn' is set
-            if (sandboxQuotaIn == null)
-                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'sandboxQuotaIn' when calling SandboxApi->PutSandboxQuota");
-
-            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-                "application/json"
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json",
-                "application/problem+json"
-            };
-
-            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-
-            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-
-            localVarRequestOptions.Data = sandboxQuotaIn;
-
-            // authentication (bearer) required
-            // bearer authentication required
-            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
-            {
-                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
-            }
-
-            // make the HTTP request
-            var localVarResponse = this.Client.Put<SandboxQuotaView>("/v1/sandbox/quota", localVarRequestOptions, this.Configuration);
-
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("PutSandboxQuota", localVarResponse);
-                if (_exception != null) throw _exception;
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        /// Sets how many sandboxes the caller&#39;s wallet may hold running at once, to any number of one or more. Sets how many sandboxes the caller&#39;s wallet may hold running at once, to any number of one or more. It is granted while the wallet holds a balance: every sandbox is still paid for by the hour from it, so the balance, not this number, is what limits the work. A wallet with nothing in it is told to top up.
-        /// </summary>
-        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="sandboxQuotaIn"></param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of SandboxQuotaView</returns>
-        public async System.Threading.Tasks.Task<SandboxQuotaView> PutSandboxQuotaAsync(SandboxQuotaIn sandboxQuotaIn, System.Threading.CancellationToken cancellationToken = default)
-        {
-            Hanzo.AI.Client.ApiResponse<SandboxQuotaView> localVarResponse = await PutSandboxQuotaWithHttpInfoAsync(sandboxQuotaIn, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Sets how many sandboxes the caller&#39;s wallet may hold running at once, to any number of one or more. Sets how many sandboxes the caller&#39;s wallet may hold running at once, to any number of one or more. It is granted while the wallet holds a balance: every sandbox is still paid for by the hour from it, so the balance, not this number, is what limits the work. A wallet with nothing in it is told to top up.
-        /// </summary>
-        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="sandboxQuotaIn"></param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (SandboxQuotaView)</returns>
-        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<SandboxQuotaView>> PutSandboxQuotaWithHttpInfoAsync(SandboxQuotaIn sandboxQuotaIn, System.Threading.CancellationToken cancellationToken = default)
-        {
-            // verify the required parameter 'sandboxQuotaIn' is set
-            if (sandboxQuotaIn == null)
-                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'sandboxQuotaIn' when calling SandboxApi->PutSandboxQuota");
-
-
-            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-                "application/json"
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json",
-                "application/problem+json"
-            };
-
-
-            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-
-            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-
-            localVarRequestOptions.Data = sandboxQuotaIn;
-
-            // authentication (bearer) required
-            // bearer authentication required
-            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
-            {
-                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
-            }
-
-            // make the HTTP request
-
-            var localVarResponse = await this.AsynchronousClient.PutAsync<SandboxQuotaView>("/v1/sandbox/quota", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("PutSandboxQuota", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 

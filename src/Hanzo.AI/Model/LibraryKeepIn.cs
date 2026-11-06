@@ -35,7 +35,8 @@ namespace Hanzo.AI.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="LibraryKeepIn" /> class.
         /// </summary>
-        /// <param name="data">Data is the bytes, base64, at most 10 MiB. Required..</param>
+        /// <param name="bytes">Bytes reserves an upload of this size, at most 2 GiB, when data is empty, and returns a signed PUT in upload..</param>
+        /// <param name="data">Data is the bytes, base64, at most 10 MiB; omit when reserving with bytes..</param>
         /// <param name="height">height.</param>
         /// <param name="key">Key makes the save idempotent: the same source and key answer the item already kept..</param>
         /// <param name="kind">Kind is image, video, audio, document, slides, type, model, code or file; absent derives it from mime..</param>
@@ -49,8 +50,13 @@ namespace Hanzo.AI.Model
         /// <param name="seconds">seconds.</param>
         /// <param name="source">Source is the product it came from: chat, dev, studio or workflow. Required..</param>
         /// <param name="width">Width, Height, Seconds and Pages describe it when known..</param>
-        public LibraryKeepIn(string data = default, long? height = default, string key = default, string kind = default, string mime = default, string name = default, string origin = default, long? pages = default, string preview = default, string project = default, string varRef = default, double? seconds = default, string source = default, long? width = default)
+        public LibraryKeepIn(long? bytes = default, string data = default, long? height = default, string key = default, string kind = default, string mime = default, string name = default, string origin = default, long? pages = default, string preview = default, string project = default, string varRef = default, double? seconds = default, string source = default, long? width = default)
         {
+            this._Bytes = bytes;
+            if (this.Bytes != null)
+            {
+                this._flagBytes = true;
+            }
             this._Data = data;
             if (this.Data != null)
             {
@@ -125,9 +131,34 @@ namespace Hanzo.AI.Model
         }
 
         /// <summary>
-        /// Data is the bytes, base64, at most 10 MiB. Required.
+        /// Bytes reserves an upload of this size, at most 2 GiB, when data is empty, and returns a signed PUT in upload.
         /// </summary>
-        /// <value>Data is the bytes, base64, at most 10 MiB. Required.</value>
+        /// <value>Bytes reserves an upload of this size, at most 2 GiB, when data is empty, and returns a signed PUT in upload.</value>
+        [DataMember(Name = "bytes", EmitDefaultValue = true)]
+        public long? Bytes
+        {
+            get{ return _Bytes;}
+            set
+            {
+                _Bytes = value;
+                _flagBytes = true;
+            }
+        }
+        private long? _Bytes;
+        private bool _flagBytes;
+
+        /// <summary>
+        /// Returns false as Bytes should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeBytes()
+        {
+            return _flagBytes;
+        }
+        /// <summary>
+        /// Data is the bytes, base64, at most 10 MiB; omit when reserving with bytes.
+        /// </summary>
+        /// <value>Data is the bytes, base64, at most 10 MiB; omit when reserving with bytes.</value>
         [DataMember(Name = "data", EmitDefaultValue = false)]
         public string Data
         {
@@ -485,6 +516,7 @@ namespace Hanzo.AI.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class LibraryKeepIn {\n");
+            sb.Append("  Bytes: ").Append(Bytes).Append("\n");
             sb.Append("  Data: ").Append(Data).Append("\n");
             sb.Append("  Height: ").Append(Height).Append("\n");
             sb.Append("  Key: ").Append(Key).Append("\n");

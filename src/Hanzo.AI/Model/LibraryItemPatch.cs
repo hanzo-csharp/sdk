@@ -35,12 +35,18 @@ namespace Hanzo.AI.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="LibraryItemPatch" /> class.
         /// </summary>
+        /// <param name="commit">Commit finishes a reserved upload once its bytes have been PUT..</param>
         /// <param name="id">ID is the item, from the path..</param>
         /// <param name="name">Name renames it..</param>
         /// <param name="project">Project moves it to one of the organization&#39;s projects; \&quot;\&quot; moves it out..</param>
         /// <param name="shared">Shared shows it to every member of your organization, or stops..</param>
-        public LibraryItemPatch(string id = default, string name = default, string project = default, bool? shared = default)
+        public LibraryItemPatch(bool? commit = default, string id = default, string name = default, string project = default, bool? shared = default)
         {
+            this._Commit = commit;
+            if (this.Commit != null)
+            {
+                this._flagCommit = true;
+            }
             this._Id = id;
             if (this.Id != null)
             {
@@ -64,6 +70,31 @@ namespace Hanzo.AI.Model
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 
+        /// <summary>
+        /// Commit finishes a reserved upload once its bytes have been PUT.
+        /// </summary>
+        /// <value>Commit finishes a reserved upload once its bytes have been PUT.</value>
+        [DataMember(Name = "commit", EmitDefaultValue = true)]
+        public bool? Commit
+        {
+            get{ return _Commit;}
+            set
+            {
+                _Commit = value;
+                _flagCommit = true;
+            }
+        }
+        private bool? _Commit;
+        private bool _flagCommit;
+
+        /// <summary>
+        /// Returns false as Commit should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeCommit()
+        {
+            return _flagCommit;
+        }
         /// <summary>
         /// ID is the item, from the path.
         /// </summary>
@@ -178,6 +209,7 @@ namespace Hanzo.AI.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class LibraryItemPatch {\n");
+            sb.Append("  Commit: ").Append(Commit).Append("\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  Project: ").Append(Project).Append("\n");

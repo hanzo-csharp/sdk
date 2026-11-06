@@ -27,49 +27,49 @@ using OpenAPIDateConverter = Hanzo.AI.Client.OpenAPIDateConverter;
 namespace Hanzo.AI.Model
 {
     /// <summary>
-    /// SandboxQuotaIn
+    /// MarketingBroadcastPage
     /// </summary>
-    [DataContract(Name = "sandbox.quotaIn")]
-    public partial class SandboxQuotaIn : IValidatableObject
+    [DataContract(Name = "marketing.BroadcastPage")]
+    public partial class MarketingBroadcastPage : IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SandboxQuotaIn" /> class.
+        /// Initializes a new instance of the <see cref="MarketingBroadcastPage" /> class.
         /// </summary>
-        /// <param name="sandboxes">Sandboxes is how many running sandboxes the account may hold at once, one or more..</param>
-        public SandboxQuotaIn(long? sandboxes = default)
+        /// <param name="data">Data is the page..</param>
+        public MarketingBroadcastPage(List<MarketingBroadcast> data = default)
         {
-            this._Sandboxes = sandboxes;
-            if (this.Sandboxes != null)
+            this._Data = data;
+            if (this.Data != null)
             {
-                this._flagSandboxes = true;
+                this._flagData = true;
             }
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
-        /// Sandboxes is how many running sandboxes the account may hold at once, one or more.
+        /// Data is the page.
         /// </summary>
-        /// <value>Sandboxes is how many running sandboxes the account may hold at once, one or more.</value>
-        [DataMember(Name = "sandboxes", EmitDefaultValue = true)]
-        public long? Sandboxes
+        /// <value>Data is the page.</value>
+        [DataMember(Name = "data", EmitDefaultValue = false)]
+        public List<MarketingBroadcast> Data
         {
-            get{ return _Sandboxes;}
+            get{ return _Data;}
             set
             {
-                _Sandboxes = value;
-                _flagSandboxes = true;
+                _Data = value;
+                _flagData = true;
             }
         }
-        private long? _Sandboxes;
-        private bool _flagSandboxes;
+        private List<MarketingBroadcast> _Data;
+        private bool _flagData;
 
         /// <summary>
-        /// Returns false as Sandboxes should not be serialized given that it's read-only.
+        /// Returns false as Data should not be serialized given that it's read-only.
         /// </summary>
         /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeSandboxes()
+        public bool ShouldSerializeData()
         {
-            return _flagSandboxes;
+            return _flagData;
         }
         /// <summary>
         /// Gets or Sets additional properties
@@ -84,8 +84,8 @@ namespace Hanzo.AI.Model
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("class SandboxQuotaIn {\n");
-            sb.Append("  Sandboxes: ").Append(Sandboxes).Append("\n");
+            sb.Append("class MarketingBroadcastPage {\n");
+            sb.Append("  Data: ").Append(Data).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();

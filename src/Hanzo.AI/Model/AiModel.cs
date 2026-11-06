@@ -47,7 +47,8 @@ namespace Hanzo.AI.Model
         /// <param name="name">Name is the model&#39;s display name..</param>
         /// <param name="outputs">Outputs are the modalities the model writes..</param>
         /// <param name="pricing">Pricing is the model&#39;s list price..</param>
-        public AiModel(List<string> capabilities = default, string varClass = default, long? contextWindow = default, string expires = default, string family = default, bool? free = default, string id = default, List<string> inputs = default, long? maxOutputTokens = default, string name = default, List<string> outputs = default, AiPrice pricing = default)
+        /// <param name="zdr">ZDR is whether the model is eligible for Zero Data Retention (non-free, non-data-shared commercial route)..</param>
+        public AiModel(List<string> capabilities = default, string varClass = default, long? contextWindow = default, string expires = default, string family = default, bool? free = default, string id = default, List<string> inputs = default, long? maxOutputTokens = default, string name = default, List<string> outputs = default, AiPrice pricing = default, bool? zdr = default)
         {
             this._Capabilities = capabilities;
             if (this.Capabilities != null)
@@ -108,6 +109,11 @@ namespace Hanzo.AI.Model
             if (this.Pricing != null)
             {
                 this._flagPricing = true;
+            }
+            this._Zdr = zdr;
+            if (this.Zdr != null)
+            {
+                this._flagZdr = true;
             }
             this.AdditionalProperties = new Dictionary<string, object>();
         }
@@ -413,6 +419,31 @@ namespace Hanzo.AI.Model
             return _flagPricing;
         }
         /// <summary>
+        /// ZDR is whether the model is eligible for Zero Data Retention (non-free, non-data-shared commercial route).
+        /// </summary>
+        /// <value>ZDR is whether the model is eligible for Zero Data Retention (non-free, non-data-shared commercial route).</value>
+        [DataMember(Name = "zdr", EmitDefaultValue = true)]
+        public bool? Zdr
+        {
+            get{ return _Zdr;}
+            set
+            {
+                _Zdr = value;
+                _flagZdr = true;
+            }
+        }
+        private bool? _Zdr;
+        private bool _flagZdr;
+
+        /// <summary>
+        /// Returns false as Zdr should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeZdr()
+        {
+            return _flagZdr;
+        }
+        /// <summary>
         /// Gets or Sets additional properties
         /// </summary>
         [JsonExtensionData]
@@ -438,6 +469,7 @@ namespace Hanzo.AI.Model
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  Outputs: ").Append(Outputs).Append("\n");
             sb.Append("  Pricing: ").Append(Pricing).Append("\n");
+            sb.Append("  Zdr: ").Append(Zdr).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();

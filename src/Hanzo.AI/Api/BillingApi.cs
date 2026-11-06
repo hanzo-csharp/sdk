@@ -343,6 +343,46 @@ namespace Hanzo.AI.Api
         /// <returns>ApiResponse of BillingCryptoDeposit</returns>
         ApiResponse<BillingCryptoDeposit> GetBillingCryptoDepositByIdWithHttpInfo(string id);
         /// <summary>
+        /// Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.
+        /// </summary>
+        /// <remarks>
+        /// Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.  Sign TransferWithAuthorization {from, to: payTo, value, validAfter, validBefore, nonce} under one network&#39;s domain, then POST it here with the salt. The nonce is the caller&#39;s own: a payment signed against it credits the caller and cannot be presented by anyone else.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>BillingGatewayTerms</returns>
+        BillingGatewayTerms GetBillingCryptoGateway();
+
+        /// <summary>
+        /// Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.
+        /// </summary>
+        /// <remarks>
+        /// Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.  Sign TransferWithAuthorization {from, to: payTo, value, validAfter, validBefore, nonce} under one network&#39;s domain, then POST it here with the salt. The nonce is the caller&#39;s own: a payment signed against it credits the caller and cannot be presented by anyone else.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of BillingGatewayTerms</returns>
+        ApiResponse<BillingGatewayTerms> GetBillingCryptoGatewayWithHttpInfo();
+        /// <summary>
+        /// Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.
+        /// </summary>
+        /// <remarks>
+        /// Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.  A payment belonging to another payer answers 404, exactly as an id that names nothing, so a guessed id cannot confirm somebody else&#39;s payment exists.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the top-up&#39;s id, from the path.</param>
+        /// <returns>BillingGatewayPayment</returns>
+        BillingGatewayPayment GetBillingCryptoGatewayById(string id);
+
+        /// <summary>
+        /// Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.
+        /// </summary>
+        /// <remarks>
+        /// Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.  A payment belonging to another payer answers 404, exactly as an id that names nothing, so a guessed id cannot confirm somebody else&#39;s payment exists.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the top-up&#39;s id, from the path.</param>
+        /// <returns>ApiResponse of BillingGatewayPayment</returns>
+        ApiResponse<BillingGatewayPayment> GetBillingCryptoGatewayByIdWithHttpInfo(string id);
+        /// <summary>
         /// Answers which chains and tokens the crypto rail accepts — what an asset picker renders — and the pairs themselves in assets: a chain and a token each on offer are not a pair on offer.
         /// </summary>
         /// <remarks>
@@ -411,6 +451,48 @@ namespace Hanzo.AI.Api
         /// <param name="id"></param>
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> GetBillingInvoicesByIdPdfWithHttpInfo(string id);
+        /// <summary>
+        /// Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+        /// </summary>
+        /// <remarks>
+        /// Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="link"></param>
+        /// <returns></returns>
+        void GetBillingInvoicesHostedByLink(string link);
+
+        /// <summary>
+        /// Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+        /// </summary>
+        /// <remarks>
+        /// Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="link"></param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> GetBillingInvoicesHostedByLinkWithHttpInfo(string link);
+        /// <summary>
+        /// Is the order invoice a link shows, as a PDF to print or save.
+        /// </summary>
+        /// <remarks>
+        /// Is the order invoice a link shows, as a PDF to print or save.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="link"></param>
+        /// <returns></returns>
+        void GetBillingInvoicesHostedByLinkPdf(string link);
+
+        /// <summary>
+        /// Is the order invoice a link shows, as a PDF to print or save.
+        /// </summary>
+        /// <remarks>
+        /// Is the order invoice a link shows, as a PDF to print or save.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="link"></param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> GetBillingInvoicesHostedByLinkPdfWithHttpInfo(string link);
         /// <summary>
         /// Answers the org&#39;s own postings inside &#x60;range&#x3D;&#x60;, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account &#x60;credits:&lt;org&gt;&#x60;), a HOLD sets money aside for a payment agreed and not yet made (negative, account &#x60;held:&lt;org&gt;&#x60;) and its return gives it back (positive), and every other posting DEBITS it (negative, account &#x60;usage:&lt;org&gt;&#x60;), described by its notes or its tags.
         /// </summary>
@@ -800,7 +882,7 @@ namespace Hanzo.AI.Api
         /// Issues a deposit address the caller can send crypto to, on the asset they ask for.
         /// </summary>
         /// <remarks>
-        /// Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER&#39;S own wallet and nobody else&#39;s: the payer is the validated principal, never a body value. Asking again reuses the caller&#39;s open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address, a status and the terms: the minimum that credits, any fee, the confirmations required, and one line of instructions. Once the transfer is that deep the deposit is credited as cash to the caller&#39;s balance (GET /v1/billing/balance, cash) and its status is succeeded.  The asset is checked against GET /v1/billing/crypto/options before anything is minted. A chain, a token or a pair the rail does not accept is 400, and the answer lists the accepted chains, tokens and assets. A deposit rail with nothing watched is 503 — nothing sent now can be credited, and a card or a wire is the way to pay until it reopens.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER&#39;S own wallet and nobody else&#39;s: the payer is the validated principal, never a body value. Asking again reuses the caller&#39;s open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address, a status and the terms: the minimum that credits, any fee, the confirmations required, and one line of instructions. Once the transfer is that deep the deposit is credited as cash to the caller&#39;s balance (GET /v1/billing/balance, cash) and its status is succeeded.  The asset is checked against GET /v1/billing/crypto/options before anything is minted. A chain, a token or a pair the rail does not accept is 400, and the answer lists the accepted chains, tokens and assets. A deposit rail with nothing watched is 503 — nothing sent now can be credited, and the Gateway rail or a card is the way to pay until it reopens.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="billingCryptoAsset"></param>
@@ -811,12 +893,33 @@ namespace Hanzo.AI.Api
         /// Issues a deposit address the caller can send crypto to, on the asset they ask for.
         /// </summary>
         /// <remarks>
-        /// Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER&#39;S own wallet and nobody else&#39;s: the payer is the validated principal, never a body value. Asking again reuses the caller&#39;s open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address, a status and the terms: the minimum that credits, any fee, the confirmations required, and one line of instructions. Once the transfer is that deep the deposit is credited as cash to the caller&#39;s balance (GET /v1/billing/balance, cash) and its status is succeeded.  The asset is checked against GET /v1/billing/crypto/options before anything is minted. A chain, a token or a pair the rail does not accept is 400, and the answer lists the accepted chains, tokens and assets. A deposit rail with nothing watched is 503 — nothing sent now can be credited, and a card or a wire is the way to pay until it reopens.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER&#39;S own wallet and nobody else&#39;s: the payer is the validated principal, never a body value. Asking again reuses the caller&#39;s open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address, a status and the terms: the minimum that credits, any fee, the confirmations required, and one line of instructions. Once the transfer is that deep the deposit is credited as cash to the caller&#39;s balance (GET /v1/billing/balance, cash) and its status is succeeded.  The asset is checked against GET /v1/billing/crypto/options before anything is minted. A chain, a token or a pair the rail does not accept is 400, and the answer lists the accepted chains, tokens and assets. A deposit rail with nothing watched is 503 — nothing sent now can be credited, and the Gateway rail or a card is the way to pay until it reopens.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="billingCryptoAsset"></param>
         /// <returns>ApiResponse of BillingCryptoDeposit</returns>
         ApiResponse<BillingCryptoDeposit> PostBillingCryptoDepositWithHttpInfo(BillingCryptoAsset billingCryptoAsset);
+        /// <summary>
+        /// Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.
+        /// </summary>
+        /// <remarks>
+        /// Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.  accepted: Circle Gateway LOCKED the USDC and the caller is credited — or, once the caller holds $1,000 of credit Gateway has not confirmed, credited when Gateway confirms this payment (deferred). pending: the outcome is not known yet; read it back or present the same payment again — it resolves to one credit either way. A refusal is 4xx with Gateway&#39;s reason (insufficient_balance, invalid_signature, …) or ours (nonce_not_issued, recipient_mismatch, amount_below_minimum, …); 503 means the rail is shut.  Who is credited is the caller, never a body value: the payer is resolved server-side, and the payment&#39;s own nonce must be the one issued to it.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="billingSignedPayment"></param>
+        /// <returns>BillingGatewayPayment</returns>
+        BillingGatewayPayment PostBillingCryptoGateway(BillingSignedPayment billingSignedPayment);
+
+        /// <summary>
+        /// Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.
+        /// </summary>
+        /// <remarks>
+        /// Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.  accepted: Circle Gateway LOCKED the USDC and the caller is credited — or, once the caller holds $1,000 of credit Gateway has not confirmed, credited when Gateway confirms this payment (deferred). pending: the outcome is not known yet; read it back or present the same payment again — it resolves to one credit either way. A refusal is 4xx with Gateway&#39;s reason (insufficient_balance, invalid_signature, …) or ours (nonce_not_issued, recipient_mismatch, amount_below_minimum, …); 503 means the rail is shut.  Who is credited is the caller, never a body value: the payer is resolved server-side, and the payment&#39;s own nonce must be the one issued to it.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="billingSignedPayment"></param>
+        /// <returns>ApiResponse of BillingGatewayPayment</returns>
+        ApiResponse<BillingGatewayPayment> PostBillingCryptoGatewayWithHttpInfo(BillingSignedPayment billingSignedPayment);
         /// <summary>
         /// Save a card or account for the caller
         /// </summary>
@@ -857,6 +960,29 @@ namespace Hanzo.AI.Api
         /// <param name="billingModeIn"></param>
         /// <returns>ApiResponse of BillingMode</returns>
         ApiResponse<BillingMode> PostBillingModeWithHttpInfo(BillingModeIn billingModeIn);
+        /// <summary>
+        /// Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).
+        /// </summary>
+        /// <remarks>
+        /// Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).  No balance or subscription row is minted here: the browser hands the returned &#x60;orderId&#x60; to the PayPal Smart Buttons SDK for buyer approval, then settles the payment through POST /v1/billing/topup/token or POST /v1/billing/subscribe/card with &#x60;provider: \&quot;paypal\&quot;&#x60;.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="billingPaypalOrderIn"></param>
+        /// <param name="xIdempotencyKey"> (optional)</param>
+        /// <returns>BillingPayPalOrderOut</returns>
+        BillingPayPalOrderOut PostBillingPaypalOrder(BillingPaypalOrderIn billingPaypalOrderIn, string? xIdempotencyKey = default);
+
+        /// <summary>
+        /// Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).
+        /// </summary>
+        /// <remarks>
+        /// Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).  No balance or subscription row is minted here: the browser hands the returned &#x60;orderId&#x60; to the PayPal Smart Buttons SDK for buyer approval, then settles the payment through POST /v1/billing/topup/token or POST /v1/billing/subscribe/card with &#x60;provider: \&quot;paypal\&quot;&#x60;.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="billingPaypalOrderIn"></param>
+        /// <param name="xIdempotencyKey"> (optional)</param>
+        /// <returns>ApiResponse of BillingPayPalOrderOut</returns>
+        ApiResponse<BillingPayPalOrderOut> PostBillingPaypalOrderWithHttpInfo(BillingPaypalOrderIn billingPaypalOrderIn, string? xIdempotencyKey = default);
         /// <summary>
         /// Save a card or account for the caller
         /// </summary>
@@ -914,6 +1040,25 @@ namespace Hanzo.AI.Api
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> PostBillingSubscribeCardWithHttpInfo();
+        /// <summary>
+        /// Order a plan by invoice, paid by wire
+        /// </summary>
+        /// <remarks>
+        /// Raises an OPEN invoice for an organization&#39;s order — the seats at the plan&#39;s price and the starting balance — and sends it to the buyer. NOTHING STARTS until it is paid: \&quot;Your plan starts when we confirm your payment.\&quot;  The body is a card sale&#39;s less the card and the coupon: &#x60;planId&#x60;, &#x60;quantity&#x60;, &#x60;lines&#x60;, &#x60;interval&#x60;, &#x60;balanceCents&#x60;. The organization is the one chosen with X-Org-Id (none chosen is 400), and only its admin, as IAM says now, orders (403). The answer carries the invoice, the amount due, the due date (the plan&#39;s &#x60;limits.invoiceDays&#x60;), when it is voided if unpaid (&#x60;limits.graceDays&#x60; later), the receiving bank with the reference to send exactly, the same as &#x60;howToPay&#x60; steps one field to a line, and &#x60;hostedUrl&#x60; and &#x60;pdfUrl&#x60;. A plan already paid for, or one with an invoice still open, is 409; a site that takes no order by invoice is 503. A retry under the same X-Idempotency-Key answers the same order as it stands at 200, with a new link and the bank read again; nothing is mailed again.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns></returns>
+        void PostBillingSubscribeInvoice();
+
+        /// <summary>
+        /// Order a plan by invoice, paid by wire
+        /// </summary>
+        /// <remarks>
+        /// Raises an OPEN invoice for an organization&#39;s order — the seats at the plan&#39;s price and the starting balance — and sends it to the buyer. NOTHING STARTS until it is paid: \&quot;Your plan starts when we confirm your payment.\&quot;  The body is a card sale&#39;s less the card and the coupon: &#x60;planId&#x60;, &#x60;quantity&#x60;, &#x60;lines&#x60;, &#x60;interval&#x60;, &#x60;balanceCents&#x60;. The organization is the one chosen with X-Org-Id (none chosen is 400), and only its admin, as IAM says now, orders (403). The answer carries the invoice, the amount due, the due date (the plan&#39;s &#x60;limits.invoiceDays&#x60;), when it is voided if unpaid (&#x60;limits.graceDays&#x60; later), the receiving bank with the reference to send exactly, the same as &#x60;howToPay&#x60; steps one field to a line, and &#x60;hostedUrl&#x60; and &#x60;pdfUrl&#x60;. A plan already paid for, or one with an invoice still open, is 409; a site that takes no order by invoice is 503. A retry under the same X-Idempotency-Key answers the same order as it stands at 200, with a new link and the bank read again; nothing is mailed again.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> PostBillingSubscribeInvoiceWithHttpInfo();
         /// <summary>
         /// Charges a card the caller already saved and credits the balance.
         /// </summary>
@@ -1447,6 +1592,50 @@ namespace Hanzo.AI.Api
         /// <returns>Task of ApiResponse (BillingCryptoDeposit)</returns>
         System.Threading.Tasks.Task<ApiResponse<BillingCryptoDeposit>> GetBillingCryptoDepositByIdWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
+        /// Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.
+        /// </summary>
+        /// <remarks>
+        /// Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.  Sign TransferWithAuthorization {from, to: payTo, value, validAfter, validBefore, nonce} under one network&#39;s domain, then POST it here with the salt. The nonce is the caller&#39;s own: a payment signed against it credits the caller and cannot be presented by anyone else.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of BillingGatewayTerms</returns>
+        System.Threading.Tasks.Task<BillingGatewayTerms> GetBillingCryptoGatewayAsync(System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.
+        /// </summary>
+        /// <remarks>
+        /// Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.  Sign TransferWithAuthorization {from, to: payTo, value, validAfter, validBefore, nonce} under one network&#39;s domain, then POST it here with the salt. The nonce is the caller&#39;s own: a payment signed against it credits the caller and cannot be presented by anyone else.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (BillingGatewayTerms)</returns>
+        System.Threading.Tasks.Task<ApiResponse<BillingGatewayTerms>> GetBillingCryptoGatewayWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.
+        /// </summary>
+        /// <remarks>
+        /// Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.  A payment belonging to another payer answers 404, exactly as an id that names nothing, so a guessed id cannot confirm somebody else&#39;s payment exists.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the top-up&#39;s id, from the path.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of BillingGatewayPayment</returns>
+        System.Threading.Tasks.Task<BillingGatewayPayment> GetBillingCryptoGatewayByIdAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.
+        /// </summary>
+        /// <remarks>
+        /// Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.  A payment belonging to another payer answers 404, exactly as an id that names nothing, so a guessed id cannot confirm somebody else&#39;s payment exists.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the top-up&#39;s id, from the path.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (BillingGatewayPayment)</returns>
+        System.Threading.Tasks.Task<ApiResponse<BillingGatewayPayment>> GetBillingCryptoGatewayByIdWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
         /// Answers which chains and tokens the crypto rail accepts — what an asset picker renders — and the pairs themselves in assets: a chain and a token each on offer are not a pair on offer.
         /// </summary>
         /// <remarks>
@@ -1521,6 +1710,52 @@ namespace Hanzo.AI.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> GetBillingInvoicesByIdPdfWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+        /// </summary>
+        /// <remarks>
+        /// Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="link"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task GetBillingInvoicesHostedByLinkAsync(string link, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+        /// </summary>
+        /// <remarks>
+        /// Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="link"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> GetBillingInvoicesHostedByLinkWithHttpInfoAsync(string link, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Is the order invoice a link shows, as a PDF to print or save.
+        /// </summary>
+        /// <remarks>
+        /// Is the order invoice a link shows, as a PDF to print or save.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="link"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task GetBillingInvoicesHostedByLinkPdfAsync(string link, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Is the order invoice a link shows, as a PDF to print or save.
+        /// </summary>
+        /// <remarks>
+        /// Is the order invoice a link shows, as a PDF to print or save.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="link"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> GetBillingInvoicesHostedByLinkPdfWithHttpInfoAsync(string link, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Answers the org&#39;s own postings inside &#x60;range&#x3D;&#x60;, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account &#x60;credits:&lt;org&gt;&#x60;), a HOLD sets money aside for a payment agreed and not yet made (negative, account &#x60;held:&lt;org&gt;&#x60;) and its return gives it back (positive), and every other posting DEBITS it (negative, account &#x60;usage:&lt;org&gt;&#x60;), described by its notes or its tags.
         /// </summary>
@@ -1948,7 +2183,7 @@ namespace Hanzo.AI.Api
         /// Issues a deposit address the caller can send crypto to, on the asset they ask for.
         /// </summary>
         /// <remarks>
-        /// Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER&#39;S own wallet and nobody else&#39;s: the payer is the validated principal, never a body value. Asking again reuses the caller&#39;s open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address, a status and the terms: the minimum that credits, any fee, the confirmations required, and one line of instructions. Once the transfer is that deep the deposit is credited as cash to the caller&#39;s balance (GET /v1/billing/balance, cash) and its status is succeeded.  The asset is checked against GET /v1/billing/crypto/options before anything is minted. A chain, a token or a pair the rail does not accept is 400, and the answer lists the accepted chains, tokens and assets. A deposit rail with nothing watched is 503 — nothing sent now can be credited, and a card or a wire is the way to pay until it reopens.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER&#39;S own wallet and nobody else&#39;s: the payer is the validated principal, never a body value. Asking again reuses the caller&#39;s open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address, a status and the terms: the minimum that credits, any fee, the confirmations required, and one line of instructions. Once the transfer is that deep the deposit is credited as cash to the caller&#39;s balance (GET /v1/billing/balance, cash) and its status is succeeded.  The asset is checked against GET /v1/billing/crypto/options before anything is minted. A chain, a token or a pair the rail does not accept is 400, and the answer lists the accepted chains, tokens and assets. A deposit rail with nothing watched is 503 — nothing sent now can be credited, and the Gateway rail or a card is the way to pay until it reopens.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="billingCryptoAsset"></param>
@@ -1960,13 +2195,36 @@ namespace Hanzo.AI.Api
         /// Issues a deposit address the caller can send crypto to, on the asset they ask for.
         /// </summary>
         /// <remarks>
-        /// Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER&#39;S own wallet and nobody else&#39;s: the payer is the validated principal, never a body value. Asking again reuses the caller&#39;s open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address, a status and the terms: the minimum that credits, any fee, the confirmations required, and one line of instructions. Once the transfer is that deep the deposit is credited as cash to the caller&#39;s balance (GET /v1/billing/balance, cash) and its status is succeeded.  The asset is checked against GET /v1/billing/crypto/options before anything is minted. A chain, a token or a pair the rail does not accept is 400, and the answer lists the accepted chains, tokens and assets. A deposit rail with nothing watched is 503 — nothing sent now can be credited, and a card or a wire is the way to pay until it reopens.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER&#39;S own wallet and nobody else&#39;s: the payer is the validated principal, never a body value. Asking again reuses the caller&#39;s open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address, a status and the terms: the minimum that credits, any fee, the confirmations required, and one line of instructions. Once the transfer is that deep the deposit is credited as cash to the caller&#39;s balance (GET /v1/billing/balance, cash) and its status is succeeded.  The asset is checked against GET /v1/billing/crypto/options before anything is minted. A chain, a token or a pair the rail does not accept is 400, and the answer lists the accepted chains, tokens and assets. A deposit rail with nothing watched is 503 — nothing sent now can be credited, and the Gateway rail or a card is the way to pay until it reopens.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
         /// </remarks>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="billingCryptoAsset"></param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (BillingCryptoDeposit)</returns>
         System.Threading.Tasks.Task<ApiResponse<BillingCryptoDeposit>> PostBillingCryptoDepositWithHttpInfoAsync(BillingCryptoAsset billingCryptoAsset, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.
+        /// </summary>
+        /// <remarks>
+        /// Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.  accepted: Circle Gateway LOCKED the USDC and the caller is credited — or, once the caller holds $1,000 of credit Gateway has not confirmed, credited when Gateway confirms this payment (deferred). pending: the outcome is not known yet; read it back or present the same payment again — it resolves to one credit either way. A refusal is 4xx with Gateway&#39;s reason (insufficient_balance, invalid_signature, …) or ours (nonce_not_issued, recipient_mismatch, amount_below_minimum, …); 503 means the rail is shut.  Who is credited is the caller, never a body value: the payer is resolved server-side, and the payment&#39;s own nonce must be the one issued to it.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="billingSignedPayment"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of BillingGatewayPayment</returns>
+        System.Threading.Tasks.Task<BillingGatewayPayment> PostBillingCryptoGatewayAsync(BillingSignedPayment billingSignedPayment, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.
+        /// </summary>
+        /// <remarks>
+        /// Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.  accepted: Circle Gateway LOCKED the USDC and the caller is credited — or, once the caller holds $1,000 of credit Gateway has not confirmed, credited when Gateway confirms this payment (deferred). pending: the outcome is not known yet; read it back or present the same payment again — it resolves to one credit either way. A refusal is 4xx with Gateway&#39;s reason (insufficient_balance, invalid_signature, …) or ours (nonce_not_issued, recipient_mismatch, amount_below_minimum, …); 503 means the rail is shut.  Who is credited is the caller, never a body value: the payer is resolved server-side, and the payment&#39;s own nonce must be the one issued to it.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="billingSignedPayment"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (BillingGatewayPayment)</returns>
+        System.Threading.Tasks.Task<ApiResponse<BillingGatewayPayment>> PostBillingCryptoGatewayWithHttpInfoAsync(BillingSignedPayment billingSignedPayment, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Save a card or account for the caller
         /// </summary>
@@ -2011,6 +2269,31 @@ namespace Hanzo.AI.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (BillingMode)</returns>
         System.Threading.Tasks.Task<ApiResponse<BillingMode>> PostBillingModeWithHttpInfoAsync(BillingModeIn billingModeIn, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).
+        /// </summary>
+        /// <remarks>
+        /// Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).  No balance or subscription row is minted here: the browser hands the returned &#x60;orderId&#x60; to the PayPal Smart Buttons SDK for buyer approval, then settles the payment through POST /v1/billing/topup/token or POST /v1/billing/subscribe/card with &#x60;provider: \&quot;paypal\&quot;&#x60;.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="billingPaypalOrderIn"></param>
+        /// <param name="xIdempotencyKey"> (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of BillingPayPalOrderOut</returns>
+        System.Threading.Tasks.Task<BillingPayPalOrderOut> PostBillingPaypalOrderAsync(BillingPaypalOrderIn billingPaypalOrderIn, string? xIdempotencyKey = default, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).
+        /// </summary>
+        /// <remarks>
+        /// Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).  No balance or subscription row is minted here: the browser hands the returned &#x60;orderId&#x60; to the PayPal Smart Buttons SDK for buyer approval, then settles the payment through POST /v1/billing/topup/token or POST /v1/billing/subscribe/card with &#x60;provider: \&quot;paypal\&quot;&#x60;.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="billingPaypalOrderIn"></param>
+        /// <param name="xIdempotencyKey"> (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (BillingPayPalOrderOut)</returns>
+        System.Threading.Tasks.Task<ApiResponse<BillingPayPalOrderOut>> PostBillingPaypalOrderWithHttpInfoAsync(BillingPaypalOrderIn billingPaypalOrderIn, string? xIdempotencyKey = default, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Save a card or account for the caller
         /// </summary>
@@ -2074,6 +2357,27 @@ namespace Hanzo.AI.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> PostBillingSubscribeCardWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Order a plan by invoice, paid by wire
+        /// </summary>
+        /// <remarks>
+        /// Raises an OPEN invoice for an organization&#39;s order — the seats at the plan&#39;s price and the starting balance — and sends it to the buyer. NOTHING STARTS until it is paid: \&quot;Your plan starts when we confirm your payment.\&quot;  The body is a card sale&#39;s less the card and the coupon: &#x60;planId&#x60;, &#x60;quantity&#x60;, &#x60;lines&#x60;, &#x60;interval&#x60;, &#x60;balanceCents&#x60;. The organization is the one chosen with X-Org-Id (none chosen is 400), and only its admin, as IAM says now, orders (403). The answer carries the invoice, the amount due, the due date (the plan&#39;s &#x60;limits.invoiceDays&#x60;), when it is voided if unpaid (&#x60;limits.graceDays&#x60; later), the receiving bank with the reference to send exactly, the same as &#x60;howToPay&#x60; steps one field to a line, and &#x60;hostedUrl&#x60; and &#x60;pdfUrl&#x60;. A plan already paid for, or one with an invoice still open, is 409; a site that takes no order by invoice is 503. A retry under the same X-Idempotency-Key answers the same order as it stands at 200, with a new link and the bank read again; nothing is mailed again.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task PostBillingSubscribeInvoiceAsync(System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Order a plan by invoice, paid by wire
+        /// </summary>
+        /// <remarks>
+        /// Raises an OPEN invoice for an organization&#39;s order — the seats at the plan&#39;s price and the starting balance — and sends it to the buyer. NOTHING STARTS until it is paid: \&quot;Your plan starts when we confirm your payment.\&quot;  The body is a card sale&#39;s less the card and the coupon: &#x60;planId&#x60;, &#x60;quantity&#x60;, &#x60;lines&#x60;, &#x60;interval&#x60;, &#x60;balanceCents&#x60;. The organization is the one chosen with X-Org-Id (none chosen is 400), and only its admin, as IAM says now, orders (403). The answer carries the invoice, the amount due, the due date (the plan&#39;s &#x60;limits.invoiceDays&#x60;), when it is voided if unpaid (&#x60;limits.graceDays&#x60; later), the receiving bank with the reference to send exactly, the same as &#x60;howToPay&#x60; steps one field to a line, and &#x60;hostedUrl&#x60; and &#x60;pdfUrl&#x60;. A plan already paid for, or one with an invoice still open, is 409; a site that takes no order by invoice is 503. A retry under the same X-Idempotency-Key answers the same order as it stands at 200, with a new link and the bank read again; nothing is mailed again.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> PostBillingSubscribeInvoiceWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Charges a card the caller already saved and credits the balance.
         /// </summary>
@@ -4405,6 +4709,250 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
+        /// Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller. Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.  Sign TransferWithAuthorization {from, to: payTo, value, validAfter, validBefore, nonce} under one network&#39;s domain, then POST it here with the salt. The nonce is the caller&#39;s own: a payment signed against it credits the caller and cannot be presented by anyone else.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>BillingGatewayTerms</returns>
+        public BillingGatewayTerms GetBillingCryptoGateway()
+        {
+            Hanzo.AI.Client.ApiResponse<BillingGatewayTerms> localVarResponse = GetBillingCryptoGatewayWithHttpInfo();
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller. Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.  Sign TransferWithAuthorization {from, to: payTo, value, validAfter, validBefore, nonce} under one network&#39;s domain, then POST it here with the salt. The nonce is the caller&#39;s own: a payment signed against it credits the caller and cannot be presented by anyone else.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of BillingGatewayTerms</returns>
+        public Hanzo.AI.Client.ApiResponse<BillingGatewayTerms> GetBillingCryptoGatewayWithHttpInfo()
+        {
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<BillingGatewayTerms>("/v1/billing/crypto/gateway", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetBillingCryptoGateway", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller. Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.  Sign TransferWithAuthorization {from, to: payTo, value, validAfter, validBefore, nonce} under one network&#39;s domain, then POST it here with the salt. The nonce is the caller&#39;s own: a payment signed against it credits the caller and cannot be presented by anyone else.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of BillingGatewayTerms</returns>
+        public async System.Threading.Tasks.Task<BillingGatewayTerms> GetBillingCryptoGatewayAsync(System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<BillingGatewayTerms> localVarResponse = await GetBillingCryptoGatewayWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller. Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.  Sign TransferWithAuthorization {from, to: payTo, value, validAfter, validBefore, nonce} under one network&#39;s domain, then POST it here with the salt. The nonce is the caller&#39;s own: a payment signed against it credits the caller and cannot be presented by anyone else.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (BillingGatewayTerms)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<BillingGatewayTerms>> GetBillingCryptoGatewayWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default)
+        {
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<BillingGatewayTerms>("/v1/billing/crypto/gateway", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetBillingCryptoGateway", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused. Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.  A payment belonging to another payer answers 404, exactly as an id that names nothing, so a guessed id cannot confirm somebody else&#39;s payment exists.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the top-up&#39;s id, from the path.</param>
+        /// <returns>BillingGatewayPayment</returns>
+        public BillingGatewayPayment GetBillingCryptoGatewayById(string id)
+        {
+            Hanzo.AI.Client.ApiResponse<BillingGatewayPayment> localVarResponse = GetBillingCryptoGatewayByIdWithHttpInfo(id);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused. Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.  A payment belonging to another payer answers 404, exactly as an id that names nothing, so a guessed id cannot confirm somebody else&#39;s payment exists.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the top-up&#39;s id, from the path.</param>
+        /// <returns>ApiResponse of BillingGatewayPayment</returns>
+        public Hanzo.AI.Client.ApiResponse<BillingGatewayPayment> GetBillingCryptoGatewayByIdWithHttpInfo(string id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling BillingApi->GetBillingCryptoGatewayById");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<BillingGatewayPayment>("/v1/billing/crypto/gateway/{id}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetBillingCryptoGatewayById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused. Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.  A payment belonging to another payer answers 404, exactly as an id that names nothing, so a guessed id cannot confirm somebody else&#39;s payment exists.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the top-up&#39;s id, from the path.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of BillingGatewayPayment</returns>
+        public async System.Threading.Tasks.Task<BillingGatewayPayment> GetBillingCryptoGatewayByIdAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<BillingGatewayPayment> localVarResponse = await GetBillingCryptoGatewayByIdWithHttpInfoAsync(id, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused. Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.  A payment belonging to another payer answers 404, exactly as an id that names nothing, so a guessed id cannot confirm somebody else&#39;s payment exists.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">ID is the top-up&#39;s id, from the path.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (BillingGatewayPayment)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<BillingGatewayPayment>> GetBillingCryptoGatewayByIdWithHttpInfoAsync(string id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'id' when calling BillingApi->GetBillingCryptoGatewayById");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Hanzo.AI.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<BillingGatewayPayment>("/v1/billing/crypto/gateway/{id}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetBillingCryptoGatewayById", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
         /// Answers which chains and tokens the crypto rail accepts — what an asset picker renders — and the pairs themselves in assets: a chain and a token each on offer are not a pair on offer. Answers which chains and tokens the crypto rail accepts — what an asset picker renders — and the pairs themselves in assets: a chain and a token each on offer are not a pair on offer.  It is the intersection of two live facts rather than a configured list: an asset appears only if something is WATCHING it and the custody processor supports it. An address nobody watches credits nobody, so offering one would take a customer&#39;s money and lose it. A rail with nothing armed answers 503, not an empty menu — \&quot;no rail\&quot; and \&quot;no assets\&quot; are different, and only one of them means try again later.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
@@ -4811,6 +5359,252 @@ namespace Hanzo.AI.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetBillingInvoicesByIdPdf", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss. Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="link"></param>
+        /// <returns></returns>
+        public void GetBillingInvoicesHostedByLink(string link)
+        {
+            GetBillingInvoicesHostedByLinkWithHttpInfo(link);
+        }
+
+        /// <summary>
+        /// Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss. Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="link"></param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public Hanzo.AI.Client.ApiResponse<Object> GetBillingInvoicesHostedByLinkWithHttpInfo(string link)
+        {
+            // verify the required parameter 'link' is set
+            if (link == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'link' when calling BillingApi->GetBillingInvoicesHostedByLink");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("link", Hanzo.AI.Client.ClientUtils.ParameterToString(link)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<Object>("/v1/billing/invoices/hosted/{link}", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetBillingInvoicesHostedByLink", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss. Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="link"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task GetBillingInvoicesHostedByLinkAsync(string link, System.Threading.CancellationToken cancellationToken = default)
+        {
+            await GetBillingInvoicesHostedByLinkWithHttpInfoAsync(link, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss. Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="link"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<Object>> GetBillingInvoicesHostedByLinkWithHttpInfoAsync(string link, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'link' is set
+            if (link == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'link' when calling BillingApi->GetBillingInvoicesHostedByLink");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("link", Hanzo.AI.Client.ClientUtils.ParameterToString(link)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/v1/billing/invoices/hosted/{link}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetBillingInvoicesHostedByLink", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Is the order invoice a link shows, as a PDF to print or save. Is the order invoice a link shows, as a PDF to print or save.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="link"></param>
+        /// <returns></returns>
+        public void GetBillingInvoicesHostedByLinkPdf(string link)
+        {
+            GetBillingInvoicesHostedByLinkPdfWithHttpInfo(link);
+        }
+
+        /// <summary>
+        /// Is the order invoice a link shows, as a PDF to print or save. Is the order invoice a link shows, as a PDF to print or save.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="link"></param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public Hanzo.AI.Client.ApiResponse<Object> GetBillingInvoicesHostedByLinkPdfWithHttpInfo(string link)
+        {
+            // verify the required parameter 'link' is set
+            if (link == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'link' when calling BillingApi->GetBillingInvoicesHostedByLinkPdf");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("link", Hanzo.AI.Client.ClientUtils.ParameterToString(link)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<Object>("/v1/billing/invoices/hosted/{link}/pdf", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetBillingInvoicesHostedByLinkPdf", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Is the order invoice a link shows, as a PDF to print or save. Is the order invoice a link shows, as a PDF to print or save.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="link"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task GetBillingInvoicesHostedByLinkPdfAsync(string link, System.Threading.CancellationToken cancellationToken = default)
+        {
+            await GetBillingInvoicesHostedByLinkPdfWithHttpInfoAsync(link, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Is the order invoice a link shows, as a PDF to print or save. Is the order invoice a link shows, as a PDF to print or save.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="link"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<Object>> GetBillingInvoicesHostedByLinkPdfWithHttpInfoAsync(string link, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'link' is set
+            if (link == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'link' when calling BillingApi->GetBillingInvoicesHostedByLinkPdf");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("link", Hanzo.AI.Client.ClientUtils.ParameterToString(link)); // path parameter
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/v1/billing/invoices/hosted/{link}/pdf", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetBillingInvoicesHostedByLinkPdf", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 
@@ -7143,7 +7937,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Issues a deposit address the caller can send crypto to, on the asset they ask for. Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER&#39;S own wallet and nobody else&#39;s: the payer is the validated principal, never a body value. Asking again reuses the caller&#39;s open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address, a status and the terms: the minimum that credits, any fee, the confirmations required, and one line of instructions. Once the transfer is that deep the deposit is credited as cash to the caller&#39;s balance (GET /v1/billing/balance, cash) and its status is succeeded.  The asset is checked against GET /v1/billing/crypto/options before anything is minted. A chain, a token or a pair the rail does not accept is 400, and the answer lists the accepted chains, tokens and assets. A deposit rail with nothing watched is 503 — nothing sent now can be credited, and a card or a wire is the way to pay until it reopens.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// Issues a deposit address the caller can send crypto to, on the asset they ask for. Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER&#39;S own wallet and nobody else&#39;s: the payer is the validated principal, never a body value. Asking again reuses the caller&#39;s open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address, a status and the terms: the minimum that credits, any fee, the confirmations required, and one line of instructions. Once the transfer is that deep the deposit is credited as cash to the caller&#39;s balance (GET /v1/billing/balance, cash) and its status is succeeded.  The asset is checked against GET /v1/billing/crypto/options before anything is minted. A chain, a token or a pair the rail does not accept is 400, and the answer lists the accepted chains, tokens and assets. A deposit rail with nothing watched is 503 — nothing sent now can be credited, and the Gateway rail or a card is the way to pay until it reopens.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="billingCryptoAsset"></param>
@@ -7155,7 +7949,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Issues a deposit address the caller can send crypto to, on the asset they ask for. Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER&#39;S own wallet and nobody else&#39;s: the payer is the validated principal, never a body value. Asking again reuses the caller&#39;s open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address, a status and the terms: the minimum that credits, any fee, the confirmations required, and one line of instructions. Once the transfer is that deep the deposit is credited as cash to the caller&#39;s balance (GET /v1/billing/balance, cash) and its status is succeeded.  The asset is checked against GET /v1/billing/crypto/options before anything is minted. A chain, a token or a pair the rail does not accept is 400, and the answer lists the accepted chains, tokens and assets. A deposit rail with nothing watched is 503 — nothing sent now can be credited, and a card or a wire is the way to pay until it reopens.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// Issues a deposit address the caller can send crypto to, on the asset they ask for. Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER&#39;S own wallet and nobody else&#39;s: the payer is the validated principal, never a body value. Asking again reuses the caller&#39;s open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address, a status and the terms: the minimum that credits, any fee, the confirmations required, and one line of instructions. Once the transfer is that deep the deposit is credited as cash to the caller&#39;s balance (GET /v1/billing/balance, cash) and its status is succeeded.  The asset is checked against GET /v1/billing/crypto/options before anything is minted. A chain, a token or a pair the rail does not accept is 400, and the answer lists the accepted chains, tokens and assets. A deposit rail with nothing watched is 503 — nothing sent now can be credited, and the Gateway rail or a card is the way to pay until it reopens.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="billingCryptoAsset"></param>
@@ -7206,7 +8000,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Issues a deposit address the caller can send crypto to, on the asset they ask for. Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER&#39;S own wallet and nobody else&#39;s: the payer is the validated principal, never a body value. Asking again reuses the caller&#39;s open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address, a status and the terms: the minimum that credits, any fee, the confirmations required, and one line of instructions. Once the transfer is that deep the deposit is credited as cash to the caller&#39;s balance (GET /v1/billing/balance, cash) and its status is succeeded.  The asset is checked against GET /v1/billing/crypto/options before anything is minted. A chain, a token or a pair the rail does not accept is 400, and the answer lists the accepted chains, tokens and assets. A deposit rail with nothing watched is 503 — nothing sent now can be credited, and a card or a wire is the way to pay until it reopens.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// Issues a deposit address the caller can send crypto to, on the asset they ask for. Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER&#39;S own wallet and nobody else&#39;s: the payer is the validated principal, never a body value. Asking again reuses the caller&#39;s open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address, a status and the terms: the minimum that credits, any fee, the confirmations required, and one line of instructions. Once the transfer is that deep the deposit is credited as cash to the caller&#39;s balance (GET /v1/billing/balance, cash) and its status is succeeded.  The asset is checked against GET /v1/billing/crypto/options before anything is minted. A chain, a token or a pair the rail does not accept is 400, and the answer lists the accepted chains, tokens and assets. A deposit rail with nothing watched is 503 — nothing sent now can be credited, and the Gateway rail or a card is the way to pay until it reopens.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="billingCryptoAsset"></param>
@@ -7219,7 +8013,7 @@ namespace Hanzo.AI.Api
         }
 
         /// <summary>
-        /// Issues a deposit address the caller can send crypto to, on the asset they ask for. Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER&#39;S own wallet and nobody else&#39;s: the payer is the validated principal, never a body value. Asking again reuses the caller&#39;s open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address, a status and the terms: the minimum that credits, any fee, the confirmations required, and one line of instructions. Once the transfer is that deep the deposit is credited as cash to the caller&#39;s balance (GET /v1/billing/balance, cash) and its status is succeeded.  The asset is checked against GET /v1/billing/crypto/options before anything is minted. A chain, a token or a pair the rail does not accept is 400, and the answer lists the accepted chains, tokens and assets. A deposit rail with nothing watched is 503 — nothing sent now can be credited, and a card or a wire is the way to pay until it reopens.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// Issues a deposit address the caller can send crypto to, on the asset they ask for. Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER&#39;S own wallet and nobody else&#39;s: the payer is the validated principal, never a body value. Asking again reuses the caller&#39;s open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address, a status and the terms: the minimum that credits, any fee, the confirmations required, and one line of instructions. Once the transfer is that deep the deposit is credited as cash to the caller&#39;s balance (GET /v1/billing/balance, cash) and its status is succeeded.  The asset is checked against GET /v1/billing/crypto/options before anything is minted. A chain, a token or a pair the rail does not accept is 400, and the answer lists the accepted chains, tokens and assets. A deposit rail with nothing watched is 503 — nothing sent now can be credited, and the Gateway rail or a card is the way to pay until it reopens.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
         /// </summary>
         /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="billingCryptoAsset"></param>
@@ -7267,6 +8061,137 @@ namespace Hanzo.AI.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("PostBillingCryptoDeposit", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it. Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.  accepted: Circle Gateway LOCKED the USDC and the caller is credited — or, once the caller holds $1,000 of credit Gateway has not confirmed, credited when Gateway confirms this payment (deferred). pending: the outcome is not known yet; read it back or present the same payment again — it resolves to one credit either way. A refusal is 4xx with Gateway&#39;s reason (insufficient_balance, invalid_signature, …) or ours (nonce_not_issued, recipient_mismatch, amount_below_minimum, …); 503 means the rail is shut.  Who is credited is the caller, never a body value: the payer is resolved server-side, and the payment&#39;s own nonce must be the one issued to it.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="billingSignedPayment"></param>
+        /// <returns>BillingGatewayPayment</returns>
+        public BillingGatewayPayment PostBillingCryptoGateway(BillingSignedPayment billingSignedPayment)
+        {
+            Hanzo.AI.Client.ApiResponse<BillingGatewayPayment> localVarResponse = PostBillingCryptoGatewayWithHttpInfo(billingSignedPayment);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it. Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.  accepted: Circle Gateway LOCKED the USDC and the caller is credited — or, once the caller holds $1,000 of credit Gateway has not confirmed, credited when Gateway confirms this payment (deferred). pending: the outcome is not known yet; read it back or present the same payment again — it resolves to one credit either way. A refusal is 4xx with Gateway&#39;s reason (insufficient_balance, invalid_signature, …) or ours (nonce_not_issued, recipient_mismatch, amount_below_minimum, …); 503 means the rail is shut.  Who is credited is the caller, never a body value: the payer is resolved server-side, and the payment&#39;s own nonce must be the one issued to it.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="billingSignedPayment"></param>
+        /// <returns>ApiResponse of BillingGatewayPayment</returns>
+        public Hanzo.AI.Client.ApiResponse<BillingGatewayPayment> PostBillingCryptoGatewayWithHttpInfo(BillingSignedPayment billingSignedPayment)
+        {
+            // verify the required parameter 'billingSignedPayment' is set
+            if (billingSignedPayment == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'billingSignedPayment' when calling BillingApi->PostBillingCryptoGateway");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = billingSignedPayment;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<BillingGatewayPayment>("/v1/billing/crypto/gateway", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostBillingCryptoGateway", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it. Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.  accepted: Circle Gateway LOCKED the USDC and the caller is credited — or, once the caller holds $1,000 of credit Gateway has not confirmed, credited when Gateway confirms this payment (deferred). pending: the outcome is not known yet; read it back or present the same payment again — it resolves to one credit either way. A refusal is 4xx with Gateway&#39;s reason (insufficient_balance, invalid_signature, …) or ours (nonce_not_issued, recipient_mismatch, amount_below_minimum, …); 503 means the rail is shut.  Who is credited is the caller, never a body value: the payer is resolved server-side, and the payment&#39;s own nonce must be the one issued to it.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="billingSignedPayment"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of BillingGatewayPayment</returns>
+        public async System.Threading.Tasks.Task<BillingGatewayPayment> PostBillingCryptoGatewayAsync(BillingSignedPayment billingSignedPayment, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<BillingGatewayPayment> localVarResponse = await PostBillingCryptoGatewayWithHttpInfoAsync(billingSignedPayment, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it. Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.  accepted: Circle Gateway LOCKED the USDC and the caller is credited — or, once the caller holds $1,000 of credit Gateway has not confirmed, credited when Gateway confirms this payment (deferred). pending: the outcome is not known yet; read it back or present the same payment again — it resolves to one credit either way. A refusal is 4xx with Gateway&#39;s reason (insufficient_balance, invalid_signature, …) or ours (nonce_not_issued, recipient_mismatch, amount_below_minimum, …); 503 means the rail is shut.  Who is credited is the caller, never a body value: the payer is resolved server-side, and the payment&#39;s own nonce must be the one issued to it.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="billingSignedPayment"></param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (BillingGatewayPayment)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<BillingGatewayPayment>> PostBillingCryptoGatewayWithHttpInfoAsync(BillingSignedPayment billingSignedPayment, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'billingSignedPayment' is set
+            if (billingSignedPayment == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'billingSignedPayment' when calling BillingApi->PostBillingCryptoGateway");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.Data = billingSignedPayment;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<BillingGatewayPayment>("/v1/billing/crypto/gateway", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostBillingCryptoGateway", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 
@@ -7507,6 +8432,149 @@ namespace Hanzo.AI.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("PostBillingMode", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE). Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).  No balance or subscription row is minted here: the browser hands the returned &#x60;orderId&#x60; to the PayPal Smart Buttons SDK for buyer approval, then settles the payment through POST /v1/billing/topup/token or POST /v1/billing/subscribe/card with &#x60;provider: \&quot;paypal\&quot;&#x60;.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="billingPaypalOrderIn"></param>
+        /// <param name="xIdempotencyKey"> (optional)</param>
+        /// <returns>BillingPayPalOrderOut</returns>
+        public BillingPayPalOrderOut PostBillingPaypalOrder(BillingPaypalOrderIn billingPaypalOrderIn, string? xIdempotencyKey = default)
+        {
+            Hanzo.AI.Client.ApiResponse<BillingPayPalOrderOut> localVarResponse = PostBillingPaypalOrderWithHttpInfo(billingPaypalOrderIn, xIdempotencyKey);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE). Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).  No balance or subscription row is minted here: the browser hands the returned &#x60;orderId&#x60; to the PayPal Smart Buttons SDK for buyer approval, then settles the payment through POST /v1/billing/topup/token or POST /v1/billing/subscribe/card with &#x60;provider: \&quot;paypal\&quot;&#x60;.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="billingPaypalOrderIn"></param>
+        /// <param name="xIdempotencyKey"> (optional)</param>
+        /// <returns>ApiResponse of BillingPayPalOrderOut</returns>
+        public Hanzo.AI.Client.ApiResponse<BillingPayPalOrderOut> PostBillingPaypalOrderWithHttpInfo(BillingPaypalOrderIn billingPaypalOrderIn, string? xIdempotencyKey = default)
+        {
+            // verify the required parameter 'billingPaypalOrderIn' is set
+            if (billingPaypalOrderIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'billingPaypalOrderIn' when calling BillingApi->PostBillingPaypalOrder");
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (xIdempotencyKey != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("X-Idempotency-Key", Hanzo.AI.Client.ClientUtils.ParameterToString(xIdempotencyKey)); // header parameter
+            }
+            localVarRequestOptions.Data = billingPaypalOrderIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<BillingPayPalOrderOut>("/v1/billing/paypal/order", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostBillingPaypalOrder", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE). Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).  No balance or subscription row is minted here: the browser hands the returned &#x60;orderId&#x60; to the PayPal Smart Buttons SDK for buyer approval, then settles the payment through POST /v1/billing/topup/token or POST /v1/billing/subscribe/card with &#x60;provider: \&quot;paypal\&quot;&#x60;.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="billingPaypalOrderIn"></param>
+        /// <param name="xIdempotencyKey"> (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of BillingPayPalOrderOut</returns>
+        public async System.Threading.Tasks.Task<BillingPayPalOrderOut> PostBillingPaypalOrderAsync(BillingPaypalOrderIn billingPaypalOrderIn, string? xIdempotencyKey = default, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<BillingPayPalOrderOut> localVarResponse = await PostBillingPaypalOrderWithHttpInfoAsync(billingPaypalOrderIn, xIdempotencyKey, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE). Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).  No balance or subscription row is minted here: the browser hands the returned &#x60;orderId&#x60; to the PayPal Smart Buttons SDK for buyer approval, then settles the payment through POST /v1/billing/topup/token or POST /v1/billing/subscribe/card with &#x60;provider: \&quot;paypal\&quot;&#x60;.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="billingPaypalOrderIn"></param>
+        /// <param name="xIdempotencyKey"> (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (BillingPayPalOrderOut)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<BillingPayPalOrderOut>> PostBillingPaypalOrderWithHttpInfoAsync(BillingPaypalOrderIn billingPaypalOrderIn, string? xIdempotencyKey = default, System.Threading.CancellationToken cancellationToken = default)
+        {
+            // verify the required parameter 'billingPaypalOrderIn' is set
+            if (billingPaypalOrderIn == null)
+                throw new Hanzo.AI.Client.ApiException(400, "Missing required parameter 'billingPaypalOrderIn' when calling BillingApi->PostBillingPaypalOrder");
+
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+                "application/json"
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (xIdempotencyKey != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("X-Idempotency-Key", Hanzo.AI.Client.ClientUtils.ParameterToString(xIdempotencyKey)); // header parameter
+            }
+            localVarRequestOptions.Data = billingPaypalOrderIn;
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<BillingPayPalOrderOut>("/v1/billing/paypal/order", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostBillingPaypalOrder", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 
@@ -7840,6 +8908,115 @@ namespace Hanzo.AI.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("PostBillingSubscribeCard", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Order a plan by invoice, paid by wire Raises an OPEN invoice for an organization&#39;s order — the seats at the plan&#39;s price and the starting balance — and sends it to the buyer. NOTHING STARTS until it is paid: \&quot;Your plan starts when we confirm your payment.\&quot;  The body is a card sale&#39;s less the card and the coupon: &#x60;planId&#x60;, &#x60;quantity&#x60;, &#x60;lines&#x60;, &#x60;interval&#x60;, &#x60;balanceCents&#x60;. The organization is the one chosen with X-Org-Id (none chosen is 400), and only its admin, as IAM says now, orders (403). The answer carries the invoice, the amount due, the due date (the plan&#39;s &#x60;limits.invoiceDays&#x60;), when it is voided if unpaid (&#x60;limits.graceDays&#x60; later), the receiving bank with the reference to send exactly, the same as &#x60;howToPay&#x60; steps one field to a line, and &#x60;hostedUrl&#x60; and &#x60;pdfUrl&#x60;. A plan already paid for, or one with an invoice still open, is 409; a site that takes no order by invoice is 503. A retry under the same X-Idempotency-Key answers the same order as it stands at 200, with a new link and the bank read again; nothing is mailed again.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns></returns>
+        public void PostBillingSubscribeInvoice()
+        {
+            PostBillingSubscribeInvoiceWithHttpInfo();
+        }
+
+        /// <summary>
+        /// Order a plan by invoice, paid by wire Raises an OPEN invoice for an organization&#39;s order — the seats at the plan&#39;s price and the starting balance — and sends it to the buyer. NOTHING STARTS until it is paid: \&quot;Your plan starts when we confirm your payment.\&quot;  The body is a card sale&#39;s less the card and the coupon: &#x60;planId&#x60;, &#x60;quantity&#x60;, &#x60;lines&#x60;, &#x60;interval&#x60;, &#x60;balanceCents&#x60;. The organization is the one chosen with X-Org-Id (none chosen is 400), and only its admin, as IAM says now, orders (403). The answer carries the invoice, the amount due, the due date (the plan&#39;s &#x60;limits.invoiceDays&#x60;), when it is voided if unpaid (&#x60;limits.graceDays&#x60; later), the receiving bank with the reference to send exactly, the same as &#x60;howToPay&#x60; steps one field to a line, and &#x60;hostedUrl&#x60; and &#x60;pdfUrl&#x60;. A plan already paid for, or one with an invoice still open, is 409; a site that takes no order by invoice is 503. A retry under the same X-Idempotency-Key answers the same order as it stands at 200, with a new link and the bank read again; nothing is mailed again.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public Hanzo.AI.Client.ApiResponse<Object> PostBillingSubscribeInvoiceWithHttpInfo()
+        {
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<Object>("/v1/billing/subscribe/invoice", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostBillingSubscribeInvoice", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Order a plan by invoice, paid by wire Raises an OPEN invoice for an organization&#39;s order — the seats at the plan&#39;s price and the starting balance — and sends it to the buyer. NOTHING STARTS until it is paid: \&quot;Your plan starts when we confirm your payment.\&quot;  The body is a card sale&#39;s less the card and the coupon: &#x60;planId&#x60;, &#x60;quantity&#x60;, &#x60;lines&#x60;, &#x60;interval&#x60;, &#x60;balanceCents&#x60;. The organization is the one chosen with X-Org-Id (none chosen is 400), and only its admin, as IAM says now, orders (403). The answer carries the invoice, the amount due, the due date (the plan&#39;s &#x60;limits.invoiceDays&#x60;), when it is voided if unpaid (&#x60;limits.graceDays&#x60; later), the receiving bank with the reference to send exactly, the same as &#x60;howToPay&#x60; steps one field to a line, and &#x60;hostedUrl&#x60; and &#x60;pdfUrl&#x60;. A plan already paid for, or one with an invoice still open, is 409; a site that takes no order by invoice is 503. A retry under the same X-Idempotency-Key answers the same order as it stands at 200, with a new link and the bank read again; nothing is mailed again.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task PostBillingSubscribeInvoiceAsync(System.Threading.CancellationToken cancellationToken = default)
+        {
+            await PostBillingSubscribeInvoiceWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Order a plan by invoice, paid by wire Raises an OPEN invoice for an organization&#39;s order — the seats at the plan&#39;s price and the starting balance — and sends it to the buyer. NOTHING STARTS until it is paid: \&quot;Your plan starts when we confirm your payment.\&quot;  The body is a card sale&#39;s less the card and the coupon: &#x60;planId&#x60;, &#x60;quantity&#x60;, &#x60;lines&#x60;, &#x60;interval&#x60;, &#x60;balanceCents&#x60;. The organization is the one chosen with X-Org-Id (none chosen is 400), and only its admin, as IAM says now, orders (403). The answer carries the invoice, the amount due, the due date (the plan&#39;s &#x60;limits.invoiceDays&#x60;), when it is voided if unpaid (&#x60;limits.graceDays&#x60; later), the receiving bank with the reference to send exactly, the same as &#x60;howToPay&#x60; steps one field to a line, and &#x60;hostedUrl&#x60; and &#x60;pdfUrl&#x60;. A plan already paid for, or one with an invoice still open, is 409; a site that takes no order by invoice is 503. A retry under the same X-Idempotency-Key answers the same order as it stands at 200, with a new link and the bank read again; nothing is mailed again.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<Object>> PostBillingSubscribeInvoiceWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default)
+        {
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<Object>("/v1/billing/subscribe/invoice", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("PostBillingSubscribeInvoice", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 

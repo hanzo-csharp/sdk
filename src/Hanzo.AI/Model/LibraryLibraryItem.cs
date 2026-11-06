@@ -56,9 +56,10 @@ namespace Hanzo.AI.Model
         /// <param name="shared">shared.</param>
         /// <param name="source">source.</param>
         /// <param name="updated">updated.</param>
+        /// <param name="upload">Upload is where a reserved item&#39;s bytes go, on the reservation response before it is committed..</param>
         /// <param name="url">url.</param>
         /// <param name="width">width.</param>
-        public LibraryLibraryItem(string by = default, long? bytes = default, string created = default, string download = default, string expires = default, long? height = default, string id = default, string kind = default, string mime = default, bool? mine = default, string name = default, string origin = default, string owner = default, long? pages = default, string preview = default, string project = default, string varRef = default, double? seconds = default, bool? shared = default, string source = default, string updated = default, string url = default, long? width = default)
+        public LibraryLibraryItem(string by = default, long? bytes = default, string created = default, string download = default, string expires = default, long? height = default, string id = default, string kind = default, string mime = default, bool? mine = default, string name = default, string origin = default, string owner = default, long? pages = default, string preview = default, string project = default, string varRef = default, double? seconds = default, bool? shared = default, string source = default, string updated = default, LibraryLibraryUpload upload = default, string url = default, long? width = default)
         {
             this._By = by;
             if (this.By != null)
@@ -164,6 +165,11 @@ namespace Hanzo.AI.Model
             if (this.Updated != null)
             {
                 this._flagUpdated = true;
+            }
+            this._Upload = upload;
+            if (this.Upload != null)
+            {
+                this._flagUpload = true;
             }
             this._Url = url;
             if (this.Url != null)
@@ -684,6 +690,31 @@ namespace Hanzo.AI.Model
             return _flagUpdated;
         }
         /// <summary>
+        /// Upload is where a reserved item&#39;s bytes go, on the reservation response before it is committed.
+        /// </summary>
+        /// <value>Upload is where a reserved item&#39;s bytes go, on the reservation response before it is committed.</value>
+        [DataMember(Name = "upload", EmitDefaultValue = false)]
+        public LibraryLibraryUpload Upload
+        {
+            get{ return _Upload;}
+            set
+            {
+                _Upload = value;
+                _flagUpload = true;
+            }
+        }
+        private LibraryLibraryUpload _Upload;
+        private bool _flagUpload;
+
+        /// <summary>
+        /// Returns false as Upload should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeUpload()
+        {
+            return _flagUpload;
+        }
+        /// <summary>
         /// Gets or Sets Url
         /// </summary>
         [DataMember(Name = "url", EmitDefaultValue = false)]
@@ -766,6 +797,7 @@ namespace Hanzo.AI.Model
             sb.Append("  Shared: ").Append(Shared).Append("\n");
             sb.Append("  Source: ").Append(Source).Append("\n");
             sb.Append("  Updated: ").Append(Updated).Append("\n");
+            sb.Append("  Upload: ").Append(Upload).Append("\n");
             sb.Append("  Url: ").Append(Url).Append("\n");
             sb.Append("  Width: ").Append(Width).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");

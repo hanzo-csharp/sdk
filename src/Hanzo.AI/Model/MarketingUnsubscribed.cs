@@ -38,9 +38,10 @@ namespace Hanzo.AI.Model
         /// <param name="address">Address is the recipient now opted out, normalized (lower-cased, trimmed) to the form the send gate matches on — so it can differ in case from the address the link carried..</param>
         /// <param name="channel">Channel is the ONE surface opted out of: email, sms, social, meta, google or tiktok. The other channels are untouched, and so is this address in every other org..</param>
         /// <param name="company">Company is the domain opted out whole, when the link asked for it..</param>
+        /// <param name="list">List is the marketing list the address left, when the link was a list&#39;s..</param>
         /// <param name="offer">Offer is the domain the reader may opt out whole by asking again with company&#x3D;true: the company&#39;s own domain, never a free mail provider&#39;s. Absent when the company is already out, or for free mail..</param>
         /// <param name="unsubscribed">Unsubscribed is always true here: the opt-out is idempotent, so a second click on the same link confirms the same thing rather than reporting nothing changed. A refused token never reaches this shape — it is a 403..</param>
-        public MarketingUnsubscribed(string address = default, string channel = default, string company = default, string offer = default, bool? unsubscribed = default)
+        public MarketingUnsubscribed(string address = default, string channel = default, string company = default, string list = default, string offer = default, bool? unsubscribed = default)
         {
             this._Address = address;
             if (this.Address != null)
@@ -56,6 +57,11 @@ namespace Hanzo.AI.Model
             if (this.Company != null)
             {
                 this._flagCompany = true;
+            }
+            this._List = list;
+            if (this.List != null)
+            {
+                this._flagList = true;
             }
             this._Offer = offer;
             if (this.Offer != null)
@@ -146,6 +152,31 @@ namespace Hanzo.AI.Model
             return _flagCompany;
         }
         /// <summary>
+        /// List is the marketing list the address left, when the link was a list&#39;s.
+        /// </summary>
+        /// <value>List is the marketing list the address left, when the link was a list&#39;s.</value>
+        [DataMember(Name = "list", EmitDefaultValue = false)]
+        public string List
+        {
+            get{ return _List;}
+            set
+            {
+                _List = value;
+                _flagList = true;
+            }
+        }
+        private string _List;
+        private bool _flagList;
+
+        /// <summary>
+        /// Returns false as List should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeList()
+        {
+            return _flagList;
+        }
+        /// <summary>
         /// Offer is the domain the reader may opt out whole by asking again with company&#x3D;true: the company&#39;s own domain, never a free mail provider&#39;s. Absent when the company is already out, or for free mail.
         /// </summary>
         /// <value>Offer is the domain the reader may opt out whole by asking again with company&#x3D;true: the company&#39;s own domain, never a free mail provider&#39;s. Absent when the company is already out, or for free mail.</value>
@@ -212,6 +243,7 @@ namespace Hanzo.AI.Model
             sb.Append("  Address: ").Append(Address).Append("\n");
             sb.Append("  Channel: ").Append(Channel).Append("\n");
             sb.Append("  Company: ").Append(Company).Append("\n");
+            sb.Append("  List: ").Append(List).Append("\n");
             sb.Append("  Offer: ").Append(Offer).Append("\n");
             sb.Append("  Unsubscribed: ").Append(Unsubscribed).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");

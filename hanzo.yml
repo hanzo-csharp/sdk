@@ -8,7 +8,7 @@
 
 test:
   - name: sdk-build
-    # 3,385 generated sources plus Gateway.cs, in one compile. A regeneration
+    # 3,435 generated sources plus Gateway.cs, in one compile. A regeneration
     # that does not compile must not reach a tag.
     run: ./scripts/dotnet build src/Hanzo.AI -c Release
 

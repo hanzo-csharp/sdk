@@ -121,9 +121,10 @@ namespace Hanzo.AI.Api
         /// <param name="family">Family keeps one Hanzo family: enso, zen, kai or zoo. (optional)</param>
         /// <param name="capability">Capability keeps the models that have it: tools, vision or reasoning, or a modality they take or give (text, image, audio, file, video, decision). (optional)</param>
         /// <param name="free">Free keeps the models a call to which bills nothing (bounded by the free allowances instead of a balance). (optional)</param>
+        /// <param name="zdr">ZDR keeps only models eligible for Zero Data Retention (excludes free and data-shared routes). (optional)</param>
         /// <param name="limit">Limit is the most models to answer, 1 to 500; 0 answers 50. (optional)</param>
         /// <returns>AiModels</returns>
-        AiModels AiModels(string? q = default, string? varClass = default, string? family = default, string? capability = default, bool? free = default, long? limit = default);
+        AiModels AiModels(string? q = default, string? varClass = default, string? family = default, string? capability = default, bool? free = default, bool? zdr = default, long? limit = default);
 
         /// <summary>
         /// Searches the model catalog — the one GET /v1/models lists, every OpenRouter model among it as last synced — by text, class, family, capability or free, and answers each match with its class, family, whether it is free, its list price (per token and per million; variable for a router billed at the answering model&#39;s price; a resold model&#39;s every vendor rate and conditional rate as billed), context window, output bound, expiry and capabilities.
@@ -137,9 +138,10 @@ namespace Hanzo.AI.Api
         /// <param name="family">Family keeps one Hanzo family: enso, zen, kai or zoo. (optional)</param>
         /// <param name="capability">Capability keeps the models that have it: tools, vision or reasoning, or a modality they take or give (text, image, audio, file, video, decision). (optional)</param>
         /// <param name="free">Free keeps the models a call to which bills nothing (bounded by the free allowances instead of a balance). (optional)</param>
+        /// <param name="zdr">ZDR keeps only models eligible for Zero Data Retention (excludes free and data-shared routes). (optional)</param>
         /// <param name="limit">Limit is the most models to answer, 1 to 500; 0 answers 50. (optional)</param>
         /// <returns>ApiResponse of AiModels</returns>
-        ApiResponse<AiModels> AiModelsWithHttpInfo(string? q = default, string? varClass = default, string? family = default, string? capability = default, bool? free = default, long? limit = default);
+        ApiResponse<AiModels> AiModelsWithHttpInfo(string? q = default, string? varClass = default, string? family = default, string? capability = default, bool? free = default, bool? zdr = default, long? limit = default);
         /// <summary>
         /// Sets the payer&#39;s choice to keep using a model on credits once the plan&#39;s included usage of it is spent.
         /// </summary>
@@ -6626,10 +6628,11 @@ namespace Hanzo.AI.Api
         /// <param name="family">Family keeps one Hanzo family: enso, zen, kai or zoo. (optional)</param>
         /// <param name="capability">Capability keeps the models that have it: tools, vision or reasoning, or a modality they take or give (text, image, audio, file, video, decision). (optional)</param>
         /// <param name="free">Free keeps the models a call to which bills nothing (bounded by the free allowances instead of a balance). (optional)</param>
+        /// <param name="zdr">ZDR keeps only models eligible for Zero Data Retention (excludes free and data-shared routes). (optional)</param>
         /// <param name="limit">Limit is the most models to answer, 1 to 500; 0 answers 50. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of AiModels</returns>
-        System.Threading.Tasks.Task<AiModels> AiModelsAsync(string? q = default, string? varClass = default, string? family = default, string? capability = default, bool? free = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<AiModels> AiModelsAsync(string? q = default, string? varClass = default, string? family = default, string? capability = default, bool? free = default, bool? zdr = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Searches the model catalog — the one GET /v1/models lists, every OpenRouter model among it as last synced — by text, class, family, capability or free, and answers each match with its class, family, whether it is free, its list price (per token and per million; variable for a router billed at the answering model&#39;s price; a resold model&#39;s every vendor rate and conditional rate as billed), context window, output bound, expiry and capabilities.
@@ -6643,10 +6646,11 @@ namespace Hanzo.AI.Api
         /// <param name="family">Family keeps one Hanzo family: enso, zen, kai or zoo. (optional)</param>
         /// <param name="capability">Capability keeps the models that have it: tools, vision or reasoning, or a modality they take or give (text, image, audio, file, video, decision). (optional)</param>
         /// <param name="free">Free keeps the models a call to which bills nothing (bounded by the free allowances instead of a balance). (optional)</param>
+        /// <param name="zdr">ZDR keeps only models eligible for Zero Data Retention (excludes free and data-shared routes). (optional)</param>
         /// <param name="limit">Limit is the most models to answer, 1 to 500; 0 answers 50. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (AiModels)</returns>
-        System.Threading.Tasks.Task<ApiResponse<AiModels>> AiModelsWithHttpInfoAsync(string? q = default, string? varClass = default, string? family = default, string? capability = default, bool? free = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<ApiResponse<AiModels>> AiModelsWithHttpInfoAsync(string? q = default, string? varClass = default, string? family = default, string? capability = default, bool? free = default, bool? zdr = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Sets the payer&#39;s choice to keep using a model on credits once the plan&#39;s included usage of it is spent.
         /// </summary>
@@ -14517,11 +14521,12 @@ namespace Hanzo.AI.Api
         /// <param name="family">Family keeps one Hanzo family: enso, zen, kai or zoo. (optional)</param>
         /// <param name="capability">Capability keeps the models that have it: tools, vision or reasoning, or a modality they take or give (text, image, audio, file, video, decision). (optional)</param>
         /// <param name="free">Free keeps the models a call to which bills nothing (bounded by the free allowances instead of a balance). (optional)</param>
+        /// <param name="zdr">ZDR keeps only models eligible for Zero Data Retention (excludes free and data-shared routes). (optional)</param>
         /// <param name="limit">Limit is the most models to answer, 1 to 500; 0 answers 50. (optional)</param>
         /// <returns>AiModels</returns>
-        public AiModels AiModels(string? q = default, string? varClass = default, string? family = default, string? capability = default, bool? free = default, long? limit = default)
+        public AiModels AiModels(string? q = default, string? varClass = default, string? family = default, string? capability = default, bool? free = default, bool? zdr = default, long? limit = default)
         {
-            Hanzo.AI.Client.ApiResponse<AiModels> localVarResponse = AiModelsWithHttpInfo(q, varClass, family, capability, free, limit);
+            Hanzo.AI.Client.ApiResponse<AiModels> localVarResponse = AiModelsWithHttpInfo(q, varClass, family, capability, free, zdr, limit);
             return localVarResponse.Data;
         }
 
@@ -14534,9 +14539,10 @@ namespace Hanzo.AI.Api
         /// <param name="family">Family keeps one Hanzo family: enso, zen, kai or zoo. (optional)</param>
         /// <param name="capability">Capability keeps the models that have it: tools, vision or reasoning, or a modality they take or give (text, image, audio, file, video, decision). (optional)</param>
         /// <param name="free">Free keeps the models a call to which bills nothing (bounded by the free allowances instead of a balance). (optional)</param>
+        /// <param name="zdr">ZDR keeps only models eligible for Zero Data Retention (excludes free and data-shared routes). (optional)</param>
         /// <param name="limit">Limit is the most models to answer, 1 to 500; 0 answers 50. (optional)</param>
         /// <returns>ApiResponse of AiModels</returns>
-        public Hanzo.AI.Client.ApiResponse<AiModels> AiModelsWithHttpInfo(string? q = default, string? varClass = default, string? family = default, string? capability = default, bool? free = default, long? limit = default)
+        public Hanzo.AI.Client.ApiResponse<AiModels> AiModelsWithHttpInfo(string? q = default, string? varClass = default, string? family = default, string? capability = default, bool? free = default, bool? zdr = default, long? limit = default)
         {
             Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
 
@@ -14574,6 +14580,10 @@ namespace Hanzo.AI.Api
             if (free != null)
             {
                 localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "free", free));
+            }
+            if (zdr != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "zdr", zdr));
             }
             if (limit != null)
             {
@@ -14608,12 +14618,13 @@ namespace Hanzo.AI.Api
         /// <param name="family">Family keeps one Hanzo family: enso, zen, kai or zoo. (optional)</param>
         /// <param name="capability">Capability keeps the models that have it: tools, vision or reasoning, or a modality they take or give (text, image, audio, file, video, decision). (optional)</param>
         /// <param name="free">Free keeps the models a call to which bills nothing (bounded by the free allowances instead of a balance). (optional)</param>
+        /// <param name="zdr">ZDR keeps only models eligible for Zero Data Retention (excludes free and data-shared routes). (optional)</param>
         /// <param name="limit">Limit is the most models to answer, 1 to 500; 0 answers 50. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of AiModels</returns>
-        public async System.Threading.Tasks.Task<AiModels> AiModelsAsync(string? q = default, string? varClass = default, string? family = default, string? capability = default, bool? free = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default)
+        public async System.Threading.Tasks.Task<AiModels> AiModelsAsync(string? q = default, string? varClass = default, string? family = default, string? capability = default, bool? free = default, bool? zdr = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default)
         {
-            Hanzo.AI.Client.ApiResponse<AiModels> localVarResponse = await AiModelsWithHttpInfoAsync(q, varClass, family, capability, free, limit, cancellationToken).ConfigureAwait(false);
+            Hanzo.AI.Client.ApiResponse<AiModels> localVarResponse = await AiModelsWithHttpInfoAsync(q, varClass, family, capability, free, zdr, limit, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -14626,10 +14637,11 @@ namespace Hanzo.AI.Api
         /// <param name="family">Family keeps one Hanzo family: enso, zen, kai or zoo. (optional)</param>
         /// <param name="capability">Capability keeps the models that have it: tools, vision or reasoning, or a modality they take or give (text, image, audio, file, video, decision). (optional)</param>
         /// <param name="free">Free keeps the models a call to which bills nothing (bounded by the free allowances instead of a balance). (optional)</param>
+        /// <param name="zdr">ZDR keeps only models eligible for Zero Data Retention (excludes free and data-shared routes). (optional)</param>
         /// <param name="limit">Limit is the most models to answer, 1 to 500; 0 answers 50. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (AiModels)</returns>
-        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<AiModels>> AiModelsWithHttpInfoAsync(string? q = default, string? varClass = default, string? family = default, string? capability = default, bool? free = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default)
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<AiModels>> AiModelsWithHttpInfoAsync(string? q = default, string? varClass = default, string? family = default, string? capability = default, bool? free = default, bool? zdr = default, long? limit = default, System.Threading.CancellationToken cancellationToken = default)
         {
 
             Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
@@ -14669,6 +14681,10 @@ namespace Hanzo.AI.Api
             if (free != null)
             {
                 localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "free", free));
+            }
+            if (zdr != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "zdr", zdr));
             }
             if (limit != null)
             {

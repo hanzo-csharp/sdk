@@ -103,6 +103,27 @@ namespace Hanzo.AI.Api
         /// <returns>ApiResponse of LeaderboardBetaBoard</returns>
         ApiResponse<LeaderboardBetaBoard> GetLeaderboardBetaWithHttpInfo(long? limit = default);
         /// <summary>
+        /// Returns the gamified bounty &amp; rewards rules, ranked hunters, and recent bug/bounty awards.
+        /// </summary>
+        /// <remarks>
+        /// Returns the gamified bounty &amp; rewards rules, ranked hunters, and recent bug/bounty awards.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="limit">Limit caps the hunter and award rows returned, clamped to 1..100. Defaults to 25. (optional)</param>
+        /// <returns>LeaderboardBountyBoard</returns>
+        LeaderboardBountyBoard GetLeaderboardBounty(long? limit = default);
+
+        /// <summary>
+        /// Returns the gamified bounty &amp; rewards rules, ranked hunters, and recent bug/bounty awards.
+        /// </summary>
+        /// <remarks>
+        /// Returns the gamified bounty &amp; rewards rules, ranked hunters, and recent bug/bounty awards.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="limit">Limit caps the hunter and award rows returned, clamped to 1..100. Defaults to 25. (optional)</param>
+        /// <returns>ApiResponse of LeaderboardBountyBoard</returns>
+        ApiResponse<LeaderboardBountyBoard> GetLeaderboardBountyWithHttpInfo(long? limit = default);
+        /// <summary>
         /// Returns the caller&#39;s own public-listing preference and their org&#39;s, each with whether the caller may change it.
         /// </summary>
         /// <remarks>
@@ -253,6 +274,29 @@ namespace Hanzo.AI.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (LeaderboardBetaBoard)</returns>
         System.Threading.Tasks.Task<ApiResponse<LeaderboardBetaBoard>> GetLeaderboardBetaWithHttpInfoAsync(long? limit = default, System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Returns the gamified bounty &amp; rewards rules, ranked hunters, and recent bug/bounty awards.
+        /// </summary>
+        /// <remarks>
+        /// Returns the gamified bounty &amp; rewards rules, ranked hunters, and recent bug/bounty awards.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="limit">Limit caps the hunter and award rows returned, clamped to 1..100. Defaults to 25. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of LeaderboardBountyBoard</returns>
+        System.Threading.Tasks.Task<LeaderboardBountyBoard> GetLeaderboardBountyAsync(long? limit = default, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Returns the gamified bounty &amp; rewards rules, ranked hunters, and recent bug/bounty awards.
+        /// </summary>
+        /// <remarks>
+        /// Returns the gamified bounty &amp; rewards rules, ranked hunters, and recent bug/bounty awards.
+        /// </remarks>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="limit">Limit caps the hunter and award rows returned, clamped to 1..100. Defaults to 25. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (LeaderboardBountyBoard)</returns>
+        System.Threading.Tasks.Task<ApiResponse<LeaderboardBountyBoard>> GetLeaderboardBountyWithHttpInfoAsync(long? limit = default, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// Returns the caller&#39;s own public-listing preference and their org&#39;s, each with whether the caller may change it.
         /// </summary>
@@ -980,6 +1024,133 @@ namespace Hanzo.AI.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetLeaderboardBeta", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns the gamified bounty &amp; rewards rules, ranked hunters, and recent bug/bounty awards. Returns the gamified bounty &amp; rewards rules, ranked hunters, and recent bug/bounty awards.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="limit">Limit caps the hunter and award rows returned, clamped to 1..100. Defaults to 25. (optional)</param>
+        /// <returns>LeaderboardBountyBoard</returns>
+        public LeaderboardBountyBoard GetLeaderboardBounty(long? limit = default)
+        {
+            Hanzo.AI.Client.ApiResponse<LeaderboardBountyBoard> localVarResponse = GetLeaderboardBountyWithHttpInfo(limit);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns the gamified bounty &amp; rewards rules, ranked hunters, and recent bug/bounty awards. Returns the gamified bounty &amp; rewards rules, ranked hunters, and recent bug/bounty awards.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="limit">Limit caps the hunter and award rows returned, clamped to 1..100. Defaults to 25. (optional)</param>
+        /// <returns>ApiResponse of LeaderboardBountyBoard</returns>
+        public Hanzo.AI.Client.ApiResponse<LeaderboardBountyBoard> GetLeaderboardBountyWithHttpInfo(long? limit = default)
+        {
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (limit != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+            }
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<LeaderboardBountyBoard>("/v1/leaderboard/bounty", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetLeaderboardBounty", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Returns the gamified bounty &amp; rewards rules, ranked hunters, and recent bug/bounty awards. Returns the gamified bounty &amp; rewards rules, ranked hunters, and recent bug/bounty awards.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="limit">Limit caps the hunter and award rows returned, clamped to 1..100. Defaults to 25. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of LeaderboardBountyBoard</returns>
+        public async System.Threading.Tasks.Task<LeaderboardBountyBoard> GetLeaderboardBountyAsync(long? limit = default, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Hanzo.AI.Client.ApiResponse<LeaderboardBountyBoard> localVarResponse = await GetLeaderboardBountyWithHttpInfoAsync(limit, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Returns the gamified bounty &amp; rewards rules, ranked hunters, and recent bug/bounty awards. Returns the gamified bounty &amp; rewards rules, ranked hunters, and recent bug/bounty awards.
+        /// </summary>
+        /// <exception cref="Hanzo.AI.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="limit">Limit caps the hunter and award rows returned, clamped to 1..100. Defaults to 25. (optional)</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (LeaderboardBountyBoard)</returns>
+        public async System.Threading.Tasks.Task<Hanzo.AI.Client.ApiResponse<LeaderboardBountyBoard>> GetLeaderboardBountyWithHttpInfoAsync(long? limit = default, System.Threading.CancellationToken cancellationToken = default)
+        {
+
+            Hanzo.AI.Client.RequestOptions localVarRequestOptions = new Hanzo.AI.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json",
+                "application/problem+json"
+            };
+
+
+            var localVarContentType = Hanzo.AI.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Hanzo.AI.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            if (limit != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Hanzo.AI.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+            }
+
+            // authentication (bearer) required
+            // bearer authentication required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.GetAsync<LeaderboardBountyBoard>("/v1/leaderboard/bounty", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetLeaderboardBounty", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 

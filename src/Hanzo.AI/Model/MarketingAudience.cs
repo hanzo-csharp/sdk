@@ -38,10 +38,13 @@ namespace Hanzo.AI.Model
         /// <param name="createdAt">CreatedAt is unix seconds when the filter was saved, server-assigned..</param>
         /// <param name="varEvent">Event is the analytics event a member must have fired. EMPTY MEANS NO FILTER: the audience is then every mailable customer in the org, and no warehouse is consulted..</param>
         /// <param name="id">ID is the server-assigned audience id (\&quot;aud_\&quot; + 128 random bits)..</param>
+        /// <param name="kind">Kind is what the audience is: cohort, a saved filter over the org&#39;s customers and their events; list, a mailing list&#39;s subscribed members; or segment, a saved filter over one list. Server-assigned; a create is a cohort..</param>
+        /// <param name="list">List is the list a list or a segment audience belongs to..</param>
         /// <param name="name">Name is the audience&#39;s label. Required, trimmed, capped at 1024 bytes..</param>
+        /// <param name="subscribed">Subscribed is how many subscribed members a list audience has, from the list&#39;s kept counts..</param>
         /// <param name="updatedAt">UpdatedAt is unix seconds of the last write, server-assigned, and the key the audience list is ordered by (newest first). A saved audience has no update route, so in practice it stays equal to CreatedAt: to change a filter you save another one..</param>
         /// <param name="windowDays">WindowDays is how far back the event counts, ending now. 0 means 30 and nothing above 3650 is honoured. Ignored when Event is empty..</param>
-        public MarketingAudience(long? createdAt = default, string varEvent = default, string id = default, string name = default, long? updatedAt = default, long? windowDays = default)
+        public MarketingAudience(long? createdAt = default, string varEvent = default, string id = default, string kind = default, string list = default, string name = default, long? subscribed = default, long? updatedAt = default, long? windowDays = default)
         {
             this._CreatedAt = createdAt;
             if (this.CreatedAt != null)
@@ -58,10 +61,25 @@ namespace Hanzo.AI.Model
             {
                 this._flagId = true;
             }
+            this._Kind = kind;
+            if (this.Kind != null)
+            {
+                this._flagKind = true;
+            }
+            this._List = list;
+            if (this.List != null)
+            {
+                this._flagList = true;
+            }
             this._Name = name;
             if (this.Name != null)
             {
                 this._flagName = true;
+            }
+            this._Subscribed = subscribed;
+            if (this.Subscribed != null)
+            {
+                this._flagSubscribed = true;
             }
             this._UpdatedAt = updatedAt;
             if (this.UpdatedAt != null)
@@ -152,6 +170,56 @@ namespace Hanzo.AI.Model
             return _flagId;
         }
         /// <summary>
+        /// Kind is what the audience is: cohort, a saved filter over the org&#39;s customers and their events; list, a mailing list&#39;s subscribed members; or segment, a saved filter over one list. Server-assigned; a create is a cohort.
+        /// </summary>
+        /// <value>Kind is what the audience is: cohort, a saved filter over the org&#39;s customers and their events; list, a mailing list&#39;s subscribed members; or segment, a saved filter over one list. Server-assigned; a create is a cohort.</value>
+        [DataMember(Name = "kind", EmitDefaultValue = false)]
+        public string Kind
+        {
+            get{ return _Kind;}
+            set
+            {
+                _Kind = value;
+                _flagKind = true;
+            }
+        }
+        private string _Kind;
+        private bool _flagKind;
+
+        /// <summary>
+        /// Returns false as Kind should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeKind()
+        {
+            return _flagKind;
+        }
+        /// <summary>
+        /// List is the list a list or a segment audience belongs to.
+        /// </summary>
+        /// <value>List is the list a list or a segment audience belongs to.</value>
+        [DataMember(Name = "list", EmitDefaultValue = false)]
+        public string List
+        {
+            get{ return _List;}
+            set
+            {
+                _List = value;
+                _flagList = true;
+            }
+        }
+        private string _List;
+        private bool _flagList;
+
+        /// <summary>
+        /// Returns false as List should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeList()
+        {
+            return _flagList;
+        }
+        /// <summary>
         /// Name is the audience&#39;s label. Required, trimmed, capped at 1024 bytes.
         /// </summary>
         /// <value>Name is the audience&#39;s label. Required, trimmed, capped at 1024 bytes.</value>
@@ -175,6 +243,31 @@ namespace Hanzo.AI.Model
         public bool ShouldSerializeName()
         {
             return _flagName;
+        }
+        /// <summary>
+        /// Subscribed is how many subscribed members a list audience has, from the list&#39;s kept counts.
+        /// </summary>
+        /// <value>Subscribed is how many subscribed members a list audience has, from the list&#39;s kept counts.</value>
+        [DataMember(Name = "subscribed", EmitDefaultValue = true)]
+        public long? Subscribed
+        {
+            get{ return _Subscribed;}
+            set
+            {
+                _Subscribed = value;
+                _flagSubscribed = true;
+            }
+        }
+        private long? _Subscribed;
+        private bool _flagSubscribed;
+
+        /// <summary>
+        /// Returns false as Subscribed should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeSubscribed()
+        {
+            return _flagSubscribed;
         }
         /// <summary>
         /// UpdatedAt is unix seconds of the last write, server-assigned, and the key the audience list is ordered by (newest first). A saved audience has no update route, so in practice it stays equal to CreatedAt: to change a filter you save another one.
@@ -243,7 +336,10 @@ namespace Hanzo.AI.Model
             sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");
             sb.Append("  Event: ").Append(Event).Append("\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  Kind: ").Append(Kind).Append("\n");
+            sb.Append("  List: ").Append(List).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Subscribed: ").Append(Subscribed).Append("\n");
             sb.Append("  UpdatedAt: ").Append(UpdatedAt).Append("\n");
             sb.Append("  WindowDays: ").Append(WindowDays).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");

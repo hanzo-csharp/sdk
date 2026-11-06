@@ -39,8 +39,9 @@ namespace Hanzo.AI.Model
         /// <param name="varEnvironment">varEnvironment.</param>
         /// <param name="live">live.</param>
         /// <param name="locationId">locationId.</param>
+        /// <param name="paypal">PayPal is the public PayPal REST v2 posture alongside Square (or in place of Square in countries Square does not serve). Appended last for ZAP wire..</param>
         /// <param name="provider">provider.</param>
-        public BillingPaymentConfig(string applicationId = default, string varEnvironment = default, bool? live = default, string locationId = default, string provider = default)
+        public BillingPaymentConfig(string applicationId = default, string varEnvironment = default, bool? live = default, string locationId = default, BillingPayPalPublicConfig paypal = default, string provider = default)
         {
             this._ApplicationId = applicationId;
             if (this.ApplicationId != null)
@@ -61,6 +62,11 @@ namespace Hanzo.AI.Model
             if (this.LocationId != null)
             {
                 this._flagLocationId = true;
+            }
+            this._Paypal = paypal;
+            if (this.Paypal != null)
+            {
+                this._flagPaypal = true;
             }
             this._Provider = provider;
             if (this.Provider != null)
@@ -167,6 +173,31 @@ namespace Hanzo.AI.Model
             return _flagLocationId;
         }
         /// <summary>
+        /// PayPal is the public PayPal REST v2 posture alongside Square (or in place of Square in countries Square does not serve). Appended last for ZAP wire.
+        /// </summary>
+        /// <value>PayPal is the public PayPal REST v2 posture alongside Square (or in place of Square in countries Square does not serve). Appended last for ZAP wire.</value>
+        [DataMember(Name = "paypal", EmitDefaultValue = false)]
+        public BillingPayPalPublicConfig Paypal
+        {
+            get{ return _Paypal;}
+            set
+            {
+                _Paypal = value;
+                _flagPaypal = true;
+            }
+        }
+        private BillingPayPalPublicConfig _Paypal;
+        private bool _flagPaypal;
+
+        /// <summary>
+        /// Returns false as Paypal should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializePaypal()
+        {
+            return _flagPaypal;
+        }
+        /// <summary>
         /// Gets or Sets Provider
         /// </summary>
         [DataMember(Name = "provider", EmitDefaultValue = false)]
@@ -208,6 +239,7 @@ namespace Hanzo.AI.Model
             sb.Append("  VarEnvironment: ").Append(VarEnvironment).Append("\n");
             sb.Append("  Live: ").Append(Live).Append("\n");
             sb.Append("  LocationId: ").Append(LocationId).Append("\n");
+            sb.Append("  Paypal: ").Append(Paypal).Append("\n");
             sb.Append("  Provider: ").Append(Provider).Append("\n");
             sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
