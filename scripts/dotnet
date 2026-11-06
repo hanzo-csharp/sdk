@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# The .NET SDK this repo builds with, wherever it runs: `./scripts/dotnet <args>`.
+#
+# A machine with a .NET 10 SDK on PATH uses it. One without — every CI runner in
+# this fleet; the runner image bakes in Node, Go and a JDK and no .NET — gets the
+# current LTS SDK installed into ~/.dotnet by Microsoft's dotnet-install.sh, with
+# no root, once, and then reuses it. The package targets net8.0; the tests and
+# examples roll forward onto whichever runtime this SDK brings.
+set -euo pipefail
+
+channel=10.0
+major=${channel%%.*}
+export DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_NOLOGO=1
+
+has() { "$1" --list-sdks 2>/dev/null | grep -q "^${major}\."; }
+
+if command -v dotnet >/dev/null 2>&1 && has dotnet; then
+  exec dotnet "$@"
+fi
+
+root="$HOME/.dotnet"
+if ! has "$root/dotnet"; then
+  script="$(mktemp)"
+  curl -fsSL https://dot.net/v1/dotnet-install.sh -o "$script"
+  bash "$script" --channel "$channel" --install-dir "$root" --no-path >&2
+  rm -f "$script"
+fi
+export DOTNET_ROOT="$root" PATH="$root:$PATH"
+
+# .NET will not start without ICU unless told the culture is invariant, and a
+# bare Linux runner has none.
+if [ "$(uname -s)" = Linux ] && ! ldconfig -p 2>/dev/null | grep -q libicu; then
+  export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+fi
+
+exec "$root/dotnet" "$@"

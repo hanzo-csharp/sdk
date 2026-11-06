@@ -1,0 +1,7 @@
+#!/bin/sh
+# Print the version src/Hanzo.AI/Hanzo.AI.csproj publishes. The one reader
+# of it: hanzoai/ci's cut (hanzo.yml client.version) and the release workflow
+# both ask this script.
+set -eu
+cd "$(dirname "$0")/.."
+sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' src/Hanzo.AI/Hanzo.AI.csproj

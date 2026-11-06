@@ -1,0 +1,79 @@
+name: Release
+# Publishing is a push. The version is the package's own, the <Version> in
+# src/Hanzo.AI/Hanzo.AI.csproj, which the client lane sets to the cloud
+# release's number when it cuts one. So a release is: regenerate, set it, push.
+#
+# nuget.org is write-once per version, which makes the commit a safe trigger: the
+# gate asks whether that exact version is already served and stops the job if it
+# is. A push that does not change the version does nothing.
+#
+# The API key is read from KMS, the surface every credential in this fleet comes
+# from; the repository holds only KMS_CLIENT_ID and KMS_CLIENT_SECRET.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Serialized, newest wins: two runs that both read a version as absent must not
+# both push it.
+concurrency:
+  group: release
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: [linux-amd64]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Is this version already on nuget.org
+        id: gate
+        # Before the credential read, so an ordinary push costs nothing and asks
+        # KMS for nothing.
+        run: |
+          set -uo pipefail
+          V=$(./scripts/version)
+          [ -n "$V" ] || { echo "::error::no <Version> in src/Hanzo.AI/Hanzo.AI.csproj"; exit 1; }
+          id=$(sed -n 's:.*<PackageId>\(.*\)</PackageId>.*:\1:p' src/Hanzo.AI/Hanzo.AI.csproj | tr 'A-Z' 'a-z')
+          if curl -sfI "https://api.nuget.org/v3-flatcontainer/${id}/${V}/${id}.${V}.nupkg" >/dev/null 2>&1; then
+            echo "nuget.org already serves ${id} ${V} — nothing to publish."
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "nuget.org does not serve ${id} ${V} — publishing."
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Read the NuGet key from KMS
+        if: steps.gate.outputs.publish == 'true'
+        env:
+          KMS_CLIENT_ID: ${{ secrets.KMS_CLIENT_ID }}
+          KMS_CLIENT_SECRET: ${{ secrets.KMS_CLIENT_SECRET }}
+          KMS_ENDPOINT: ${{ vars.KMS_ENDPOINT || 'https://api.hanzo.ai' }}
+        run: |
+          # `run:` is wrapped in `bash -e -o pipefail`, and the curls below are
+          # expected to fail when a value is absent — that is what is measured.
+          # Drop -e, keep -u and pipefail, and check every status.
+          set +e
+          set -uo pipefail
+          T=$(curl -sf "$KMS_ENDPOINT/v1/kms/auth/login" -H 'Content-Type: application/json' \
+                -d "{\"clientId\":\"$KMS_CLIENT_ID\",\"clientSecret\":\"$KMS_CLIENT_SECRET\"}" \
+              | jq -r '.accessToken // empty')
+          [ -n "$T" ] || { echo "::error::KMS login failed at $KMS_ENDPOINT for client $KMS_CLIENT_ID"; exit 1; }
+          v=$(curl -sf "$KMS_ENDPOINT/v1/kms/secrets/NUGET_API_KEY?env=prod" -H "Authorization: Bearer $T" | jq -r '.value // empty')
+          [ -n "$v" ] || { echo "::error::NUGET_API_KEY is not in KMS (org hanzo, env prod). nuget.org wants an API key scoped to push the Hanzo package; it belongs there before a push can publish."; exit 1; }
+          echo "::add-mask::$v"
+          echo "NUGET_API_KEY=$v" >> "$GITHUB_ENV"
+
+      - name: Gate and pack
+        if: steps.gate.outputs.publish == 'true'
+        run: |
+          set -euo pipefail
+          ./scripts/dotnet build src/Hanzo.AI -c Release
+          ./scripts/dotnet test tests/Hanzo.AI.Tests -c Release
+          ./scripts/dotnet build examples -c Release
+          ./scripts/dotnet pack src/Hanzo.AI -c Release -o out
+
+      - name: Push to nuget.org
+        if: steps.gate.outputs.publish == 'true'
+        # The .snupkg beside it goes to the symbol server in the same push.
+        run: ./scripts/dotnet nuget push 'out/*.nupkg' --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json

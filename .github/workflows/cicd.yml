@@ -1,0 +1,34 @@
+# Canonical caller — every knob lives in /hanzo.yml, none here.
+#
+# hanzo-inc/cloud's release dispatches this with the commit it deployed and that
+# release's version; hanzoai/ci's client lane regenerates from openapi.yaml at
+# that ref, gates it, and cuts that version. Dispatched with no inputs, it checks
+# the locked ref and writes nothing.
+name: CI/CD
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      spec-ref:
+        description: "cloud commit to move .spec-lock to. Empty = check the locked ref, write nothing."
+        required: false
+        default: ''
+      spec-version:
+        description: "Version to cut this projection at. Empty = derive the next patch."
+        required: false
+        default: ''
+      spec-sha256:
+        description: "Expected sha256 of openapi.yaml at that ref. Empty = do not verify."
+        required: false
+        default: ''
+jobs:
+  cicd:
+    uses: hanzoai/ci/.github/workflows/build.yml@v1
+    with:
+      spec-ref: ${{ github.event.inputs.spec-ref || '' }}
+      spec-version: ${{ github.event.inputs.spec-version || '' }}
+      spec-sha256: ${{ github.event.inputs.spec-sha256 || '' }}
+    secrets: inherit

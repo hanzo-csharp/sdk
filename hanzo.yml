@@ -1,0 +1,42 @@
+# Hanzo CI — the ONE way this repo is gated, read by hanzoai/ci.
+#
+# No `images:` and no `deploy:`: this is a client library. A consumer resolves
+# it at a version, so what CI owes is a gate and a package.
+#
+# Every gate goes through ./scripts/dotnet, which brings its own .NET SDK on a
+# runner that has none.
+
+test:
+  - name: sdk-build
+    # 3,385 generated sources plus Gateway.cs, in one compile. A regeneration
+    # that does not compile must not reach a tag.
+    run: ./scripts/dotnet build src/Hanzo.AI -c Release
+
+  - name: sdk-test
+    # What the client puts on the wire, against a stub transport: the bearer and
+    # X-Org-Id, no credential on a route the document marks public, a response
+    # that grows a field, a request carrying exactly the fields that were set
+    # (an explicit 0 included), and a refusal.
+    run: ./scripts/dotnet test tests/Hanzo.AI.Tests -c Release --logger 'console;verbosity=normal'
+
+  - name: examples-build
+    # The six canonical flows, compiled against the client they demonstrate.
+    run: ./scripts/dotnet build examples -c Release
+
+binaries:
+  - name: hanzo-nupkg
+    # Built on every push; release.yml publishes it to nuget.org. The .nupkg is
+    # kept with the tag too, so a tag carries it even if the upload is unavailable.
+    run: ./scripts/dotnet pack src/Hanzo.AI -c Release -o out
+    out: out/*.nupkg
+
+# THE CLIENT LANE — this repo is a projection of one API document at one version.
+# hanzo-inc/cloud's release dispatches cicd.yml with (spec-ref, spec-version);
+# hanzoai/ci fetches openapi.yaml at that ref, runs `generate:`, writes
+# `.spec-lock`, runs the `test:` block over exactly those bytes, then commits,
+# rewrites the csproj <Version> to the release's number and tags it.
+client:
+  spec:
+    repo: hanzo-inc/cloud
+  generate: ./scripts/generate.sh
+  version: 'src/Hanzo.AI/Hanzo.AI.csproj:./scripts/version'
