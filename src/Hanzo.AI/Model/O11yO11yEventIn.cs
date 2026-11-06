@@ -55,6 +55,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("eventType is a required property for O11yO11yEventIn and cannot be null");
             }
             this._EventType = eventType;
+            this._flagEventType = true;
             this._Attributes = attributes;
             if (this.Attributes != null)
             {

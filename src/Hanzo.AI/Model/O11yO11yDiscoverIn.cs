@@ -59,6 +59,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("project is a required property for O11yO11yDiscoverIn and cannot be null");
             }
             this._Project = project;
+            this._flagProject = true;
             this._Aggregations = aggregations;
             if (this.Aggregations != null)
             {

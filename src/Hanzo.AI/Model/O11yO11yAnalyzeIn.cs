@@ -53,12 +53,14 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("query is a required property for O11yO11yAnalyzeIn and cannot be null");
             }
             this._Query = query;
+            this._flagQuery = true;
             // to ensure "queryType" is required (not null)
             if (queryType == null)
             {
                 throw new ArgumentNullException("queryType is a required property for O11yO11yAnalyzeIn and cannot be null");
             }
             this._QueryType = queryType;
+            this._flagQueryType = true;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 

@@ -89,6 +89,7 @@ namespace Hanzo.AI.Model
         public AiDecisionsBoolean(AiDecisionSides criteria = default, Object instructions = default, Dictionary<string, string> labels = default, TypeEnum type = default)
         {
             this._Type = type;
+            this._flagType = true;
             this._Criteria = criteria;
             if (this.Criteria != null)
             {

@@ -61,24 +61,28 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("at is a required property for GraphGraphFact and cannot be null");
             }
             this._At = at;
+            this._flagAt = true;
             // to ensure "entity" is required (not null)
             if (entity == null)
             {
                 throw new ArgumentNullException("entity is a required property for GraphGraphFact and cannot be null");
             }
             this._Entity = entity;
+            this._flagEntity = true;
             // to ensure "relation" is required (not null)
             if (relation == null)
             {
                 throw new ArgumentNullException("relation is a required property for GraphGraphFact and cannot be null");
             }
             this._Relation = relation;
+            this._flagRelation = true;
             // to ensure "source" is required (not null)
             if (source == null)
             {
                 throw new ArgumentNullException("source is a required property for GraphGraphFact and cannot be null");
             }
             this._Source = source;
+            this._flagSource = true;
             this._Confidence = confidence;
             if (this.Confidence != null)
             {

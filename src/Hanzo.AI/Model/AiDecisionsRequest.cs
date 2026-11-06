@@ -60,6 +60,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("model is a required property for AiDecisionsRequest and cannot be null");
             }
             this._Model = model;
+            this._flagModel = true;
             this._Handle = handle;
             if (this.Handle != null)
             {

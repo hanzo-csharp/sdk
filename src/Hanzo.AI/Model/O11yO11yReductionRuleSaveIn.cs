@@ -54,18 +54,21 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("id is a required property for O11yO11yReductionRuleSaveIn and cannot be null");
             }
             this._Id = id;
+            this._flagId = true;
             // to ensure "labels" is required (not null)
             if (labels == null)
             {
                 throw new ArgumentNullException("labels is a required property for O11yO11yReductionRuleSaveIn and cannot be null");
             }
             this._Labels = labels;
+            this._flagLabels = true;
             // to ensure "matchType" is required (not null)
             if (matchType == null)
             {
                 throw new ArgumentNullException("matchType is a required property for O11yO11yReductionRuleSaveIn and cannot be null");
             }
             this._MatchType = matchType;
+            this._flagMatchType = true;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 

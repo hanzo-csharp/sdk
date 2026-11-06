@@ -57,18 +57,21 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("end is a required property for O11yO11yMetricStatsIn and cannot be null");
             }
             this._End = end;
+            this._flagEnd = true;
             // to ensure "limit" is required (not null)
             if (limit == null)
             {
                 throw new ArgumentNullException("limit is a required property for O11yO11yMetricStatsIn and cannot be null");
             }
             this._Limit = limit;
+            this._flagLimit = true;
             // to ensure "start" is required (not null)
             if (start == null)
             {
                 throw new ArgumentNullException("start is a required property for O11yO11yMetricStatsIn and cannot be null");
             }
             this._Start = start;
+            this._flagStart = true;
             this._Filter = filter;
             if (this.Filter != null)
             {

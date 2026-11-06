@@ -55,18 +55,21 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("labels is a required property for O11yO11yReductionRulePreviewIn and cannot be null");
             }
             this._Labels = labels;
+            this._flagLabels = true;
             // to ensure "matchType" is required (not null)
             if (matchType == null)
             {
                 throw new ArgumentNullException("matchType is a required property for O11yO11yReductionRulePreviewIn and cannot be null");
             }
             this._MatchType = matchType;
+            this._flagMatchType = true;
             // to ensure "metricName" is required (not null)
             if (metricName == null)
             {
                 throw new ArgumentNullException("metricName is a required property for O11yO11yReductionRulePreviewIn and cannot be null");
             }
             this._MetricName = metricName;
+            this._flagMetricName = true;
             this._LookbackMs = lookbackMs;
             if (this.LookbackMs != null)
             {

@@ -59,6 +59,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("target is a required property for Brief and cannot be null");
             }
             this._Target = target;
+            this._flagTarget = true;
             this._Batch = batch;
             if (this.Batch != null)
             {

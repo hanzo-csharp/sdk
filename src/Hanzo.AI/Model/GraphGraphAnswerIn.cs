@@ -54,6 +54,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("question is a required property for GraphGraphAnswerIn and cannot be null");
             }
             this._Question = question;
+            this._flagQuestion = true;
             this._AsKnown = asKnown;
             if (this.AsKnown != null)
             {

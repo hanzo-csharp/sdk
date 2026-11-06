@@ -100,7 +100,9 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("msg is a required property for PostAiStores200Response and cannot be null");
             }
             this._Msg = msg;
+            this._flagMsg = true;
             this._Status = status;
+            this._flagStatus = true;
             this._Data = data;
             if (this.Data != null)
             {

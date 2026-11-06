@@ -57,12 +57,14 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("from is a required property for GraphGraphPathIn and cannot be null");
             }
             this._From = from;
+            this._flagFrom = true;
             // to ensure "to" is required (not null)
             if (to == null)
             {
                 throw new ArgumentNullException("to is a required property for GraphGraphPathIn and cannot be null");
             }
             this._To = to;
+            this._flagTo = true;
             this._AsKnown = asKnown;
             if (this.AsKnown != null)
             {

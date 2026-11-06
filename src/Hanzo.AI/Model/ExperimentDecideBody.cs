@@ -52,6 +52,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("winner is a required property for ExperimentDecideBody and cannot be null");
             }
             this._Winner = winner;
+            this._flagWinner = true;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 

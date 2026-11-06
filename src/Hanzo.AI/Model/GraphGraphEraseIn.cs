@@ -53,12 +53,14 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("entity is a required property for GraphGraphEraseIn and cannot be null");
             }
             this._Entity = entity;
+            this._flagEntity = true;
             // to ensure "reason" is required (not null)
             if (reason == null)
             {
                 throw new ArgumentNullException("reason is a required property for GraphGraphEraseIn and cannot be null");
             }
             this._Reason = reason;
+            this._flagReason = true;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 

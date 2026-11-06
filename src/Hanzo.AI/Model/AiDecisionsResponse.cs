@@ -59,48 +59,56 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("answers is a required property for AiDecisionsResponse and cannot be null");
             }
             this._Answers = answers;
+            this._flagAnswers = true;
             // to ensure "id" is required (not null)
             if (id == null)
             {
                 throw new ArgumentNullException("id is a required property for AiDecisionsResponse and cannot be null");
             }
             this._Id = id;
+            this._flagId = true;
             // to ensure "latencyMs" is required (not null)
             if (latencyMs == null)
             {
                 throw new ArgumentNullException("latencyMs is a required property for AiDecisionsResponse and cannot be null");
             }
             this._LatencyMs = latencyMs;
+            this._flagLatencyMs = true;
             // to ensure "model" is required (not null)
             if (model == null)
             {
                 throw new ArgumentNullException("model is a required property for AiDecisionsResponse and cannot be null");
             }
             this._Model = model;
+            this._flagModel = true;
             // to ensure "provider" is required (not null)
             if (provider == null)
             {
                 throw new ArgumentNullException("provider is a required property for AiDecisionsResponse and cannot be null");
             }
             this._Provider = provider;
+            this._flagProvider = true;
             // to ensure "routing" is required (not null)
             if (routing == null)
             {
                 throw new ArgumentNullException("routing is a required property for AiDecisionsResponse and cannot be null");
             }
             this._Routing = routing;
+            this._flagRouting = true;
             // to ensure "stateHash" is required (not null)
             if (stateHash == null)
             {
                 throw new ArgumentNullException("stateHash is a required property for AiDecisionsResponse and cannot be null");
             }
             this._StateHash = stateHash;
+            this._flagStateHash = true;
             // to ensure "usage" is required (not null)
             if (usage == null)
             {
                 throw new ArgumentNullException("usage is a required property for AiDecisionsResponse and cannot be null");
             }
             this._Usage = usage;
+            this._flagUsage = true;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 

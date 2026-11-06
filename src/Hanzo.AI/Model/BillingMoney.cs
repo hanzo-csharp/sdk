@@ -53,12 +53,14 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("currency is a required property for BillingMoney and cannot be null");
             }
             this._Currency = currency;
+            this._flagCurrency = true;
             // to ensure "varDecimal" is required (not null)
             if (varDecimal == null)
             {
                 throw new ArgumentNullException("varDecimal is a required property for BillingMoney and cannot be null");
             }
             this._Decimal = varDecimal;
+            this._flagDecimal = true;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 

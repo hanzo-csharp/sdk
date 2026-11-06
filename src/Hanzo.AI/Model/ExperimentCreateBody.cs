@@ -58,18 +58,21 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("id is a required property for ExperimentCreateBody and cannot be null");
             }
             this._Id = id;
+            this._flagId = true;
             // to ensure "metricEvent" is required (not null)
             if (metricEvent == null)
             {
                 throw new ArgumentNullException("metricEvent is a required property for ExperimentCreateBody and cannot be null");
             }
             this._MetricEvent = metricEvent;
+            this._flagMetricEvent = true;
             // to ensure "variants" is required (not null)
             if (variants == null)
             {
                 throw new ArgumentNullException("variants is a required property for ExperimentCreateBody and cannot be null");
             }
             this._Variants = variants;
+            this._flagVariants = true;
             this._ExposureEvent = exposureEvent;
             if (this.ExposureEvent != null)
             {

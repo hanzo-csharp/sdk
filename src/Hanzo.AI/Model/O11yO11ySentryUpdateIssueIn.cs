@@ -54,6 +54,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("id is a required property for O11yO11ySentryUpdateIssueIn and cannot be null");
             }
             this._Id = id;
+            this._flagId = true;
             this._Assignee = assignee;
             if (this.Assignee != null)
             {

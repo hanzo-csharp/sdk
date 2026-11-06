@@ -143,6 +143,38 @@ namespace Hanzo.AI.Tests
         }
 
         [Fact]
+        public void SendsEveryRequiredField()
+        {
+            // A required constructor argument is on the wire. The generator's
+            // conditional serialization used to leave each one unflagged, so
+            // `model` and a question's `type` and `criteria` were dropped and the
+            // gateway answered 400 "the request needs a 'model'".
+            // A reply in the shape /v1/decisions answers with, captured live.
+            var stub = new Stub("{\"id\":\"dec_1\",\"model\":\"kai\",\"provider\":\"Hanzo\",\"answers\":{\"move\":{\"type\":\"choice\",\"choice\":\"b\",\"confidence\":0.5,\"probabilities\":{\"a\":0.25,\"b\":0.75}}},\"usage\":{\"input_tokens\":10,\"output_tokens\":0},\"routing\":{\"backend\":\"kai\",\"checkpoint\":\"kai-1.10\",\"sha256\":\"8069bf5cc5e897ce28399d3a5d2a17097e3859d85e5a4cda50c7f19f1e60e9f4\",\"representation\":\"6e386752d1525bf8ea0d90f6a82ec89091b32514ccbc7cb5acf5ac332a95f613\",\"calibration\":\"cal_c6ffe2e7b0c8819a\",\"device\":\"cpu\",\"reach\":32768,\"trained\":1024,\"positions\":8192,\"extrapolated\":false,\"reason\":\"explicit model='kai'\"},\"state_hash\":\"sha256:8770c944ed8823932f7b488043302076da0aec08b9bc4ea8506cf3ea7d0bdbc5\",\"latency_ms\":67.436068}");
+
+            var reply = Api<AiApi>(stub, "hk-test", null).PostDecisions(new AiDecisionsRequest(
+                model: "kai",
+                state: new { board = "x" },
+                questions: new Dictionary<string, AiDecisionsQuestion>
+                {
+                    ["move"] = new AiDecisionsQuestion(new AiDecisionsChoice(
+                        type: AiDecisionsChoice.TypeEnum.Choice,
+                        criteria: new Dictionary<string, string> { ["a"] = "first", ["b"] = "second" })),
+                }));
+
+            Assert.Equal(Base + "/v1/decisions", stub.Request!.RequestUri!.ToString());
+            var body = JObject.Parse(stub.Sent!);
+            Assert.Equal("kai", body["model"]!.Value<string>());
+            Assert.Equal("x", body["state"]!["board"]!.Value<string>());
+            var move = (JObject)body["questions"]!["move"]!;
+            Assert.Equal(new[] { "criteria", "type" }, move.Properties().Select(p => p.Name).OrderBy(n => n));
+            Assert.Equal("choice", move["type"]!.Value<string>());
+            Assert.Equal("second", move["criteria"]!["b"]!.Value<string>());
+            Assert.Equal("b", reply.Answers["move"].Choice);
+            Assert.Equal(0.75m, reply.Answers["move"].Probabilities["b"]);
+        }
+
+        [Fact]
         public void ARefusalCarriesItsStatusAndBody()
         {
             var stub = new Stub("{\"code\":\"forbidden\"}", HttpStatusCode.Forbidden);

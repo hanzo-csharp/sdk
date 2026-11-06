@@ -53,6 +53,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("domain is a required property for DomainRenewReq and cannot be null");
             }
             this._Domain = domain;
+            this._flagDomain = true;
             this._Years = years;
             if (this.Years != null)
             {

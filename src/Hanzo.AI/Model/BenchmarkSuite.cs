@@ -53,6 +53,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("benchmarks is a required property for BenchmarkSuite and cannot be null");
             }
             this._Benchmarks = benchmarks;
+            this._flagBenchmarks = true;
             this._Model = model;
             if (this.Model != null)
             {

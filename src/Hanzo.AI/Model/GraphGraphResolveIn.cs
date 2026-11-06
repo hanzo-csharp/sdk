@@ -55,12 +55,14 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("entity is a required property for GraphGraphResolveIn and cannot be null");
             }
             this._Entity = entity;
+            this._flagEntity = true;
             // to ensure "relation" is required (not null)
             if (relation == null)
             {
                 throw new ArgumentNullException("relation is a required property for GraphGraphResolveIn and cannot be null");
             }
             this._Relation = relation;
+            this._flagRelation = true;
             this._AsKnown = asKnown;
             if (this.AsKnown != null)
             {

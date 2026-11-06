@@ -57,6 +57,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("seeds is a required property for GraphGraphNeighborsIn and cannot be null");
             }
             this._Seeds = seeds;
+            this._flagSeeds = true;
             this._AsKnown = asKnown;
             if (this.AsKnown != null)
             {

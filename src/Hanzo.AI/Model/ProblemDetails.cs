@@ -56,18 +56,21 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("detail is a required property for ProblemDetails and cannot be null");
             }
             this._Detail = detail;
+            this._flagDetail = true;
             // to ensure "status" is required (not null)
             if (status == null)
             {
                 throw new ArgumentNullException("status is a required property for ProblemDetails and cannot be null");
             }
             this._Status = status;
+            this._flagStatus = true;
             // to ensure "type" is required (not null)
             if (type == null)
             {
                 throw new ArgumentNullException("type is a required property for ProblemDetails and cannot be null");
             }
             this._Type = type;
+            this._flagType = true;
             this._Code = code;
             if (this.Code != null)
             {

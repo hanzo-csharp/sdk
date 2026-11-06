@@ -52,6 +52,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("assertions is a required property for GraphGraphAssertIn and cannot be null");
             }
             this._Assertions = assertions;
+            this._flagAssertions = true;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 

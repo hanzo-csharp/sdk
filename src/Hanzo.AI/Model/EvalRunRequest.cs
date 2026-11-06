@@ -56,12 +56,14 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("dataset is a required property for EvalRunRequest and cannot be null");
             }
             this._Dataset = dataset;
+            this._flagDataset = true;
             // to ensure "model" is required (not null)
             if (model == null)
             {
                 throw new ArgumentNullException("model is a required property for EvalRunRequest and cannot be null");
             }
             this._Model = model;
+            this._flagModel = true;
             this._Judge = judge;
             if (this.Judge != null)
             {

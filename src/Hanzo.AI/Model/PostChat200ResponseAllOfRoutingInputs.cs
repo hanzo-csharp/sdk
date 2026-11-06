@@ -107,13 +107,16 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("depth is a required property for PostChat200ResponseAllOfRoutingInputs and cannot be null");
             }
             this._Depth = depth;
+            this._flagDepth = true;
             // to ensure "key" is required (not null)
             if (key == null)
             {
                 throw new ArgumentNullException("key is a required property for PostChat200ResponseAllOfRoutingInputs and cannot be null");
             }
             this._Key = key;
+            this._flagKey = true;
             this._Policy = policy;
+            this._flagPolicy = true;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 

@@ -57,6 +57,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("product is a required property for LicensingIssueRequest and cannot be null");
             }
             this._Product = product;
+            this._flagProduct = true;
             this._Fingerprint = fingerprint;
             if (this.Fingerprint != null)
             {

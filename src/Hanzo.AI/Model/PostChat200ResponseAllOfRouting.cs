@@ -56,30 +56,35 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("candidates is a required property for PostChat200ResponseAllOfRouting and cannot be null");
             }
             this._Candidates = candidates;
+            this._flagCandidates = true;
             // to ensure "chosen" is required (not null)
             if (chosen == null)
             {
                 throw new ArgumentNullException("chosen is a required property for PostChat200ResponseAllOfRouting and cannot be null");
             }
             this._Chosen = chosen;
+            this._flagChosen = true;
             // to ensure "inputs" is required (not null)
             if (inputs == null)
             {
                 throw new ArgumentNullException("inputs is a required property for PostChat200ResponseAllOfRouting and cannot be null");
             }
             this._Inputs = inputs;
+            this._flagInputs = true;
             // to ensure "reason" is required (not null)
             if (reason == null)
             {
                 throw new ArgumentNullException("reason is a required property for PostChat200ResponseAllOfRouting and cannot be null");
             }
             this._Reason = reason;
+            this._flagReason = true;
             // to ensure "router" is required (not null)
             if (router == null)
             {
                 throw new ArgumentNullException("router is a required property for PostChat200ResponseAllOfRouting and cannot be null");
             }
             this._Router = router;
+            this._flagRouter = true;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 

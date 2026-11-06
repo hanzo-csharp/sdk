@@ -57,18 +57,21 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("dataType is a required property for O11yO11yFieldSetting and cannot be null");
             }
             this._DataType = dataType;
+            this._flagDataType = true;
             // to ensure "name" is required (not null)
             if (name == null)
             {
                 throw new ArgumentNullException("name is a required property for O11yO11yFieldSetting and cannot be null");
             }
             this._Name = name;
+            this._flagName = true;
             // to ensure "type" is required (not null)
             if (type == null)
             {
                 throw new ArgumentNullException("type is a required property for O11yO11yFieldSetting and cannot be null");
             }
             this._Type = type;
+            this._flagType = true;
             this._Index = index;
             if (this.Index != null)
             {

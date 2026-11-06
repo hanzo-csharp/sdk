@@ -53,6 +53,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("query is a required property for O11yO11yDashboardVarsIn and cannot be null");
             }
             this._Query = query;
+            this._flagQuery = true;
             this._Variables = variables;
             if (this.Variables != null)
             {

@@ -53,6 +53,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("token is a required property for LicensingVerifyRequest and cannot be null");
             }
             this._Token = token;
+            this._flagToken = true;
             this._App = app;
             if (this.App != null)
             {

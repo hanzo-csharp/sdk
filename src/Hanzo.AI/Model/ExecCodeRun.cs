@@ -58,12 +58,14 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("code is a required property for ExecCodeRun and cannot be null");
             }
             this._Code = code;
+            this._flagCode = true;
             // to ensure "lang" is required (not null)
             if (lang == null)
             {
                 throw new ArgumentNullException("lang is a required property for ExecCodeRun and cannot be null");
             }
             this._Lang = lang;
+            this._flagLang = true;
             this._Args = args;
             if (this.Args != null)
             {

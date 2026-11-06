@@ -53,12 +53,14 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("depths is a required property for PostChat200ResponseAllOfRoutingCandidatesInner and cannot be null");
             }
             this._Depths = depths;
+            this._flagDepths = true;
             // to ensure "model" is required (not null)
             if (model == null)
             {
                 throw new ArgumentNullException("model is a required property for PostChat200ResponseAllOfRoutingCandidatesInner and cannot be null");
             }
             this._Model = model;
+            this._flagModel = true;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 

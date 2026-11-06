@@ -56,18 +56,21 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("application is a required property for IamCreateSessionIn and cannot be null");
             }
             this._Application = application;
+            this._flagApplication = true;
             // to ensure "name" is required (not null)
             if (name == null)
             {
                 throw new ArgumentNullException("name is a required property for IamCreateSessionIn and cannot be null");
             }
             this._Name = name;
+            this._flagName = true;
             // to ensure "owner" is required (not null)
             if (owner == null)
             {
                 throw new ArgumentNullException("owner is a required property for IamCreateSessionIn and cannot be null");
             }
             this._Owner = owner;
+            this._flagOwner = true;
             this._ExclusiveSignin = exclusiveSignin;
             if (this.ExclusiveSignin != null)
             {

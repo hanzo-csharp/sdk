@@ -54,12 +54,14 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("inputTokens is a required property for AiDecisionsUsage and cannot be null");
             }
             this._InputTokens = inputTokens;
+            this._flagInputTokens = true;
             // to ensure "outputTokens" is required (not null)
             if (outputTokens == null)
             {
                 throw new ArgumentNullException("outputTokens is a required property for AiDecisionsUsage and cannot be null");
             }
             this._OutputTokens = outputTokens;
+            this._flagOutputTokens = true;
             this._Cost = cost;
             if (this.Cost != null)
             {

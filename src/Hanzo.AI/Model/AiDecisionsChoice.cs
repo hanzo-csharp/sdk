@@ -93,7 +93,9 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("criteria is a required property for AiDecisionsChoice and cannot be null");
             }
             this._Criteria = criteria;
+            this._flagCriteria = true;
             this._Type = type;
+            this._flagType = true;
             this._Instructions = instructions;
             if (this.Instructions != null)
             {

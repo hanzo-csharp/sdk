@@ -55,12 +55,14 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("source is a required property for GraphGraphSourceIn and cannot be null");
             }
             this._Source = source;
+            this._flagSource = true;
             // to ensure "text" is required (not null)
             if (text == null)
             {
                 throw new ArgumentNullException("text is a required property for GraphGraphSourceIn and cannot be null");
             }
             this._Text = text;
+            this._flagText = true;
             this._At = at;
             if (this.At != null)
             {

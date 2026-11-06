@@ -52,6 +52,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("error is a required property for AiDecisionsRefused and cannot be null");
             }
             this._Error = error;
+            this._flagError = true;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 

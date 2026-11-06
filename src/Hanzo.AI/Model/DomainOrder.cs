@@ -54,6 +54,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("domain is a required property for DomainOrder and cannot be null");
             }
             this._Domain = domain;
+            this._flagDomain = true;
             this._Contacts = contacts;
             if (this.Contacts != null)
             {

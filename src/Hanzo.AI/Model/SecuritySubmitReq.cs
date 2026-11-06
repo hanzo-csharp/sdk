@@ -53,6 +53,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("files is a required property for SecuritySubmitReq and cannot be null");
             }
             this._Files = files;
+            this._flagFiles = true;
             this._Project = project;
             if (this.Project != null)
             {

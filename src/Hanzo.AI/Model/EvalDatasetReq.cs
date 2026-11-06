@@ -54,6 +54,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("name is a required property for EvalDatasetReq and cannot be null");
             }
             this._Name = name;
+            this._flagName = true;
             this._Description = description;
             if (this.Description != null)
             {

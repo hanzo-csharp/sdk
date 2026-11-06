@@ -142,6 +142,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("requestId is a required property for AiRoutingRewardRequest and cannot be null");
             }
             this._RequestId = requestId;
+            this._flagRequestId = true;
             this._Rating = rating;
             if (this.Rating != null)
             {

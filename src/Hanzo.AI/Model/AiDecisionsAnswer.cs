@@ -113,6 +113,7 @@ namespace Hanzo.AI.Model
         public AiDecisionsAnswer(AiDecisionsAction action = default, decimal? answerConfidence = default, string choice = default, decimal? confidence = default, Dictionary<string, Object> legend = default, decimal? noul = default, Dictionary<string, decimal?> probabilities = default, decimal? probability = default, decimal? score = default, TypeEnum type = default)
         {
             this._Type = type;
+            this._flagType = true;
             this._Action = action;
             if (this.Action != null)
             {

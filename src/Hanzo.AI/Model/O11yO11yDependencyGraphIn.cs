@@ -54,12 +54,14 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("end is a required property for O11yO11yDependencyGraphIn and cannot be null");
             }
             this._End = end;
+            this._flagEnd = true;
             // to ensure "start" is required (not null)
             if (start == null)
             {
                 throw new ArgumentNullException("start is a required property for O11yO11yDependencyGraphIn and cannot be null");
             }
             this._Start = start;
+            this._flagStart = true;
             this._Tags = tags;
             if (this.Tags != null)
             {

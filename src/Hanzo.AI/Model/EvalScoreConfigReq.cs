@@ -56,6 +56,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("name is a required property for EvalScoreConfigReq and cannot be null");
             }
             this._Name = name;
+            this._flagName = true;
             this._Categories = categories;
             if (this.Categories != null)
             {

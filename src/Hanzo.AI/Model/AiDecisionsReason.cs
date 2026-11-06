@@ -53,12 +53,14 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("code is a required property for AiDecisionsReason and cannot be null");
             }
             this._Code = code;
+            this._flagCode = true;
             // to ensure "message" is required (not null)
             if (message == null)
             {
                 throw new ArgumentNullException("message is a required property for AiDecisionsReason and cannot be null");
             }
             this._Message = message;
+            this._flagMessage = true;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 

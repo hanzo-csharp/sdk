@@ -52,6 +52,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("room is a required property for MeetRecordIn and cannot be null");
             }
             this._Room = room;
+            this._flagRoom = true;
             this.AdditionalProperties = new Dictionary<string, object>();
         }
 

@@ -57,12 +57,14 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("name is a required property for O11yO11ySpanPercentileIn and cannot be null");
             }
             this._Name = name;
+            this._flagName = true;
             // to ensure "serviceName" is required (not null)
             if (serviceName == null)
             {
                 throw new ArgumentNullException("serviceName is a required property for O11yO11ySpanPercentileIn and cannot be null");
             }
             this._ServiceName = serviceName;
+            this._flagServiceName = true;
             this._End = end;
             if (this.End != null)
             {

@@ -57,6 +57,7 @@ namespace Hanzo.AI.Model
                 throw new ArgumentNullException("metricName is a required property for O11yO11yMetricMetadataSaveIn and cannot be null");
             }
             this._MetricName = metricName;
+            this._flagMetricName = true;
             this._Description = description;
             if (this.Description != null)
             {
