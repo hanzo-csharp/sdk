@@ -7,8 +7,9 @@ name: Release
 # gate asks whether that exact version is already served and stops the job if it
 # is. A push that does not change the version does nothing.
 #
-# The API key is read from KMS, the surface every credential in this fleet comes
-# from; the repository holds only KMS_CLIENT_ID and KMS_CLIENT_SECRET.
+# The API key is read from KMS by hanzoai/ci's bin/kms, with this run's own
+# GitHub ID token as the credential: IAM exchanges it for the CI identity
+# cloud's IAM_REPOSITORIES maps this org to, so the repository stores no secret.
 on:
   push:
     branches: [main]
@@ -23,6 +24,9 @@ concurrency:
 jobs:
   publish:
     runs-on: [linux-amd64]
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v4
 
@@ -43,24 +47,20 @@ jobs:
             echo "publish=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: The fleet's KMS reader
+        if: steps.gate.outputs.publish == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: hanzoai/ci
+          ref: v2
+          path: .ci
+          sparse-checkout: bin
+
       - name: Read the NuGet key from KMS
         if: steps.gate.outputs.publish == 'true'
-        env:
-          KMS_CLIENT_ID: ${{ secrets.KMS_CLIENT_ID }}
-          KMS_CLIENT_SECRET: ${{ secrets.KMS_CLIENT_SECRET }}
-          KMS_ENDPOINT: ${{ vars.KMS_ENDPOINT || 'https://api.hanzo.ai' }}
         run: |
-          # `run:` is wrapped in `bash -e -o pipefail`, and the curls below are
-          # expected to fail when a value is absent — that is what is measured.
-          # Drop -e, keep -u and pipefail, and check every status.
-          set +e
           set -uo pipefail
-          T=$(curl -sf "$KMS_ENDPOINT/v1/kms/auth/login" -H 'Content-Type: application/json' \
-                -d "{\"clientId\":\"$KMS_CLIENT_ID\",\"clientSecret\":\"$KMS_CLIENT_SECRET\"}" \
-              | jq -r '.accessToken // empty')
-          [ -n "$T" ] || { echo "::error::KMS login failed at $KMS_ENDPOINT for client $KMS_CLIENT_ID"; exit 1; }
-          v=$(curl -sf "$KMS_ENDPOINT/v1/kms/secrets/NUGET_API_KEY?env=prod" -H "Authorization: Bearer $T" | jq -r '.value // empty')
-          [ -n "$v" ] || { echo "::error::NUGET_API_KEY is not in KMS (org hanzo, env prod). nuget.org wants an API key scoped to push the Hanzo package; it belongs there before a push can publish."; exit 1; }
+          v=$(bash .ci/bin/kms NUGET_API_KEY prod) || { echo "::error::NUGET_API_KEY is not readable from KMS (org hanzo, env prod). nuget.org wants an API key scoped to push the Hanzo package; it belongs there before a push can publish."; exit 1; }
           echo "::add-mask::$v"
           echo "NUGET_API_KEY=$v" >> "$GITHUB_ENV"
 
