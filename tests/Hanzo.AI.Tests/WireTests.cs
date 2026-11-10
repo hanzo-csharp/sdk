@@ -119,12 +119,12 @@ namespace Hanzo.AI.Tests
         [Fact]
         public void SendsTheCompletionAndItsBounds()
         {
-            var stub = new Stub("{\"id\":\"c1\",\"object\":\"chat.completion\",\"model\":\"zen5\","
+            var stub = new Stub("{\"id\":\"c1\",\"object\":\"chat.completion\",\"model\":\"zen6\","
                 + "\"choices\":[{\"index\":0,\"message\":{\"role\":\"assistant\",\"content\":\"hello\"}}]}");
 
             var reply = Api<AiApi>(stub, "hk-test", null).PostChatCompletions(
                 new OpenaiChatCompletionRequest(
-                    model: "zen5",
+                    model: "zen6",
                     messages: new List<OpenaiChatCompletionMessage> { new OpenaiChatCompletionMessage(role: "user", content: "hi") },
                     temperature: 0),
                 xMaxCost: 0.5m, xMaxLatencyMs: 2000);
@@ -138,7 +138,7 @@ namespace Hanzo.AI.Tests
             Assert.Equal(new[] { "messages", "model", "temperature" }, body.Properties().Select(p => p.Name).OrderBy(n => n));
             Assert.Equal(0m, body["temperature"]!.Value<decimal>());
             Assert.Equal(new[] { "content", "role" }, ((JObject)body["messages"]![0]!).Properties().Select(p => p.Name).OrderBy(n => n));
-            Assert.Equal("zen5", reply.Model);
+            Assert.Equal("zen6", reply.Model);
             Assert.Equal("hello", reply.Choices[0].Message.Content);
         }
 
@@ -183,6 +183,24 @@ namespace Hanzo.AI.Tests
 
             Assert.Equal(403, e.ErrorCode);
             Assert.Equal("{\"code\":\"forbidden\"}", e.ErrorContent?.ToString());
+        }
+
+        [Fact]
+        public void SendsAgentRunInputAsJson()
+        {
+            var stub = new Stub("{\"id\":\"run_123\",\"status\":\"ok\",\"model\":\"zen6-flash\",\"output\":\"Tokyo is the capital of Japan.\"}");
+
+            var run = Api<AgentApi>(stub, "hk-test", "acme").PostAgentByRefRun("bot-1", "What is the capital of Japan?");
+
+            Assert.Equal(HttpMethod.Post, stub.Request!.Method);
+            Assert.Equal(Base + "/v1/agent/bot-1/run", stub.Request.RequestUri!.ToString());
+            Assert.Equal("Bearer hk-test", Header(stub.Request, "Authorization"));
+            Assert.Equal("acme", Header(stub.Request, "X-Org-Id"));
+            var body = JObject.Parse(stub.Sent!);
+            Assert.Equal("What is the capital of Japan?", body["input"]!.Value<string>());
+            Assert.Equal("run_123", run.Id);
+            Assert.Equal("ok", run.Status);
+            Assert.Equal("Tokyo is the capital of Japan.", run.Output);
         }
     }
 }

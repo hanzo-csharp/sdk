@@ -18,25 +18,36 @@ namespace Hanzo.AI.Examples
         private static readonly HashSet<string> Running = new() { "queued", "pending", "running", "in_progress", "starting" };
         private const int PollAttempts = 60;
         private static readonly TimeSpan PollInterval = TimeSpan.FromSeconds(1);
-        /// <summary>The only flow that names a model. HANZO_MODEL overrides it.</summary>
-        private const string DefaultModel = "zen5";
+        /// <summary>The model the agent runs on. HANZO_MODEL overrides it.</summary>
+        private const string DefaultModel = "zen6-flash";
 
         public static int Run()
         {
             var agents = new AgentApi(Gateway.Configuration());
             var name = "sdk-example-" + Guid.NewGuid().ToString("N").Substring(0, 8);
             var model = Environment.GetEnvironmentVariable("HANZO_MODEL");
+            var createdOk = false;
             try
             {
                 var created = agents.PostAgent(new AgentCreateAgentIn(
                     name: name,
                     model: string.IsNullOrWhiteSpace(model) ? DefaultModel : model,
-                    instructions: "Answer in exactly one sentence: what is the capital of Japan?"));
+                    capMicroUsd: 1_000_000,
+                    maxTaskMicroUsd: 250_000,
+                    period: "month",
+                    instructions: "You answer factual questions in one concise sentence."));
+                createdOk = true;
                 Console.WriteLine($"created  {created.Name} ({created.Id})");
 
                 var before = Ids(agents.GetAgentByRefRuns(name, 100));
-                agents.PostAgentByRefRun(name);
+                var immediate = agents.PostAgentByRefRun(name, "What is the capital of Japan?");
                 Console.WriteLine($"ran      {name}");
+                if (immediate != null && !string.IsNullOrEmpty(immediate.Id) && !Running.Contains(immediate.Status ?? ""))
+                {
+                    Console.WriteLine($"run      {immediate.Id} {immediate.Status}");
+                    Console.WriteLine($"output   {immediate.Output}");
+                    return 0;
+                }
 
                 for (var attempt = 0; attempt < PollAttempts; attempt++)
                 {
@@ -56,6 +67,20 @@ namespace Hanzo.AI.Examples
             {
                 Console.Error.WriteLine($"agent failed: HTTP {e.ErrorCode} {e.ErrorContent}");
                 return 1;
+            }
+            finally
+            {
+                if (createdOk)
+                {
+                    try
+                    {
+                        agents.DeleteAgentByRef(name);
+                        Console.WriteLine($"deleted  {name}");
+                    }
+                    catch (ApiException)
+                    {
+                    }
+                }
             }
         }
 

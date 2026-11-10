@@ -16,7 +16,7 @@ namespace Hanzo.AI.Examples
     public static class Chat
     {
         /// <summary>A model the gateway serves. HANZO_MODEL overrides it.</summary>
-        private const string DefaultModel = "zen5";
+        private const string DefaultModel = "zen6";
 
         public static int Run()
         {
@@ -30,6 +30,7 @@ namespace Hanzo.AI.Examples
             {
                 var reply = ai.PostChatCompletions(new OpenaiChatCompletionRequest(
                     model: model,
+                    maxTokens: 900,
                     messages: new List<OpenaiChatCompletionMessage>
                     {
                         new OpenaiChatCompletionMessage(role: "user", content: "Say hello in one short sentence."),

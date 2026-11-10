@@ -13,10 +13,22 @@ bytes this client was cut from.
 
 ## Install
 
-On [nuget.org](https://www.nuget.org/packages/Hanzo) as `Hanzo`. .NET 8 or newer.
+Published as `Hanzo` (.NET 8 or newer, including Godot 4 .NET) on
+[GitHub Packages](https://github.com/orgs/hanzo-csharp/packages/nuget/package/Hanzo),
+[GitHub Releases](https://github.com/hanzo-csharp/sdk/releases), and
+[nuget.org](https://www.nuget.org/packages/Hanzo):
 
 ```bash
-dotnet add package Hanzo
+# nuget.org (once NUGET_API_KEY is provisioned) or configured GitHub Packages source:
+dotnet add package Hanzo --version 8.5.1026
+```
+
+To install directly from GitHub Packages (`https://nuget.pkg.github.com/hanzo-csharp/index.json`):
+
+```bash
+dotnet nuget add source "https://nuget.pkg.github.com/hanzo-csharp/index.json" \
+  --name hanzo-github --username "$GITHUB_USER" --password "$(gh auth token)" --store-password-in-clear-text
+dotnet add package Hanzo --version 8.5.1026
 ```
 
 Namespaces: `Hanzo.AI` (the entry point), `Hanzo.AI.Api`, `Hanzo.AI.Model`,
@@ -55,7 +67,8 @@ foreach (var key in new AccountApi(config).GetAccountKeys().Keys)
 }
 
 var reply = new AiApi(config).PostChatCompletions(new OpenaiChatCompletionRequest(
-    model: "zen5",
+    model: "zen6",
+    maxTokens: 900,
     messages: new() { new OpenaiChatCompletionMessage(role: "user", content: "Say hello.") }));
 Console.WriteLine(reply.Choices[0].Message.Content);
 ```
@@ -71,17 +84,18 @@ is sent.
 
 ## Examples
 
-Six flows, each a complete program. `flows.yaml` in hanzoai/openapi prescribes
-them for every Hanzo SDK, so a reader who knows one language's set can find
-their way around another's. The build compiles them against the client.
+Seven runnable flows, each a complete program — the six canonical SDK flows
+from `hanzoai/openapi` `flows.yaml` plus `kai` (`/v1/decisions`). The build
+compiles them against the client.
 
 | flow | what it does |
 |---|---|
 | [`hello`](examples/Hello.cs) | `GET /v1/account/keys` — prove the key works |
-| [`chat`](examples/Chat.cs) | `POST /v1/chat/completions` — one completion |
+| [`chat`](examples/Chat.cs) | `POST /v1/chat/completions` (`zen6`) — one completion |
+| [`kai`](examples/Kai.cs) | `POST /v1/decisions` (`kai`) — structured decision |
 | [`money`](examples/Money.cs) | `GET /v1/billing/balance`, `GET /v1/billing/usage` |
 | [`store`](examples/Store.cs) | `POST /v1/provisioning/kv`, then `GET` and `DELETE /v1/provisioning/kv/{name}` |
-| [`agent`](examples/Agent.cs) | create an agent, run it, poll the run to completion |
+| [`agent`](examples/Agent.cs) | create a budgeted agent, run it, poll to completion, delete it |
 | [`tools`](examples/Tools.cs) | `GET /v1/tool` — the tool catalog this key reaches |
 
 ```bash
@@ -118,6 +132,7 @@ first on a machine that has none.
 [Rust](https://github.com/hanzo-rs/sdk) ·
 [Java](https://github.com/hanzo-java/sdk) ·
 [C++](https://github.com/hanzo-cpp/sdk) ·
+[Godot](https://github.com/hanzoai/godot-sdk) ·
 [all SDKs](https://github.com/hanzoai/sdk)
 
 ## License

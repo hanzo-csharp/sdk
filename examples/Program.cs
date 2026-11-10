@@ -1,5 +1,4 @@
-// The six canonical flows. They are data in hanzoai/openapi flows.yaml — a closed
-// set every Hanzo SDK owes — so adding a seventh here is not this repo's choice.
+// The six canonical flows from hanzoai/openapi flows.yaml plus kai (/v1/decisions).
 //
 //   HANZO_API_KEY=hk-... dotnet run --project examples -- hello
 using System;
@@ -9,6 +8,7 @@ var flows = new (string Name, Func<int> Run)[]
 {
     ("hello", Hello.Run),
     ("chat", Chat.Run),
+    ("kai", Kai.Run),
     ("money", Money.Run),
     ("store", Store.Run),
     ("agent", Agent.Run),
