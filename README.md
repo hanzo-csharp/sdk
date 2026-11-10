@@ -20,7 +20,7 @@ Published as `Hanzo` (.NET 8 or newer, including Godot 4 .NET) on
 
 ```bash
 # nuget.org (once NUGET_API_KEY is provisioned) or configured GitHub Packages source:
-dotnet add package Hanzo --version 8.5.1026
+dotnet add package Hanzo --version 8.5.1027
 ```
 
 To install directly from GitHub Packages (`https://nuget.pkg.github.com/hanzo-csharp/index.json`):
@@ -28,7 +28,7 @@ To install directly from GitHub Packages (`https://nuget.pkg.github.com/hanzo-cs
 ```bash
 dotnet nuget add source "https://nuget.pkg.github.com/hanzo-csharp/index.json" \
   --name hanzo-github --username "$GITHUB_USER" --password "$(gh auth token)" --store-password-in-clear-text
-dotnet add package Hanzo --version 8.5.1026
+dotnet add package Hanzo --version 8.5.1027
 ```
 
 Namespaces: `Hanzo.AI` (the entry point), `Hanzo.AI.Api`, `Hanzo.AI.Model`,
@@ -84,9 +84,10 @@ is sent.
 
 ## Examples
 
-Seven runnable flows, each a complete program — the six canonical SDK flows
-from `hanzoai/openapi` `flows.yaml` plus `kai` (`/v1/decisions`). The build
-compiles them against the client.
+Eight runnable flows, each a complete program — the six canonical SDK flows
+from `hanzoai/openapi` `flows.yaml` plus `kai` (`/v1/decisions`) and
+`game-backend` (revisioned Cloud KV saves + Kai Director + Zen 6 radio + Zen Voice MP3).
+The build compiles them against the client.
 
 | flow | what it does |
 |---|---|
@@ -97,6 +98,7 @@ compiles them against the client.
 | [`store`](examples/Store.cs) | `POST /v1/provisioning/kv`, then `GET` and `DELETE /v1/provisioning/kv/{name}` |
 | [`agent`](examples/Agent.cs) | create a budgeted agent, run it, poll to completion, delete it |
 | [`tools`](examples/Tools.cs) | `GET /v1/tool` — the tool catalog this key reaches |
+| [`game-backend`](examples/GameBackend.cs) | `/v1/kv` save slots -> `kai` Director -> `zen6-flash` radio -> `zen-voice` MP3 |
 
 ```bash
 HANZO_API_KEY=… ./scripts/dotnet run --project examples -- hello

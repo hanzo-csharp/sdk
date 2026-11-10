@@ -202,5 +202,42 @@ namespace Hanzo.AI.Tests
             Assert.Equal("ok", run.Status);
             Assert.Equal("Tokyo is the capital of Japan.", run.Output);
         }
+
+        [Fact]
+        public void SendsAudioSpeechBytesWithZenVoice()
+        {
+            var stub = new Stub("ID3-fake-mp3-payload");
+
+            var bytes = Api<AiApi>(stub, "hk-test", "acme").PostAudioSpeechBytes("Perimeter holding.", "alloy", "zen-voice");
+
+            Assert.Equal(HttpMethod.Post, stub.Request!.Method);
+            Assert.Equal(Base + "/v1/audio/speech", stub.Request.RequestUri!.ToString());
+            Assert.Equal("Bearer hk-test", Header(stub.Request, "Authorization"));
+            Assert.Equal("acme", Header(stub.Request, "X-Org-Id"));
+            var body = JObject.Parse(stub.Sent!);
+            Assert.Equal("zen-voice", body["model"]!.Value<string>());
+            Assert.Equal("Perimeter holding.", body["input"]!.Value<string>());
+            Assert.Equal("alloy", body["voice"]!.Value<string>());
+            Assert.Equal("mp3", body["response_format"]!.Value<string>());
+            Assert.NotEmpty(bytes);
+        }
+
+        [Fact]
+        public void SendsRevisionedKvSaveState()
+        {
+            var stub = new Stub("{\"revision\":2}");
+
+            var ack = Api<KvApi>(stub, "hk-test", "acme").PutKvByBucketByKey(
+                "game_saves",
+                "slot_1",
+                new KvKvWrite(value: "{\"zone\":\"sector_4\",\"hp\":85}"));
+
+            Assert.Equal(HttpMethod.Put, stub.Request!.Method);
+            Assert.Equal(Base + "/v1/kv/game_saves/slot_1", stub.Request.RequestUri!.ToString());
+            Assert.Equal("Bearer hk-test", Header(stub.Request, "Authorization"));
+            var body = JObject.Parse(stub.Sent!);
+            Assert.Equal("{\"zone\":\"sector_4\",\"hp\":85}", body["value"]!.Value<string>());
+            Assert.Equal(2, ack.Revision);
+        }
     }
 }

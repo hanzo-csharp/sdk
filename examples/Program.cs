@@ -13,6 +13,7 @@ var flows = new (string Name, Func<int> Run)[]
     ("store", Store.Run),
     ("agent", Agent.Run),
     ("tools", Tools.Run),
+    ("game-backend", GameBackend.Run),
 };
 
 var want = args.Length > 0 ? args[0] : "";
