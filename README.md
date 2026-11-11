@@ -1,7 +1,10 @@
 # Hanzo — C# SDK
 
+[![Built with Hanzo](https://hanzo.ai/badges/built-with-hanzo.svg)](https://hanzo.ai)
+[![Edit on Hanzo](https://hanzo.ai/badges/edit-on-hanzo.svg)](https://hanzo.app/dev?repo=https%3A%2F%2Fgithub.com%2Fhanzo-csharp%2Fsdk)
+
 C# client for the [Hanzo](https://hanzo.ai) API, covering every `/v1` route the
-gateway at `api.hanzo.ai` serves. It is generated from the API's own OpenAPI
+gateway at `api.hanzo.ai` serves (**[Docs](https://docs.hanzo.ai/docs/sdks/csharp)** · **[Agent Skill (`csharp.md`)](https://hanzoskills.com/csharp.md)**). It is generated from the API's own OpenAPI
 document, the one published at
 [`/v1/openapi.json`](https://api.hanzo.ai/v1/openapi.json), so a method is that
 document's operation id Pascal-cased: `get_account_keys` → `GetAccountKeys`,
